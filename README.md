@@ -11,16 +11,49 @@ It's built for the dark funnel: more buyers now research inside ChatGPT or throu
 | Week | What | State |
 | --- | --- | --- |
 | 1 | Responsive demo account, metrics, anomaly flags | Done |
-| 2 | Attribution models, tools, the autonomous loop, memo | Next |
-| 3 | Weekly schedule, page, portfolio card | Planned |
+| 2 | Attribution models, tools, the autonomous loop, memo | Built; first live run pending |
+| 3 | Page, portfolio card (weekly schedule already in place) | Planned |
 
 ## Run it
 
+On GitHub: add `ANTHROPIC_API_KEY` as a repository secret, then Actions → Weekly run → Run workflow. It runs every Monday on its own after that and commits the memo, trace and updated ledger.
+
+Locally:
+
 ```bash
 pip install -r requirements.txt
-python run.py --regenerate   # build the demo account from the seed, then analyze
-python -m pytest tests/      # the Week 1 gate
+export ANTHROPIC_API_KEY=...
+python -m agent.run_week --reset   # fresh demo account, first run
+python -m agent.run_week           # next week: the world moves on under its budgets, then it runs again
+python -m agent.evaluate           # score it against the planted truth
+python -m pytest tests/            # offline tests, no API key needed
+python run.py                      # just the Week 1 flags, no agent
 ```
+
+## The loop
+
+Each run, Claude:
+
+1. Reads its own log and judges last week's moves against the numbers since.
+2. Investigates with read-only tools: overview, flags, drill-downs, five attribution models, self-reported answers.
+3. Stages budget changes (max +50% per channel per run; cuts and pauses allowed) and recommends incrementality tests.
+4. Writes a memo with a verdict on every flag.
+
+It gets 15 tool calls; if it runs out, it must write the memo with what it has. Every call lands in `outputs/trace.json`. In demo mode its moves change `state/ledger.json`, and the next simulated week is generated from those budgets. In real mode they become `outputs/proposals.json` for a human.
+
+## Attribution models
+
+Five rules for splitting a sale's credit across the channels a buyer touched: first-touch, last-touch, linear, time-decay (later touches count more) and Markov (credit by how many sales you'd lose if the channel vanished). Scored against the planted truth on the demo account:
+
+| Model | Credit in the wrong place |
+| --- | --- |
+| First-touch | 23% |
+| Markov | 24% |
+| Linear | 28% |
+| Time-decay | 34% |
+| Last-touch (what ad platforms report) | 44% |
+
+Markov gets email almost exactly right. Every model misses the 23% of sales that came through AI agents, because those buyers leave no clicks to model. That gap is why the agent recommends tests instead of trusting any one model.
 
 ## How it fits together
 

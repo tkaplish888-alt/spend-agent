@@ -51,4 +51,5 @@ anomalies:
   untracked_lift_ratio: 1.5     # growth in direct conversions that needs explaining
 
 agent:
+  model: claude-sonnet-5-5
   max_tool_calls: 15

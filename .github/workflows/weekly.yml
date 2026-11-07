@@ -1,0 +1,52 @@
+name: Weekly run
+
+# The agent wakes itself up every Monday. "Run workflow" on the Actions tab
+# triggers a run by hand; tick "reset" to start the demo account over.
+on:
+  schedule:
+    - cron: "41 15 * * 1"   # Mondays 15:41 UTC (7:41am Pacific)
+  workflow_dispatch:
+    inputs:
+      reset:
+        description: "Wipe state and regenerate the demo account first"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: weekly-run
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Tests
+        run: python -m pytest tests/ -q
+
+      - name: Agent run
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python -m agent.run_week ${{ inputs.reset && '--reset' || '' }}
+
+      - name: Score against planted truth
+        run: python -m agent.evaluate
+
+      - name: Commit outputs
+        run: |
+          git config user.name "spend-agent[bot]"
+          git config user.email "spend-agent@users.noreply.github.com"
+          git add data state outputs
+          git diff --cached --quiet || git commit -m "Weekly run $(date -u +%Y-%m-%d)"
+          git push
