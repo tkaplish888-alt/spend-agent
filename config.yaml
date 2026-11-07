@@ -1,0 +1,54 @@
+# Spend Agent configuration.
+# Switching from demo to real accounts = change data_source and action_mode.
+
+data_source: demo          # demo | google_ads (stub)
+action_mode: demo          # demo: agent moves ledger.json itself | real: agent writes proposals for a human
+
+demo:
+  seed: 42
+  start_date: "2026-08-03"   # a Monday, so weeks line up
+  days: 90
+  avg_order_value: 180       # revenue per conversion, before noise
+
+  # Each channel turns spend into conversions through a diminishing-returns
+  # response curve: expected conversions/day = cmax * spend / (spend + k).
+  channels:
+    google_search: {budget: 600, cmax: 40, k: 900, spend_noise: 0.05}
+    meta:          {budget: 500, cmax: 30, k: 700, spend_noise: 0.05}
+    linkedin:      {budget: 300, cmax: 10, k: 600, spend_noise: 0.05}
+    email:         {budget: 40,  cmax: 12, k: 20,  spend_noise: 0.02}
+
+  # How often the last tracked click lands on the channel that actually
+  # caused the conversion. The rest of the time a branded Google search
+  # gets the last click. Email is badly under-credited by design.
+  last_touch_on_cause:
+    google_search: 1.0
+    meta: 0.7
+    linkedin: 0.6
+    email: 0.25
+
+  # Dark funnel: share of all conversions where the buyer researched through
+  # an AI agent and arrived with no click trail. Ramps linearly over the run.
+  dark_funnel:
+    agent_share_start: 0.05
+    agent_share_end: 0.40
+    branded_search_share: 0.6   # the rest show up as direct / untracked
+
+  self_report:
+    response_rate: 0.35
+
+  planted:
+    meta_cpa_doubles:   {enabled: true, from_day: 60, efficiency: 0.5}
+    linkedin_no_results: {enabled: true, last_days: 14, budget_end: 450}
+    google_promo_spike: {enabled: true, from_day: 40, days: 7, spend_mult: 1.8, efficiency_mult: 1.32}
+
+anomalies:
+  cpa_shift_ratio: 1.5          # sustained CPA level shift that counts as a problem
+  cpa_shift_min_days: 14        # shortest window on either side of a shift
+  zero_result_days: 7           # consecutive spend-with-no-conversions days
+  spend_spike_ratio: 1.5        # daily spend vs trailing 14-day median
+  spike_benign_cpa_ratio: 1.25  # spike CPA at or under this vs baseline = likely fine
+  untracked_lift_ratio: 1.5     # growth in direct conversions that needs explaining
+
+agent:
+  max_tool_calls: 15

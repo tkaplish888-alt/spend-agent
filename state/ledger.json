@@ -1,0 +1,12 @@
+{
+  "label": "synthetic data",
+  "mode": "demo",
+  "week": 0,
+  "daily_budgets": {
+    "google_search": 600,
+    "meta": 500,
+    "linkedin": 450,
+    "email": 40
+  },
+  "history": []
+}

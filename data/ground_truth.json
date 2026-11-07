@@ -1,0 +1,83 @@
+{
+  "label": "synthetic data",
+  "seed": 42,
+  "days": 90,
+  "channels": {
+    "google_search": {
+      "true_conversions": 1544,
+      "true_share": 0.3423,
+      "reported_last_touch": 3077,
+      "spend": 57406.41,
+      "true_cpa": 37.18
+    },
+    "meta": {
+      "true_conversions": 938,
+      "true_share": 0.2079,
+      "reported_last_touch": 648,
+      "spend": 44996.23,
+      "true_cpa": 47.97
+    },
+    "linkedin": {
+      "true_conversions": 266,
+      "true_share": 0.059,
+      "reported_last_touch": 154,
+      "spend": 28087.16,
+      "true_cpa": 105.59
+    },
+    "email": {
+      "true_conversions": 719,
+      "true_share": 0.1594,
+      "reported_last_touch": 190,
+      "spend": 3598.45,
+      "true_cpa": 5.0
+    },
+    "ai_agent": {
+      "true_conversions": 1044,
+      "true_share": 0.2314,
+      "reported_last_touch": 0,
+      "spend": 0.0,
+      "true_cpa": null
+    },
+    "direct": {
+      "true_conversions": 0,
+      "true_share": 0.0,
+      "reported_last_touch": 442,
+      "spend": 0.0,
+      "true_cpa": null
+    }
+  },
+  "planted": [
+    {
+      "id": 1,
+      "name": "meta_cpa_doubles",
+      "channel": "meta",
+      "from": "2026-10-02"
+    },
+    {
+      "id": 2,
+      "name": "linkedin_no_results",
+      "channel": "linkedin",
+      "from": "2026-10-18",
+      "to": "2026-10-31"
+    },
+    {
+      "id": 3,
+      "name": "email_under_credited",
+      "channel": "email"
+    },
+    {
+      "id": 4,
+      "name": "dark_funnel",
+      "channel": "ai_agent",
+      "agent_share_start": 0.05,
+      "agent_share_end": 0.4
+    },
+    {
+      "id": "red_herring",
+      "name": "google_promo_spike",
+      "channel": "google_search",
+      "from": "2026-09-12",
+      "to": "2026-09-18"
+    }
+  ]
+}
