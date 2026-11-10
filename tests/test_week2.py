@@ -90,7 +90,10 @@ class ScriptedClaude:
     def create(self, **kw):
         msgs = kw["messages"]
         step = sum(1 for m in msgs if m["role"] == "assistant")
-        if "tool_choice" in kw:
+        nudged = any(isinstance(m["content"], list) and any(
+            isinstance(c, dict) and c.get("type") == "text" and "Step cap" in c.get("text", "")
+            for c in m["content"]) for m in msgs if m["role"] == "user")
+        if "tool_choice" in kw or nudged:
             step = len(self.plan) - 1
         name, args = self.plan[min(step, len(self.plan) - 1)]
         if name == "write_memo":

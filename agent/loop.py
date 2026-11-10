@@ -49,12 +49,14 @@ def run_loop(client, box: ToolBox, model: str, max_tool_calls: int, kickoff: str
     trace, calls = [], 0
     forced = False
     while box.memo is None:
-        kwargs = dict(model=model, max_tokens=4000, system=SYSTEM, tools=TOOLS, messages=messages)
-        if forced:
-            kwargs["tool_choice"] = {"type": "tool", "name": "write_memo"}
-        resp = client.messages.create(**kwargs)
+        # No forced tool_choice: it isn't allowed alongside extended thinking.
+        # Past the step cap we nudge in text and give it a few more turns.
+        resp = client.messages.create(model=model, max_tokens=8000, system=SYSTEM,
+                                      tools=TOOLS, messages=messages)
+        # Send the assistant turn back exactly as returned. Thinking blocks carry
+        # a signature the API checks, so they must not be rebuilt or stripped.
+        messages.append({"role": "assistant", "content": resp.content})
         blocks = [_block(b) for b in resp.content]
-        messages.append({"role": "assistant", "content": blocks})
 
         thought = " ".join(b["text"] for b in blocks if b["type"] == "text").strip()
         uses = [b for b in blocks if b["type"] == "tool_use"]
