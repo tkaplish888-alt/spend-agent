@@ -1,30 +1,30 @@
 *Synthetic data throughout.*
 
 ## Last week's moves
-First run, so there are no moves to judge.
+- **LinkedIn $450 to $0:** worked. Spend went from $2,965 to $0 and conversions stayed at 0, so nothing was lost. Prior 4-week CPA was $430, with ROAS 0.44.
+- **Meta $500 to $400:** worked so far. Spend fell $3,566 to $2,764 (-22%), conversions went 34 to 31, CPA $105 to $89, ROAS 1.97. This is one week of data, so it is directional only.
+- Account spend fell $11,093 to $7,348. Conversions fell 355 to 325, mostly from the paused LinkedIn and the cut Meta.
 
 ## What's happening
-- **LinkedIn:** $5,328 spent in Oct 18-31 with 0 conversions. Daily spend rose from $300 to $460, above the $450 budget. Its prior 4-week CPA was already $238 (ROAS 0.78). Self-reported LinkedIn share is 0% for the last 2 weeks, down from 7% in Aug.
-- **Meta:** CPA rose from ~$60 to ~$100 (1.66x) since Oct 2 at flat spend of ~$3.5k/wk. ROAS fell from ~3.2 to 1.9. Self-reported Instagram/Facebook share fell from ~18% to 9%.
-- **Google Search:** the Sep 12-18 spend spike (1.72x) did not hurt efficiency, with CPA at $20.56 vs $18.33. Last-7-day CPA is $18.77 and ROAS 10.6, both steady.
-- **Direct:** 1.5 to 8.1 conversions/day (5.4x) while paid spend moved 1.05x. Self-reported AI answers ("AI assistant" plus "Asked ChatGPT") rose from ~4% to ~28%. This is likely AI-assistant referral, and no paid channel should get credit for it.
-- **Email:** last 7 days CPA $18.73 vs $16.46 prior. This is small ($281/wk), so no action.
+- Google Search is stable: $4,302 spend, 219 conversions (vs 230 prior average), CPA $19.64, ROAS 9.86.
+- Direct is 63 conversions/week vs a 56 prior average (peak 71 in the week of Oct 26) with $0 spend. Self-reported "Asked ChatGPT" is 24% this week, up from 2% in early Aug. "AI assistant recommended" is 2% this week but 6.5-9% over the prior 4 weeks. Meta self-report is 9% (19% in Aug) and LinkedIn 0%.
+- Email is 12 conversions vs 18.5 prior average, CPA $23.58 vs $15.13. It is on $283/week, and weekly CPA has swung between $13 and $28 since mid-Sep, so this looks like noise.
 
 ## Moves
-- LinkedIn: $450 to $0/day. It produced nothing for 14 days. This is reversible.
-- Meta: $500 to $400/day (-20%). CPA is up 1.7x, but its true value is uncertain.
-- Google Search ($600) and Email ($40): unchanged.
+- None. Google $600, Meta $400, LinkedIn $0 and Email $40 per day all stay. The evidence for changes is thin, and Meta and Google both rest on contested attribution.
 
 ## Where the models disagree
-- **Google Search:** credit ranges from 38% (first-touch) to 68% (last-touch), so implied CPA runs $18.66 to $33.38. Its last-click ROAS is likely overstated, so I am not scaling it.
-- **Email:** credit ranges from 4% (last-touch) to 23% (first-touch), so implied CPA runs $3.53 to $18.94. It is likely undervalued, but at $40/day I am not scaling it on one model.
-- **Meta:** CPA ranges from $45 to $69 across models, against $105 reported last week.
+- **Google:** 39% (first-touch) to 68% (last-touch) credit, with implied CPA $19 to $33.
+- **Email:** 4% to 22% credit, with implied CPA $3.61 to $19.21. It is probably undervalued by last click.
+- **Meta:** 14% to 22% credit, with implied CPA $45 to $70.
+- **LinkedIn:** 3% to 7% credit, with implied CPA $86 to $182. Every model is worse than Google, and it had zero conversions at the end.
 
 ## Test to run
-Meta geo holdout. Turn Meta off in ~20% of matched regions for 4 weeks. Compare total conversions (tracked plus direct) and the self-reported Instagram/Facebook share against the other regions.
+1. **Meta geo holdout** (recommended last week, not yet confirmed running): off in about 20% of regions for 4 weeks.
+2. **Google Search geo holdout** (new): off in about 15% of regions for 3-4 weeks, with brand and non-brand split. Measure total conversions and the self-reported Google share. Google is about 58% of spend, so its incrementality matters most.
 
 ## Confidence
-Medium overall. The LinkedIn pause is high confidence. The Meta cut is medium. What would change my mind:
-- **LinkedIn:** conversions return after a pixel or tracking fix, or CRM data shows LinkedIn-sourced buyers.
-- **Meta:** the holdout shows a large conversion drop, in which case I restore the budget.
-- **Direct and AI:** the direct surge fades, or self-reported AI share stops rising.
+Medium. I'd change my mind if:
+- Meta conversions fall by more than the 22% spend cut over the next two weeks.
+- The holdouts show Google or Meta incrementality far from their reported CPAs.
+- Direct reverts without any change in AI-assistant answers.

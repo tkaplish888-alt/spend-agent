@@ -1,7 +1,7 @@
 {
   "label": "synthetic data",
   "mode": "demo",
-  "week": 1,
+  "week": 2,
   "daily_budgets": {
     "google_search": 600,
     "meta": 400.0,
@@ -28,6 +28,11 @@
           "confidence": "medium"
         }
       ]
+    },
+    {
+      "run": 2,
+      "data_end": "2026-11-07",
+      "moves": []
     }
   ]
 }
