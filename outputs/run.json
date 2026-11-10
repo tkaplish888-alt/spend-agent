@@ -1,0 +1,141 @@
+{
+  "run": 1,
+  "ran_at": "2026-11-10T03:57:01+00:00",
+  "data_end": "2026-10-31",
+  "headline": "LinkedIn has spent $5,328 over 14 days with zero conversions and is paused; Meta is cut 20% as its CPA rose 1.7x; the direct surge tracks AI-assistant answers, not paid spend.",
+  "confidence": "medium",
+  "moves": [
+    {
+      "channel": "linkedin",
+      "from": 450.0,
+      "to": 0.0,
+      "reason": "Zero conversions for 14 straight days (Oct 18-31) on $5,328 spend while daily spend rose from ~$300 to $460 (above the $450 budget). Prior 4-wk CPA was already $238 / ROAS 0.78. Self-reported LinkedIn share fell to 0% in the last 2 weeks, so this is probably not just a tracking break. Pause is cheap to reverse.",
+      "confidence": "high",
+      "applied": true
+    },
+    {
+      "channel": "meta",
+      "from": 500.0,
+      "to": 400.0,
+      "reason": "CPA rose from ~$60 to ~$100 (1.66x) since Oct 2 at flat spend (~$3.5k/wk); ROAS 3.2 to 1.9. Self-reported Instagram/Facebook share fell from ~18% in Aug to 9% in the last week. A moderate 20% cut, not a pause, because attribution models disagree on Meta (CPA $45-$69) and a holdout test is better evidence.",
+      "confidence": "medium",
+      "applied": true
+    }
+  ],
+  "tests": [
+    {
+      "channel": "meta",
+      "hypothesis": "Meta's incremental CPA is below its reported $105 last-click CPA, because first-touch/Markov credit gives it 22%/20% against 14% last-touch. If so, the CPA rise since Oct 2 is partly a measurement problem and the 20% cut was too much.",
+      "design": "Geo holdout: switch Meta off in about 20% of matched regions for 4 weeks and keep it at $400/day elsewhere. Measure total conversions (tracked + direct) per region, plus self-reported 'Instagram or Facebook' share. Compare the drop in the held-out regions with the conversions Meta reports there. Pre-register a minimum detectable effect from the ~35 conversions per week baseline."
+    }
+  ],
+  "flag_verdicts": [
+    {
+      "flag_id": "F1",
+      "verdict": "act",
+      "reason": "Zero conversions Oct 18-31 on $5,328 while daily spend climbed from $300 to $460. Self-reported LinkedIn share is 0% for 2 weeks. Paused."
+    },
+    {
+      "flag_id": "F2",
+      "verdict": "act",
+      "reason": "Meta CPA went from ~$60 to ~$100 at flat spend. Self-reported Instagram/Facebook share fell from ~18% to 9%. A real decline, so cut 20% and test rather than pause, since models disagree on Meta."
+    },
+    {
+      "flag_id": "F3",
+      "verdict": "dismiss",
+      "reason": "Sep 12-18 Google spend ran at 1.72x the median, but CPA moved only $18.33 to $20.56 (1.12x). Last 7 days CPA $18.77 vs $17.80 prior average. Efficiency held, so no action."
+    },
+    {
+      "flag_id": "F4",
+      "verdict": "watch",
+      "reason": "Direct rose from 1.5 to 8.1 conversions/day (5.4x) with paid spend at 1.05x. Self-reported 'AI assistant' plus 'Asked ChatGPT' rose from ~4% in Aug to ~28% last week. This points to AI-referral discovery. I credit no paid channel and move no budget; keep tracking."
+    }
+  ],
+  "flags": [
+    {
+      "rule": "spend_without_results",
+      "channel": "linkedin",
+      "severity": "critical",
+      "since": "2026-10-18",
+      "evidence": {
+        "days": 14,
+        "spend": 5328.27,
+        "daily_spend_trend": 12.65
+      },
+      "message": "linkedin spent $5,328 over 14 days with zero conversions, and spend is still rising.",
+      "id": "F1"
+    },
+    {
+      "rule": "cpa_level_shift",
+      "channel": "meta",
+      "severity": "warning",
+      "since": "2026-10-02",
+      "evidence": {
+        "cpa_before": 60.14,
+        "cpa_after": 100.05,
+        "ratio": 1.66,
+        "days_after": 30
+      },
+      "message": "meta CPA rose 1.7x, from $60 to $100, starting 2026-10-02.",
+      "id": "F2"
+    },
+    {
+      "rule": "spend_spike",
+      "channel": "google_search",
+      "severity": "review",
+      "since": "2026-09-12",
+      "until": "2026-09-18",
+      "evidence": {
+        "days": 7,
+        "spend_vs_median": 1.72,
+        "cpa_during": 20.56,
+        "cpa_before": 18.33,
+        "cpa_ratio": 1.12
+      },
+      "message": "google_search spend jumped for 7 days (2026-09-12 to 2026-09-18); CPA held at $21 vs $18. Likely fine, confirm before acting.",
+      "id": "F3"
+    },
+    {
+      "rule": "untracked_lift",
+      "channel": "direct",
+      "severity": "review",
+      "since": "2026-10-11",
+      "evidence": {
+        "direct_per_day_early": 1.5,
+        "direct_per_day_late": 8.1,
+        "ratio": 5.4,
+        "paid_spend_ratio": 1.05,
+        "self_reported_ai_share_early": 0.055,
+        "self_reported_ai_share_late": 0.235
+      },
+      "message": "Direct conversions grew 5.4x (1.5 to 8.1/day) while paid spend moved 1.05x. Self-reported AI answers went from 6% to 24%. Something untracked is driving buyers.",
+      "id": "F4"
+    }
+  ],
+  "tool_calls": 12,
+  "tools_used": [
+    "review_last_run",
+    "get_overview",
+    "get_flags",
+    "get_ledger",
+    "compare_attribution",
+    "get_self_reported",
+    "drill_down",
+    "drill_down",
+    "set_budget",
+    "set_budget",
+    "recommend_test",
+    "write_memo"
+  ],
+  "label": "synthetic data",
+  "data_range": [
+    "2026-08-03",
+    "2026-10-31"
+  ],
+  "budgets_after": {
+    "google_search": 600,
+    "meta": 400.0,
+    "linkedin": 0.0,
+    "email": 40
+  }
+}
