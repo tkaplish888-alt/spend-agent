@@ -10,8 +10,8 @@
   "note": "Truth includes AI-agent buyers no click model can see, so no model scores zero.",
   "latest_run": 2,
   "checks": {
-    "p1_meta_cut": false,
-    "p2_linkedin_paused": false,
+    "p1_meta_cut": true,
+    "p2_linkedin_paused": true,
     "p3_email_gap_explained": true,
     "p4_dark_funnel_explained": true,
     "p4_no_budget_chased_to_search": true,

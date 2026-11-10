@@ -30,9 +30,24 @@ def _move(entry: dict, channel: str) -> dict | None:
     return next((m for m in entry["moves"] if m["channel"] == channel), None)
 
 
-def score_run(entry: dict, memo: str) -> dict:
+def _net_move(ledger: dict | None, entry: dict, channel: str) -> dict | None:
+    """Budget change since the start of the account, across every run so far.
+
+    A move made in week 1 and kept in week 2 still counts in week 2. Falls back
+    to this run's moves when no ledger is given.
+    """
+    if not ledger:
+        return _move(entry, channel)
+    moves = [m for h in ledger.get("history", []) for m in h.get("moves", []) if m["channel"] == channel]
+    if not moves:
+        return None
+    return {"from": moves[0]["from"], "to": ledger["daily_budgets"].get(channel, moves[-1]["to"])}
+
+
+def score_run(entry: dict, memo: str, ledger: dict | None = None) -> dict:
     text = memo.lower()
-    meta, li, gs = _move(entry, "meta"), _move(entry, "linkedin"), _move(entry, "google_search")
+    meta, li = _net_move(ledger, entry, "meta"), _net_move(ledger, entry, "linkedin")
+    gs = _net_move(ledger, entry, "google_search")
     test_channels = {t["channel"] for t in entry["tests"]}
     checks = {
         "p1_meta_cut": bool(meta and meta["to"] < meta["from"]),
@@ -59,13 +74,15 @@ def main(root: Path = ROOT) -> dict:
     truth = {k: v["true_conversions"] for k, v in gt["channels"].items()}
     scores = attribution.score_against_truth(attribution.run_models(conv, jour), truth)
 
+    ledger_path = root / "state" / "ledger.json"
+    ledger = json.loads(ledger_path.read_text()) if ledger_path.exists() else None
     memo = (root / "outputs" / "memo.md").read_text() if (root / "outputs" / "memo.md").exists() else ""
     card = {
         "label": "synthetic data",
         "attribution_misallocated_share": scores["misallocated_share"].to_dict(),
         "note": "Truth includes AI-agent buyers no click model can see, so no model scores zero.",
         "latest_run": log[-1]["run"] if log else None,
-        "checks": score_run(log[-1], memo) if log else {},
+        "checks": score_run(log[-1], memo, ledger) if log else {},
     }
     (root / "outputs" / "scorecard.json").write_text(json.dumps(card, indent=2))
     return card
