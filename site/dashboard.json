@@ -83,7 +83,7 @@
     "ratio": 1.63,
     "days_after": 37
    },
-   "message": "meta CPA rose 1.6x, from $60 to $98, starting 2026-10-02.",
+   "message": "Meta CPA rose 1.6x, from $60 to $98, starting 2026-10-02.",
    "id": "F1",
    "verdict": "watch",
    "verdict_reason": "Meta CPA is $89 this week vs $98-105 before the cut, and ROAS is 1.97 vs 1.95. Spend fell 22% and conversions fell only 31 vs 35.75. The cut did no visible harm. The models disagree on Meta (CPA $45-$70), so hold at $400 until the geo holdout reads out."
@@ -99,7 +99,7 @@
     "ratio": 19.14,
     "days_after": 22
    },
-   "message": "linkedin CPA rose 19.1x, from $148 to $2825, starting 2026-10-17.",
+   "message": "LinkedIn CPA rose 19.1x, from $148 to $2825, starting 2026-10-17.",
    "id": "F2",
    "verdict": "dismiss",
    "verdict_reason": "Already acted on. LinkedIn is paused at $0 and there were 0 conversions on $5,328 in the 14 days before the pause. Self-reported LinkedIn share is 0% for 3 weeks. Keep it paused."
@@ -117,7 +117,7 @@
     "cpa_before": 18.33,
     "cpa_ratio": 1.12
    },
-   "message": "google_search spend jumped for 7 days (2026-09-12 to 2026-09-18); CPA held at $21 vs $18. Likely fine, confirm before acting.",
+   "message": "Google Search spend jumped for 7 days (2026-09-12 to 2026-09-18); CPA held at $21 vs $18. Likely fine, confirm before acting.",
    "id": "F3",
    "verdict": "dismiss",
    "verdict_reason": "The Sep 12-18 Google spend spike ran at 1.72x median spend with CPA at $20.56 vs $18.33. Efficiency barely moved, and current CPA is $19.64 with ROAS 9.86. No action."

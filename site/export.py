@@ -55,6 +55,13 @@ def _read(p: Path):
     return json.loads(p.read_text())
 
 
+def _pretty(msg: str) -> str:
+    """Swap raw channel keys (google_search, meta) for display names in flag text."""
+    for key, name in sorted(CHANNEL_NAMES.items(), key=lambda kv: -len(kv[0])):
+        msg = msg.replace(key, name)
+    return msg[:1].upper() + msg[1:]
+
+
 def _hero(col: pd.Series) -> str:
     return str(col.drop(labels=["direct"], errors="ignore").idxmax())
 
@@ -114,7 +121,7 @@ def main(root: Path = ROOT) -> dict:
         "budgets": {"starting": starting, "current": ledger["daily_budgets"]},
         "moves_history": ledger.get("history", []),
         "tests": run.get("tests", []),
-        "flags": [{**f, "verdict": verdicts.get(f["id"], {}).get("verdict"),
+        "flags": [{**f, "message": _pretty(f["message"]), "verdict": verdicts.get(f["id"], {}).get("verdict"),
                    "verdict_reason": verdicts.get(f["id"], {}).get("reason")} for f in flags],
         "attribution": {
             "credit_share": attr["credit_share"],
