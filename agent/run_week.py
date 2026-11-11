@@ -49,7 +49,7 @@ def reset(cfg: dict, root: Path = ROOT) -> None:
     budgets = {ch: c["budget"] for ch, c in cfg["demo"]["channels"].items()}
     li = cfg["demo"]["planted"]["linkedin_no_results"]
     if li["enabled"]:
-        budgets["linkedin"] = li["budget_end"]
+        budgets[li.get("channel", "linkedin")] = li["budget_end"]
     (STATE / "ledger.json").write_text(json.dumps(
         {"label": "synthetic data", "mode": cfg["action_mode"], "week": 0,
          "daily_budgets": budgets, "history": []}, indent=2))

@@ -49,11 +49,13 @@ def _agent_share(d: int, cfg: dict) -> float:
 def _efficiency(channel: str, d: int, cfg: dict) -> float:
     p = cfg["planted"]
     e = 1.0
+    # The two problems default to Meta and LinkedIn, but either can be moved to
+    # another channel with a "channel" key (used by the held-out eval suite).
     m = p["meta_cpa_doubles"]
-    if channel == "meta" and m["enabled"] and d >= m["from_day"]:
+    if channel == m.get("channel", "meta") and m["enabled"] and d >= m["from_day"]:
         e *= m["efficiency"]
     li = p["linkedin_no_results"]
-    if channel == "linkedin" and li["enabled"] and d >= cfg["days"] - li["last_days"]:
+    if channel == li.get("channel", "linkedin") and li["enabled"] and d >= cfg["days"] - li["last_days"]:
         e = 0.0
     g = p["google_promo_spike"]
     if channel == "google_search" and g["enabled"] and g["from_day"] <= d < g["from_day"] + g["days"]:
@@ -67,7 +69,7 @@ def history_budget(channel: str, d: int, cfg: dict) -> float:
     p = cfg["planted"]
     li = p["linkedin_no_results"]
     start = cfg["days"] - li["last_days"]
-    if channel == "linkedin" and li["enabled"] and d >= start:
+    if channel == li.get("channel", "linkedin") and li["enabled"] and d >= start:
         frac = (d - start + 1) / li["last_days"]
         return base + (li["budget_end"] - base) * frac
     g = p["google_promo_spike"]
@@ -185,9 +187,9 @@ def _ground_truth(daily: pd.DataFrame, truth: pd.DataFrame, cfg: dict) -> dict:
         "days": cfg["days"],
         "channels": channels,
         "planted": [
-            {"id": 1, "name": "meta_cpa_doubles", "channel": "meta",
+            {"id": 1, "name": "meta_cpa_doubles", "channel": p["meta_cpa_doubles"].get("channel", "meta"),
              "from": day(p["meta_cpa_doubles"]["from_day"])},
-            {"id": 2, "name": "linkedin_no_results", "channel": "linkedin",
+            {"id": 2, "name": "linkedin_no_results", "channel": p["linkedin_no_results"].get("channel", "linkedin"),
              "from": day(li_start), "to": day(cfg["days"] - 1)},
             {"id": 3, "name": "email_under_credited", "channel": "email"},
             {"id": 4, "name": "dark_funnel", "channel": AGENT,
