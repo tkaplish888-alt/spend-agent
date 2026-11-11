@@ -2,13 +2,13 @@
   "label": "synthetic data",
   "attribution_misallocated_share": {
     "first_touch": 0.231,
-    "markov": 0.242,
-    "linear": 0.291,
-    "time_decay": 0.343,
-    "last_touch": 0.444
+    "markov": 0.239,
+    "linear": 0.282,
+    "time_decay": 0.335,
+    "last_touch": 0.438
   },
   "note": "Truth includes AI-agent buyers no click model can see, so no model scores zero.",
-  "latest_run": 2,
+  "latest_run": 1,
   "checks": {
     "p1_meta_cut": true,
     "p2_linkedin_paused": true,
@@ -16,7 +16,6 @@
     "p4_dark_funnel_explained": true,
     "p4_no_budget_chased_to_search": true,
     "red_herring_dismissed": true,
-    "reviewed_last_week_first": true,
-    "judged_previous_moves": true
+    "reviewed_last_week_first": true
   }
 }

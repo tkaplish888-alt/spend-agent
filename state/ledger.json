@@ -1,7 +1,7 @@
 {
   "label": "synthetic data",
   "mode": "demo",
-  "week": 2,
+  "week": 1,
   "daily_budgets": {
     "google_search": 600,
     "meta": 400.0,
@@ -17,22 +17,17 @@
           "channel": "linkedin",
           "from": 450.0,
           "to": 0.0,
-          "reason": "Zero conversions for 14 straight days (Oct 18-31) on $5,328 spend while daily spend rose from ~$300 to $460 (above the $450 budget). Prior 4-wk CPA was already $238 / ROAS 0.78. Self-reported LinkedIn share fell to 0% in the last 2 weeks, so this is probably not just a tracking break. Pause is cheap to reverse.",
+          "reason": "Zero conversions for 14 days (since 10-18) on $5,328 spend, while daily spend rose from ~$300 to ~$460. Last 3 weeks CPA $891 vs $144 earlier. Self-reported LinkedIn share 0% for two weeks (was 4-9%). Pausing is cheap to reverse; possible tracking break should be checked before relaunch.",
           "confidence": "high"
         },
         {
           "channel": "meta",
           "from": 500.0,
           "to": 400.0,
-          "reason": "CPA rose from ~$60 to ~$100 (1.66x) since Oct 2 at flat spend (~$3.5k/wk); ROAS 3.2 to 1.9. Self-reported Instagram/Facebook share fell from ~18% in Aug to 9% in the last week. A moderate 20% cut, not a pause, because attribution models disagree on Meta (CPA $45-$69) and a holdout test is better evidence.",
+          "reason": "CPA up 50% over last 3 weeks ($96 vs $64) on flat spend (-3%), level shift began 10-02 ($60 to $100). ROAS 1.86 last week, near 1.5 target. Trim 20% ($500 to $400) while a holdout test confirms; models still put it above target (2.72-4.24), so no full cut.",
           "confidence": "medium"
         }
       ]
-    },
-    {
-      "run": 2,
-      "data_end": "2026-11-07",
-      "moves": []
     }
   ]
 }
