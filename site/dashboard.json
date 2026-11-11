@@ -1,0 +1,772 @@
+{
+ "label": "Synthetic data. Every number here is generated; no real ad account.",
+ "channel_names": {
+  "google_search": "Google Search",
+  "meta": "Meta",
+  "linkedin": "LinkedIn",
+  "email": "Email",
+  "direct": "Direct (no source)",
+  "ai_agent": "AI assistants (invisible)"
+ },
+ "model_names": {
+  "first_touch": "First-touch",
+  "last_touch": "Last-touch",
+  "linear": "Linear",
+  "time_decay": "Time-decay",
+  "markov": "Markov"
+ },
+ "run": {
+  "run": 2,
+  "ran_at": "2026-11-10T03:59:39+00:00",
+  "data_end": "2026-11-07",
+  "headline": "No budget changes this week: the LinkedIn pause and Meta cut are holding, and the direct surge still tracks AI-assistant answers, not paid spend.",
+  "confidence": "medium"
+ },
+ "memo_markdown": "*Synthetic data throughout.*\n\n## Last week's moves\n- **LinkedIn $450 to $0:** worked. Spend went from $2,965 to $0 and conversions stayed at 0, so nothing was lost. Prior 4-week CPA was $430, with ROAS 0.44.\n- **Meta $500 to $400:** worked so far. Spend fell $3,566 to $2,764 (-22%), conversions went 34 to 31, CPA $105 to $89, ROAS 1.97. This is one week of data, so it is directional only.\n- Account spend fell $11,093 to $7,348. Conversions fell 355 to 325, mostly from the paused LinkedIn and the cut Meta.\n\n## What's happening\n- Google Search is stable: $4,302 spend, 219 conversions (vs 230 prior average), CPA $19.64, ROAS 9.86.\n- Direct is 63 conversions/week vs a 56 prior average (peak 71 in the week of Oct 26) with $0 spend. Self-reported \"Asked ChatGPT\" is 24% this week, up from 2% in early Aug. \"AI assistant recommended\" is 2% this week but 6.5-9% over the prior 4 weeks. Meta self-report is 9% (19% in Aug) and LinkedIn 0%.\n- Email is 12 conversions vs 18.5 prior average, CPA $23.58 vs $15.13. It is on $283/week, and weekly CPA has swung between $13 and $28 since mid-Sep, so this looks like noise.\n\n## Moves\n- None. Google $600, Meta $400, LinkedIn $0 and Email $40 per day all stay. The evidence for changes is thin, and Meta and Google both rest on contested attribution.\n\n## Where the models disagree\n- **Google:** 39% (first-touch) to 68% (last-touch) credit, with implied CPA $19 to $33.\n- **Email:** 4% to 22% credit, with implied CPA $3.61 to $19.21. It is probably undervalued by last click.\n- **Meta:** 14% to 22% credit, with implied CPA $45 to $70.\n- **LinkedIn:** 3% to 7% credit, with implied CPA $86 to $182. Every model is worse than Google, and it had zero conversions at the end.\n\n## Test to run\n1. **Meta geo holdout** (recommended last week, not yet confirmed running): off in about 20% of regions for 4 weeks.\n2. **Google Search geo holdout** (new): off in about 15% of regions for 3-4 weeks, with brand and non-brand split. Measure total conversions and the self-reported Google share. Google is about 58% of spend, so its incrementality matters most.\n\n## Confidence\nMedium. I'd change my mind if:\n- Meta conversions fall by more than the 22% spend cut over the next two weeks.\n- The holdouts show Google or Meta incrementality far from their reported CPAs.\n- Direct reverts without any change in AI-assistant answers.",
+ "budgets": {
+  "starting": {
+   "google_search": 600,
+   "meta": 500,
+   "linkedin": 300,
+   "email": 40
+  },
+  "current": {
+   "google_search": 600,
+   "meta": 400.0,
+   "linkedin": 0.0,
+   "email": 40
+  }
+ },
+ "moves_history": [
+  {
+   "run": 1,
+   "data_end": "2026-10-31",
+   "moves": [
+    {
+     "channel": "linkedin",
+     "from": 450.0,
+     "to": 0.0,
+     "reason": "Zero conversions for 14 straight days (Oct 18-31) on $5,328 spend while daily spend rose from ~$300 to $460 (above the $450 budget). Prior 4-wk CPA was already $238 / ROAS 0.78. Self-reported LinkedIn share fell to 0% in the last 2 weeks, so this is probably not just a tracking break. Pause is cheap to reverse.",
+     "confidence": "high"
+    },
+    {
+     "channel": "meta",
+     "from": 500.0,
+     "to": 400.0,
+     "reason": "CPA rose from ~$60 to ~$100 (1.66x) since Oct 2 at flat spend (~$3.5k/wk); ROAS 3.2 to 1.9. Self-reported Instagram/Facebook share fell from ~18% in Aug to 9% in the last week. A moderate 20% cut, not a pause, because attribution models disagree on Meta (CPA $45-$69) and a holdout test is better evidence.",
+     "confidence": "medium"
+    }
+   ]
+  },
+  {
+   "run": 2,
+   "data_end": "2026-11-07",
+   "moves": []
+  }
+ ],
+ "tests": [
+  {
+   "channel": "google_search",
+   "hypothesis": "Google Search's incremental CPA is well above the $19.64 last-click CPA, because last-touch gives it 68% of credit versus 39% first-touch, and 47-50% of buyers say 'Google' while many may have been persuaded by AI assistants or Meta first.",
+   "design": "Geo holdout: pause Google Search in about 15% of matched regions for 3 to 4 weeks, with brand and non-brand campaigns tagged separately and the budget kept at $600/day elsewhere. Measure total conversions (tracked plus direct) per region, plus the self-reported 'Google' share. Compare the drop against the roughly 219 conversions per week Google reports. Don't cut Google until it reads out, since it's about 58% of spend."
+  }
+ ],
+ "flags": [
+  {
+   "rule": "cpa_level_shift",
+   "channel": "meta",
+   "severity": "warning",
+   "since": "2026-10-02",
+   "evidence": {
+    "cpa_before": 60.14,
+    "cpa_after": 98.2,
+    "ratio": 1.63,
+    "days_after": 37
+   },
+   "message": "meta CPA rose 1.6x, from $60 to $98, starting 2026-10-02.",
+   "id": "F1",
+   "verdict": "watch",
+   "verdict_reason": "Meta CPA is $89 this week vs $98-105 before the cut, and ROAS is 1.97 vs 1.95. Spend fell 22% and conversions fell only 31 vs 35.75. The cut did no visible harm. The models disagree on Meta (CPA $45-$70), so hold at $400 until the geo holdout reads out."
+  },
+  {
+   "rule": "cpa_level_shift",
+   "channel": "linkedin",
+   "severity": "warning",
+   "since": "2026-10-17",
+   "evidence": {
+    "cpa_before": 147.61,
+    "cpa_after": 2825.35,
+    "ratio": 19.14,
+    "days_after": 22
+   },
+   "message": "linkedin CPA rose 19.1x, from $148 to $2825, starting 2026-10-17.",
+   "id": "F2",
+   "verdict": "dismiss",
+   "verdict_reason": "Already acted on. LinkedIn is paused at $0 and there were 0 conversions on $5,328 in the 14 days before the pause. Self-reported LinkedIn share is 0% for 3 weeks. Keep it paused."
+  },
+  {
+   "rule": "spend_spike",
+   "channel": "google_search",
+   "severity": "review",
+   "since": "2026-09-12",
+   "until": "2026-09-18",
+   "evidence": {
+    "days": 7,
+    "spend_vs_median": 1.72,
+    "cpa_during": 20.56,
+    "cpa_before": 18.33,
+    "cpa_ratio": 1.12
+   },
+   "message": "google_search spend jumped for 7 days (2026-09-12 to 2026-09-18); CPA held at $21 vs $18. Likely fine, confirm before acting.",
+   "id": "F3",
+   "verdict": "dismiss",
+   "verdict_reason": "The Sep 12-18 Google spend spike ran at 1.72x median spend with CPA at $20.56 vs $18.33. Efficiency barely moved, and current CPA is $19.64 with ROAS 9.86. No action."
+  },
+  {
+   "rule": "untracked_lift",
+   "channel": "direct",
+   "severity": "review",
+   "since": "2026-10-18",
+   "evidence": {
+    "direct_per_day_early": 1.5,
+    "direct_per_day_late": 8.9,
+    "ratio": 5.94,
+    "paid_spend_ratio": 0.95,
+    "self_reported_ai_share_early": 0.055,
+    "self_reported_ai_share_late": 0.255
+   },
+   "message": "Direct conversions grew 5.9x (1.5 to 8.9/day) while paid spend moved 0.95x. Self-reported AI answers went from 6% to 25%. Something untracked is driving buyers.",
+   "id": "F4",
+   "verdict": "act",
+   "verdict_reason": "Direct is 63 conversions/week vs a 56 prior average, and up from about 10/week in early Oct by the flag's measure. Paid spend ratio is 0.95. Self-reported 'Asked ChatGPT' is 24% in the latest week, up from 2-6% in Aug. Treat it as an untracked AI-assistant effect and don't credit any paid channel. No budget move, since there is no AI lever to buy."
+  }
+ ],
+ "attribution": {
+  "credit_share": {
+   "direct": {
+    "first_touch": 0.1044,
+    "last_touch": 0.1044,
+    "linear": 0.1044,
+    "time_decay": 0.1044,
+    "markov": 0.0764
+   },
+   "email": {
+    "first_touch": 0.2225,
+    "last_touch": 0.0418,
+    "linear": 0.1287,
+    "time_decay": 0.098,
+    "markov": 0.1627
+   },
+   "google_search": {
+    "first_touch": 0.3865,
+    "last_touch": 0.6816,
+    "linear": 0.5291,
+    "time_decay": 0.5804,
+    "markov": 0.4984
+   },
+   "linkedin": {
+    "first_touch": 0.0672,
+    "last_touch": 0.0318,
+    "linear": 0.0539,
+    "time_decay": 0.0474,
+    "markov": 0.0649
+   },
+   "meta": {
+    "first_touch": 0.2194,
+    "last_touch": 0.1404,
+    "linear": 0.1839,
+    "time_decay": 0.1697,
+    "markov": 0.1976
+   }
+  },
+  "disagreement": {
+   "google_search": {
+    "min_share": 0.386,
+    "max_share": 0.682,
+    "lowest_model": "first_touch",
+    "highest_model": "last_touch",
+    "spread": 0.295
+   },
+   "email": {
+    "min_share": 0.042,
+    "max_share": 0.222,
+    "lowest_model": "last_touch",
+    "highest_model": "first_touch",
+    "spread": 0.181
+   },
+   "meta": {
+    "min_share": 0.14,
+    "max_share": 0.219,
+    "lowest_model": "last_touch",
+    "highest_model": "first_touch",
+    "spread": 0.079
+   },
+   "linkedin": {
+    "min_share": 0.032,
+    "max_share": 0.067,
+    "lowest_model": "last_touch",
+    "highest_model": "first_touch",
+    "spread": 0.035
+   },
+   "direct": {
+    "min_share": 0.076,
+    "max_share": 0.104,
+    "lowest_model": "markov",
+    "highest_model": "first_touch",
+    "spread": 0.028
+   }
+  },
+  "true_share": {
+   "google_search": 0.3423,
+   "meta": 0.2079,
+   "linkedin": 0.059,
+   "email": 0.1594,
+   "ai_agent": 0.2314
+  }
+ },
+ "scorecard": {
+  "label": "synthetic data",
+  "attribution_misallocated_share": {
+   "first_touch": 0.231,
+   "markov": 0.242,
+   "linear": 0.291,
+   "time_decay": 0.343,
+   "last_touch": 0.444
+  },
+  "note": "Truth includes AI-agent buyers no click model can see, so no model scores zero.",
+  "latest_run": 2,
+  "checks": {
+   "p1_meta_cut": true,
+   "p2_linkedin_paused": true,
+   "p3_email_gap_explained": true,
+   "p4_dark_funnel_explained": true,
+   "p4_no_budget_chased_to_search": true,
+   "red_herring_dismissed": true,
+   "reviewed_last_week_first": true,
+   "judged_previous_moves": true
+  }
+ },
+ "trace": [
+  {
+   "step": 1,
+   "tool": "review_last_run",
+   "label": "Checked whether last week's moves worked",
+   "input": {}
+  },
+  {
+   "step": 2,
+   "tool": "get_overview",
+   "label": "Looked at every channel's last 7 days",
+   "input": {}
+  },
+  {
+   "step": 3,
+   "tool": "get_flags",
+   "label": "Read the anomaly flags",
+   "input": {}
+  },
+  {
+   "step": 4,
+   "tool": "get_ledger",
+   "label": "Checked current budgets and guardrails",
+   "input": {}
+  },
+  {
+   "step": 5,
+   "tool": "get_self_reported",
+   "label": "Read 'How did you hear about us?' answers",
+   "input": {}
+  },
+  {
+   "step": 6,
+   "tool": "compare_attribution",
+   "label": "Compared the five attribution models",
+   "input": {}
+  },
+  {
+   "step": 7,
+   "tool": "drill_down",
+   "label": "Drilled into one channel",
+   "input": {
+    "channel": "direct",
+    "granularity": "week",
+    "periods": 8
+   }
+  },
+  {
+   "step": 8,
+   "tool": "drill_down",
+   "label": "Drilled into one channel",
+   "input": {
+    "channel": "email",
+    "granularity": "week",
+    "periods": 8
+   }
+  },
+  {
+   "step": 9,
+   "tool": "recommend_test",
+   "label": "Recommended an incrementality test",
+   "input": {
+    "channel": "google_search",
+    "hypothesis": "Google Search's incremental CPA is well above the $19.64 last-click CPA, because last-touch gives it 68% of credit versus 39% first-touch, and 47-50% of buyers say 'Google' while many may have been persuaded by AI assistants or Meta first.",
+    "design": "Geo holdout: pause Google Search in about 15% of matched regions for 3 to 4 weeks, with brand and non-brand campaigns tagged separately and the budget kept at $600/day elsewhere. Measure total conversions (tracked plus direct) per region, plus the self-reported 'Google' share. Compare the drop against the roughly 219 conversions per week Google reports. Don't cut Google until it reads out, since it's about 58% of spend."
+   }
+  },
+  {
+   "step": 10,
+   "tool": "write_memo",
+   "label": "Wrote the memo",
+   "input": {
+    "headline": "No budget changes this week: the LinkedIn pause and Meta cut are holding, and the direct surge still tracks AI-assistant answers, not paid spend.",
+    "overall_confidence": "medium",
+    "flag_verdicts": [
+     {
+      "flag_id": "F1",
+      "verdict": "watch",
+      "reason": "Meta CPA is $89 this week vs $98-105 before the cut, and ROAS is 1.97 vs 1.95. Spend fell 22% and conversions fell only 31 vs 35.75. The cut did no visible harm. The models disagree on Meta (CPA $45-$70), so hold at $400 until the geo holdout reads out."
+     },
+     {
+      "flag_id": "F2",
+      "verdict": "dismiss",
+      "reason": "Already acted on. LinkedIn is paused at $0 and there were 0 conversions on $5,328 in the 14 days before the pause. Self-reported LinkedIn share is 0% for 3 weeks. Keep it paused."
+     },
+     {
+      "flag_id": "F3",
+      "verdict": "dismiss",
+      "reason": "The Sep 12-18 Google spend spike ran at 1.72x median spend with CPA at $20.56 vs $18.33. Efficiency barely moved, and current CPA is $19.64 with ROAS 9.86. No action."
+     },
+     {
+      "flag_id": "F4",
+      "verdict": "act",
+      "reason": "Direct is 63 conversions/week vs a 56 prior average, and up from about 10/week in early Oct by the flag's measure. Paid spend ratio is 0.95. Self-reported 'Asked ChatGPT' is 24% in the latest week, up from 2-6% in Aug. Treat it as an untracked AI-assistant effect and don't credit any paid channel. No budget move, since there is no AI lever to buy."
+     }
+    ],
+    "memo_markdown": "*Synthetic data throughout.*\n\n## Last week's moves\n- **LinkedIn $450 to $0:** worked. Spend went from $2,965 to $0 and conversions stayed at 0, so nothing was lost. Prior 4-week CPA was $430, with ROAS 0.44.\n- **Meta $500 to $400:** worked so far. Spend fell $3,566 to $2,764 (-22%), conversions went 34 to 31, CPA $105 to $89, ROAS 1.97. This is one week of data, so it is directional only.\n- Account spend fell $11,093 to $7,348. Conversions fell 355 to 325, mostly from the paused LinkedIn and the cut Meta.\n\n## What's happening\n- Google Search is stable: $4,302 spend, 219 conversions (vs 230 prior average), CPA $19.64, ROAS 9.86.\n- Direct is 63 conversions/week vs a 56 prior average (peak 71 in the week of Oct 26) with $0 spend. Self-reported \"Asked ChatGPT\" is 24% this week, up from 2% in early Aug. \"AI assistant recommended\" is 2% this week but 6.5-9% over the prior 4 weeks. Meta self-report is 9% (19% in Aug) and LinkedIn 0%.\n- Email is 12 conversions vs 18.5 prior average, CPA $23.58 vs $15.13. It is on $283/week, and weekly CPA has swung between $13 and $28 since mid-Sep, so this looks like noise.\n\n## Moves\n- None. Google $600, Meta $400, LinkedIn $0 and Email $40 per day all stay. The evidence for changes is thin, and Meta and Google both rest on contested attribution.\n\n## Where the models disagree\n- **Google:** 39% (first-touch) to 68% (last-touch) credit, with implied CPA $19 to $33.\n- **Email:** 4% to 22% credit, with implied CPA $3.61 to $19.21. It is probably undervalued by last click.\n- **Meta:** 14% to 22% credit, with implied CPA $45 to $70.\n- **LinkedIn:** 3% to 7% credit, with implied CPA $86 to $182. Every model is worse than Google, and it had zero conversions at the end.\n\n## Test to run\n1. **Meta geo holdout** (recommended last week, not yet confirmed running): off in about 20% of regions for 4 weeks.\n2. **Google Search geo holdout** (new): off in about 15% of regions for 3-4 weeks, with brand and non-brand split. Measure total conversions and the self-reported Google share. Google is about 58% of spend, so its incrementality matters most.\n\n## Confidence\nMedium. I'd change my mind if:\n- Meta conversions fall by more than the 22% spend cut over the next two weeks.\n- The holdouts show Google or Meta incrementality far from their reported CPAs.\n- Direct reverts without any change in AI-assistant answers."
+   }
+  }
+ ],
+ "dark_funnel_scenarios": [
+  {
+   "agent_share": 0.0,
+   "true_share": {
+    "google_search": 0.4371,
+    "meta": 0.2719,
+    "linkedin": 0.0696,
+    "email": 0.2214
+   },
+   "credit_share": {
+    "first_touch": {
+     "email": 0.3109,
+     "google_search": 0.3237,
+     "linkedin": 0.0819,
+     "meta": 0.2835
+    },
+    "last_touch": {
+     "email": 0.0594,
+     "google_search": 0.706,
+     "linkedin": 0.0422,
+     "meta": 0.1923
+    },
+    "linear": {
+     "email": 0.1807,
+     "google_search": 0.5093,
+     "linkedin": 0.0667,
+     "meta": 0.2432
+    },
+    "time_decay": {
+     "email": 0.1382,
+     "google_search": 0.5754,
+     "linkedin": 0.0594,
+     "meta": 0.2269
+    },
+    "markov": {
+     "email": 0.2103,
+     "google_search": 0.4775,
+     "linkedin": 0.0727,
+     "meta": 0.2395
+    }
+   },
+   "hero": {
+    "first_touch": "google_search",
+    "last_touch": "google_search",
+    "linear": "google_search",
+    "time_decay": "google_search",
+    "markov": "google_search"
+   },
+   "misallocated": {
+    "markov": 0.044,
+    "linear": 0.072,
+    "first_touch": 0.113,
+    "time_decay": 0.138,
+    "last_touch": 0.269
+   }
+  },
+  {
+   "agent_share": 0.1,
+   "true_share": {
+    "google_search": 0.404,
+    "meta": 0.238,
+    "linkedin": 0.0672,
+    "email": 0.1813,
+    "ai_agent": 0.1094
+   },
+   "credit_share": {
+    "first_touch": {
+     "direct": 0.045,
+     "email": 0.2603,
+     "google_search": 0.3564,
+     "linkedin": 0.0823,
+     "meta": 0.2559
+    },
+    "last_touch": {
+     "direct": 0.045,
+     "email": 0.0432,
+     "google_search": 0.6985,
+     "linkedin": 0.0422,
+     "meta": 0.1711
+    },
+    "linear": {
+     "direct": 0.045,
+     "email": 0.1482,
+     "google_search": 0.5229,
+     "linkedin": 0.0662,
+     "meta": 0.2176
+    },
+    "time_decay": {
+     "direct": 0.045,
+     "email": 0.1116,
+     "google_search": 0.5819,
+     "linkedin": 0.0589,
+     "meta": 0.2026
+    },
+    "markov": {
+     "direct": 0.0315,
+     "email": 0.1823,
+     "google_search": 0.4894,
+     "linkedin": 0.0733,
+     "meta": 0.2235
+    }
+   },
+   "hero": {
+    "first_touch": "google_search",
+    "last_touch": "google_search",
+    "linear": "google_search",
+    "time_decay": "google_search",
+    "markov": "google_search"
+   },
+   "misallocated": {
+    "markov": 0.124,
+    "first_touch": 0.157,
+    "linear": 0.164,
+    "time_decay": 0.223,
+    "last_touch": 0.34
+   }
+  },
+  {
+   "agent_share": 0.2,
+   "true_share": {
+    "google_search": 0.3559,
+    "meta": 0.2191,
+    "linkedin": 0.0551,
+    "email": 0.1747,
+    "ai_agent": 0.1953
+   },
+   "credit_share": {
+    "first_touch": {
+     "direct": 0.0838,
+     "email": 0.2462,
+     "google_search": 0.3656,
+     "linkedin": 0.0664,
+     "meta": 0.2381
+    },
+    "last_touch": {
+     "direct": 0.0838,
+     "email": 0.04,
+     "google_search": 0.6953,
+     "linkedin": 0.0333,
+     "meta": 0.1476
+    },
+    "linear": {
+     "direct": 0.0838,
+     "email": 0.139,
+     "google_search": 0.5249,
+     "linkedin": 0.0547,
+     "meta": 0.1976
+    },
+    "time_decay": {
+     "direct": 0.0838,
+     "email": 0.1041,
+     "google_search": 0.5822,
+     "linkedin": 0.0485,
+     "meta": 0.1814
+    },
+    "markov": {
+     "direct": 0.0594,
+     "email": 0.1746,
+     "google_search": 0.4932,
+     "linkedin": 0.064,
+     "meta": 0.2088
+    }
+   },
+   "hero": {
+    "first_touch": "google_search",
+    "last_touch": "google_search",
+    "linear": "google_search",
+    "time_decay": "google_search",
+    "markov": "google_search"
+   },
+   "misallocated": {
+    "first_touch": 0.195,
+    "markov": 0.206,
+    "linear": 0.253,
+    "time_decay": 0.31,
+    "last_touch": 0.423
+   }
+  },
+  {
+   "agent_share": 0.3,
+   "true_share": {
+    "google_search": 0.3164,
+    "meta": 0.182,
+    "linkedin": 0.0565,
+    "email": 0.1414,
+    "ai_agent": 0.3036
+   },
+   "credit_share": {
+    "first_touch": {
+     "direct": 0.1219,
+     "email": 0.2,
+     "google_search": 0.4155,
+     "linkedin": 0.0663,
+     "meta": 0.1964
+    },
+    "last_touch": {
+     "direct": 0.1219,
+     "email": 0.0352,
+     "google_search": 0.6804,
+     "linkedin": 0.0336,
+     "meta": 0.129
+    },
+    "linear": {
+     "direct": 0.1219,
+     "email": 0.1143,
+     "google_search": 0.5438,
+     "linkedin": 0.0537,
+     "meta": 0.1664
+    },
+    "time_decay": {
+     "direct": 0.1219,
+     "email": 0.0863,
+     "google_search": 0.5897,
+     "linkedin": 0.0477,
+     "meta": 0.1544
+    },
+    "markov": {
+     "direct": 0.0917,
+     "email": 0.1505,
+     "google_search": 0.5122,
+     "linkedin": 0.0647,
+     "meta": 0.1809
+    }
+   },
+   "hero": {
+    "first_touch": "google_search",
+    "last_touch": "google_search",
+    "linear": "google_search",
+    "time_decay": "google_search",
+    "markov": "google_search"
+   },
+   "misallocated": {
+    "first_touch": 0.304,
+    "markov": 0.305,
+    "linear": 0.349,
+    "time_decay": 0.395,
+    "last_touch": 0.486
+   }
+  },
+  {
+   "agent_share": 0.4,
+   "true_share": {
+    "google_search": 0.2615,
+    "meta": 0.1676,
+    "linkedin": 0.0447,
+    "email": 0.1273,
+    "ai_agent": 0.3988
+   },
+   "credit_share": {
+    "first_touch": {
+     "direct": 0.1638,
+     "email": 0.1822,
+     "google_search": 0.4233,
+     "linkedin": 0.0545,
+     "meta": 0.1762
+    },
+    "last_touch": {
+     "direct": 0.1638,
+     "email": 0.0353,
+     "google_search": 0.6562,
+     "linkedin": 0.0298,
+     "meta": 0.1149
+    },
+    "linear": {
+     "direct": 0.1638,
+     "email": 0.1061,
+     "google_search": 0.5363,
+     "linkedin": 0.045,
+     "meta": 0.1488
+    },
+    "time_decay": {
+     "direct": 0.1638,
+     "email": 0.0812,
+     "google_search": 0.5766,
+     "linkedin": 0.0405,
+     "meta": 0.1379
+    },
+    "markov": {
+     "direct": 0.1267,
+     "email": 0.1409,
+     "google_search": 0.5076,
+     "linkedin": 0.0551,
+     "meta": 0.1697
+    }
+   },
+   "hero": {
+    "first_touch": "google_search",
+    "last_touch": "google_search",
+    "linear": "google_search",
+    "time_decay": "google_search",
+    "markov": "google_search"
+   },
+   "misallocated": {
+    "first_touch": 0.399,
+    "markov": 0.399,
+    "linear": 0.439,
+    "time_decay": 0.479,
+    "last_touch": 0.558
+   }
+  },
+  {
+   "agent_share": 0.5,
+   "true_share": {
+    "google_search": 0.2263,
+    "meta": 0.1338,
+    "linkedin": 0.0365,
+    "email": 0.1088,
+    "ai_agent": 0.4947
+   },
+   "credit_share": {
+    "first_touch": {
+     "direct": 0.2018,
+     "email": 0.1522,
+     "google_search": 0.4578,
+     "linkedin": 0.0425,
+     "meta": 0.1457
+    },
+    "last_touch": {
+     "direct": 0.2018,
+     "email": 0.0262,
+     "google_search": 0.659,
+     "linkedin": 0.0221,
+     "meta": 0.0909
+    },
+    "linear": {
+     "direct": 0.2018,
+     "email": 0.0867,
+     "google_search": 0.5553,
+     "linkedin": 0.0349,
+     "meta": 0.1213
+    },
+    "time_decay": {
+     "direct": 0.2018,
+     "email": 0.0653,
+     "google_search": 0.5902,
+     "linkedin": 0.0311,
+     "meta": 0.1116
+    },
+    "markov": {
+     "direct": 0.1617,
+     "email": 0.122,
+     "google_search": 0.5281,
+     "linkedin": 0.0455,
+     "meta": 0.1427
+    }
+   },
+   "hero": {
+    "first_touch": "google_search",
+    "last_touch": "google_search",
+    "linear": "google_search",
+    "time_decay": "google_search",
+    "markov": "google_search"
+   },
+   "misallocated": {
+    "first_touch": 0.495,
+    "markov": 0.495,
+    "linear": 0.531,
+    "time_decay": 0.566,
+    "last_touch": 0.634
+   }
+  },
+  {
+   "agent_share": 0.6,
+   "true_share": {
+    "google_search": 0.1772,
+    "meta": 0.1076,
+    "linkedin": 0.0314,
+    "email": 0.0798,
+    "ai_agent": 0.6041
+   },
+   "credit_share": {
+    "first_touch": {
+     "direct": 0.2379,
+     "email": 0.114,
+     "google_search": 0.4937,
+     "linkedin": 0.0382,
+     "meta": 0.1162
+    },
+    "last_touch": {
+     "direct": 0.2379,
+     "email": 0.0215,
+     "google_search": 0.6459,
+     "linkedin": 0.0193,
+     "meta": 0.0754
+    },
+    "linear": {
+     "direct": 0.2379,
+     "email": 0.066,
+     "google_search": 0.5674,
+     "linkedin": 0.031,
+     "meta": 0.0977
+    },
+    "time_decay": {
+     "direct": 0.2379,
+     "email": 0.0503,
+     "google_search": 0.5938,
+     "linkedin": 0.0276,
+     "meta": 0.0904
+    },
+    "markov": {
+     "direct": 0.1999,
+     "email": 0.0958,
+     "google_search": 0.5428,
+     "linkedin": 0.0425,
+     "meta": 0.1191
+    }
+   },
+   "hero": {
+    "first_touch": "google_search",
+    "last_touch": "google_search",
+    "linear": "google_search",
+    "time_decay": "google_search",
+    "markov": "google_search"
+   },
+   "misallocated": {
+    "first_touch": 0.604,
+    "markov": 0.604,
+    "linear": 0.628,
+    "time_decay": 0.655,
+    "last_touch": 0.707
+   }
+  }
+ ]
+}
