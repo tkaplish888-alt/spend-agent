@@ -1,29 +1,30 @@
 [
   {
-    "rule": "spend_without_results",
-    "channel": "linkedin",
-    "severity": "critical",
-    "since": "2026-10-18",
-    "evidence": {
-      "days": 14,
-      "spend": 5328.27,
-      "daily_spend_trend": 12.65
-    },
-    "message": "linkedin spent $5,328 over 14 days with zero conversions, and spend is still rising.",
-    "id": "F1"
-  },
-  {
     "rule": "cpa_level_shift",
     "channel": "meta",
     "severity": "warning",
     "since": "2026-10-02",
     "evidence": {
       "cpa_before": 60.14,
-      "cpa_after": 100.05,
-      "ratio": 1.66,
-      "days_after": 30
+      "cpa_after": 98.2,
+      "ratio": 1.63,
+      "days_after": 37
     },
-    "message": "meta CPA rose 1.7x, from $60 to $100, starting 2026-10-02.",
+    "message": "meta CPA rose 1.6x, from $60 to $98, starting 2026-10-02.",
+    "id": "F1"
+  },
+  {
+    "rule": "cpa_level_shift",
+    "channel": "linkedin",
+    "severity": "warning",
+    "since": "2026-10-17",
+    "evidence": {
+      "cpa_before": 147.61,
+      "cpa_after": 2825.35,
+      "ratio": 19.14,
+      "days_after": 22
+    },
+    "message": "linkedin CPA rose 19.1x, from $148 to $2825, starting 2026-10-17.",
     "id": "F2"
   },
   {
@@ -46,16 +47,16 @@
     "rule": "untracked_lift",
     "channel": "direct",
     "severity": "review",
-    "since": "2026-10-11",
+    "since": "2026-10-18",
     "evidence": {
       "direct_per_day_early": 1.5,
-      "direct_per_day_late": 8.1,
-      "ratio": 5.4,
-      "paid_spend_ratio": 1.05,
+      "direct_per_day_late": 8.9,
+      "ratio": 5.94,
+      "paid_spend_ratio": 0.95,
       "self_reported_ai_share_early": 0.055,
-      "self_reported_ai_share_late": 0.235
+      "self_reported_ai_share_late": 0.255
     },
-    "message": "Direct conversions grew 5.4x (1.5 to 8.1/day) while paid spend moved 1.05x. Self-reported AI answers went from 6% to 24%. Something untracked is driving buyers.",
+    "message": "Direct conversions grew 5.9x (1.5 to 8.9/day) while paid spend moved 0.95x. Self-reported AI answers went from 6% to 25%. Something untracked is driving buyers.",
     "id": "F4"
   }
 ]

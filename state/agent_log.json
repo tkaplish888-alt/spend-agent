@@ -134,5 +134,116 @@
       "recommend_test",
       "write_memo"
     ]
+  },
+  {
+    "run": 2,
+    "ran_at": "2026-11-11T23:50:39+00:00",
+    "data_end": "2026-11-07",
+    "headline": "Last week's LinkedIn pause and Meta trim both held up, and no new budget moves are needed: Meta is still above target at 2.0 ROAS, and direct growth looks AI-driven.",
+    "confidence": "medium",
+    "moves": [],
+    "tests": [
+      {
+        "channel": "linkedin",
+        "hypothesis": "LinkedIn's zero conversions since 10-17 reflect a tracking break, not lost demand. Four of five models put it at 1.55-2.19 ROAS, above the 1.5 target, and self-reported LinkedIn went to 0%, so the answer is unclear.",
+        "design": "Step 1 (no spend): audit the LinkedIn pixel, UTM and Insight Tag and the conversion API since 10-17 with test clicks. Step 2: if tracking is fixed, relaunch at about $100/day (about 22% of the old $450) for 3 weeks. Success means at least 5 tracked conversions or a recovery in self-reported LinkedIn share above 2%. Otherwise keep it paused. Also run a geo holdout for 4 weeks to measure incrementality."
+      }
+    ],
+    "flag_verdicts": [
+      {
+        "flag_id": "F1",
+        "verdict": "watch",
+        "reason": "Meta CPA is $97 over the last 3 weeks vs $75 earlier (+30%, below the 40% trigger). I already trimmed it 20% last week. Weekly CPA fell from $104 to $89 and ROAS is 1.97 vs the 1.5 target. All five models put ROAS at 2.69-4.21. Hold the budget at $400 and wait for the holdout test."
+      },
+      {
+        "flag_id": "F2",
+        "verdict": "act",
+        "reason": "I acted last week by pausing LinkedIn. It had 0 conversions on $5,028 over the two weeks before the pause. It is now at $0 spend and I am keeping it paused. I recommended a tracking audit and a small relaunch test."
+      },
+      {
+        "flag_id": "F3",
+        "verdict": "dismiss",
+        "reason": "The Google spend spike was 09-12 to 09-18. CPA held at $20.56 vs $18.33 and has been steady at about $18 since. The latest week's lower spend and conversions come from a partial week. No action."
+      },
+      {
+        "flag_id": "F4",
+        "verdict": "watch",
+        "reason": "Direct is at 8.9 per day vs 1.5, and paid spend is 0.95x. Self-reported 'Asked ChatGPT' is 24% in the latest week, up from 6% early on. The AI-assistant option shows 2% in the latest week, but that week has only 100 responses. Consistent with AI-driven demand rather than paid. Direct has no budget to cut or raise. Do not shift paid budget on this alone."
+      }
+    ],
+    "flags": [
+      {
+        "rule": "cpa_level_shift",
+        "channel": "meta",
+        "severity": "warning",
+        "since": "2026-10-02",
+        "evidence": {
+          "cpa_before": 60.14,
+          "cpa_after": 98.2,
+          "ratio": 1.63,
+          "days_after": 37
+        },
+        "message": "meta CPA rose 1.6x, from $60 to $98, starting 2026-10-02.",
+        "id": "F1"
+      },
+      {
+        "rule": "cpa_level_shift",
+        "channel": "linkedin",
+        "severity": "warning",
+        "since": "2026-10-17",
+        "evidence": {
+          "cpa_before": 147.61,
+          "cpa_after": 2825.35,
+          "ratio": 19.14,
+          "days_after": 22
+        },
+        "message": "linkedin CPA rose 19.1x, from $148 to $2825, starting 2026-10-17.",
+        "id": "F2"
+      },
+      {
+        "rule": "spend_spike",
+        "channel": "google_search",
+        "severity": "review",
+        "since": "2026-09-12",
+        "until": "2026-09-18",
+        "evidence": {
+          "days": 7,
+          "spend_vs_median": 1.72,
+          "cpa_during": 20.56,
+          "cpa_before": 18.33,
+          "cpa_ratio": 1.12
+        },
+        "message": "google_search spend jumped for 7 days (2026-09-12 to 2026-09-18); CPA held at $21 vs $18. Likely fine, confirm before acting.",
+        "id": "F3"
+      },
+      {
+        "rule": "untracked_lift",
+        "channel": "direct",
+        "severity": "review",
+        "since": "2026-10-18",
+        "evidence": {
+          "direct_per_day_early": 1.5,
+          "direct_per_day_late": 8.9,
+          "ratio": 5.94,
+          "paid_spend_ratio": 0.95,
+          "self_reported_ai_share_early": 0.055,
+          "self_reported_ai_share_late": 0.255
+        },
+        "message": "Direct conversions grew 5.9x (1.5 to 8.9/day) while paid spend moved 0.95x. Self-reported AI answers went from 6% to 25%. Something untracked is driving buyers.",
+        "id": "F4"
+      }
+    ],
+    "tool_calls": 9,
+    "tools_used": [
+      "review_last_run",
+      "get_overview",
+      "get_flags",
+      "get_trends",
+      "get_ledger",
+      "get_self_reported",
+      "compare_attribution",
+      "recommend_test",
+      "write_memo"
+    ]
   }
 ]
