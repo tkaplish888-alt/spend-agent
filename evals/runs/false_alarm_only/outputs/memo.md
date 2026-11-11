@@ -1,26 +1,30 @@
-*All data here is synthetic.*
+*All data is synthetic.*
 
 ## Last week's moves
-First run. There are no prior moves to judge.
+First run. There were no prior moves to review.
 
 ## What's happening
-- **Google search** is the largest channel: $4,293 spend, 206 conversions, CPA $20.84 and ROAS 9.10 over the last 7 days. The prior 4-week average was CPA $24.07 and ROAS 7.84. The September spend spike (F1) did not hurt efficiency.
-- **Meta** is steady: CPA $55.99 and ROAS 3.41, against a prior CPA of $58.08 and ROAS 3.17.
-- **LinkedIn** is weak: CPA $138.92 and ROAS 1.13 on $2,084 a week. Its CPA has not been below $97 in any of the last 13 weeks.
-- **Email** is small: $277 a week, CPA $18.49, ROAS 8.58 (down from 11.46).
-- **Direct** has no spend and had 3 conversions in the last 7 days (prior average 6.25). The F2 "lift" is 0.5 to 0.7 per day. Self-reported AI answers moved from 2% to 5% and then back to about 1% to 4% in the last two weeks. This is not a reliable signal yet.
+- **Google Search:** Last week's spend was $4,293 against a prior 4-week average of $4,086. It had 206 conversions, a CPA of $20.84 (prior $24.07) and a ROAS of 9.10. The Sep 12-18 spike (F1) is over and efficiency did not degrade.
+- **Meta:** CPA was $55.99 (prior $58.08) and ROAS 3.41. The 3-week CPA is $61.43 vs $56.85 earlier, up 8%. That is well below the 40% trigger.
+- **LinkedIn:** CPA was $138.92 and last-touch ROAS 1.13, below the 1.5 target. The 3-week CPA actually improved 14%, to $125.88 from $146.08.
+- **Email:** CPA was $18.49 (prior $16.44), ROAS 8.58. Its weekly CPA swings between $13 and $35 on 8-21 conversions, which is noise.
+- **Direct and AI:** See F2. Direct has 3-8 conversions a week and its rise is not statistically meaningful.
+- **Trends:** I checked all four paid channels over 13 weeks. None has a CPA up 40% or more.
 
 ## Moves
-- **LinkedIn:** $300 to $200/day. All five models put its implied CPA at $79-$141, versus $43-$58 for Meta, and its credit spread is only 4 points. It is cheap to reverse.
-- **Google search, Meta, Email:** no change.
+None. Budgets stay at Google $600/day, Meta $500, LinkedIn $300 and Email $40.
 
 ## Where the models disagree
-- **Google search** gets 32.3% of credit under first-touch and 66.8% under last-touch (spread 34.5 points). Implied CPA ranges from $23 to $48.
-- **Email** gets 5.2% under last-touch and 28.3% under first-touch. Implied CPA ranges from $3.48 to $18.95.
-- I am not scaling or cutting either channel on one model's view.
+- **LinkedIn:** Implied ROAS is 1.33 (last-touch), 1.77 (time-decay), 1.96 (linear), 2.10 (Markov) and 2.37 (first-touch). It is below the 1.5 target under one model only, so a cut is not justified.
+- **Google:** Credit share runs from 32% (first-touch) to 67% (last-touch), and implied ROAS from 3.87 to 8.02. Every model is well above target.
+- **Email:** Credit runs from 5% (last-touch) to 28% (first-touch), and implied ROAS from 9.9 to 53.9. Email is undervalued by last-click.
 
 ## Test to run
-Run a geo holdout on Google search, cutting it about 50% in half of matched regions for 4 weeks. Measure total conversions across all channels, including direct and self-reported "Google" share. Stop if total conversions drop more than 15%.
+- **LinkedIn:** A 4-week geo holdout in about 20% of matched regions. Measure total conversions and revenue in held-out vs exposed regions. If incremental ROAS is below 1.5, cut 30%.
+- **Direct:** Tag AI-referrer traffic and combine the survey's two AI answers. Re-check in 4 weeks.
 
 ## Confidence
-Medium overall. The LinkedIn cut is well supported. The Google and email conclusions are unknown until the test reads out. I would reverse the LinkedIn cut if total conversions fall noticeably after it. I would take F2 seriously if direct stays above 1 per day for 3 or more weeks while the AI-answer share stays above 4%.
+Medium. Spend is about $10k a week and the conversion counts for LinkedIn, email and direct are small, so weekly CPAs are noisy. I would change my mind if:
+- LinkedIn's holdout shows incremental ROAS below 1.5.
+- A channel's 3-week CPA rises 40% or more.
+- Direct passes about 30 conversions a week with AI answers still climbing.

@@ -1,0 +1,98 @@
+{
+  "run": 1,
+  "ran_at": "2026-11-11T23:48:27+00:00",
+  "data_end": "2026-10-31",
+  "headline": "Email spent $752 over 15 days with zero conversions, so I paused it. Direct's lift is untracked demand that looks AI-driven, and I left budgets alone.",
+  "confidence": "medium",
+  "moves": [
+    {
+      "channel": "email",
+      "from": 60.0,
+      "to": 0.0,
+      "reason": "Zero conversions for 15 days since 10/17 on $752 spend, with daily spend rising from $39 to $60. Prior 10 weeks averaged about 15 conversions/week. Newsletter self-reports also fell to 0% in the last two weeks, so sends or tracking appear broken. Cheap to reverse once fixed.",
+      "confidence": "high",
+      "applied": true
+    }
+  ],
+  "tests": [
+    {
+      "channel": "linkedin",
+      "hypothesis": "LinkedIn's true ROAS is above the 1.5 target. Last-touch gives 1.14, while the other four models give 1.70 to 2.33.",
+      "design": "Run a geo holdout. Pause LinkedIn in about 20% of matched regions for 4 weeks and keep it running elsewhere. Measure total conversions and revenue across all channels, including direct and branded search, in held-out vs control regions. Keep the current budget until it reads out."
+    },
+    {
+      "channel": "email",
+      "hypothesis": "Email's tracked conversions stopped on 10/17 because of a tracking or send failure, not because buyers stopped. Models credit it between 3.5% (last-touch) and 21% (first-touch).",
+      "design": "First, audit the send logs and UTM/conversion tracking from 10/17 onward. Once it is fixed, restart with a 10% random holdout of the list for 4 weeks. Compare conversions and revenue per recipient, tracked and untracked, between the held-out and emailed groups."
+    }
+  ],
+  "flag_verdicts": [
+    {
+      "flag_id": "F1",
+      "verdict": "act",
+      "reason": "Email has had 0 conversions since 10/17. It spent $752 over 15 days, and daily spend rose from $39 to $60. It averaged about 15 conversions a week before that. Newsletter self-reports fell to 0% in the last two weeks. Paused."
+    },
+    {
+      "flag_id": "F2",
+      "verdict": "watch",
+      "reason": "Direct rose from 3.1 to 6.9 conversions a day while paid spend moved 1.01x. 'Asked ChatGPT' answers rose from about 1% to 14-18%, and 'AI assistant' answers rose from 11% to 22% combined in the flag's window. That points to AI-driven discovery, not a paid channel, so I did not credit or move any paid budget. Keep monitoring."
+    }
+  ],
+  "flags": [
+    {
+      "rule": "spend_without_results",
+      "channel": "email",
+      "severity": "critical",
+      "since": "2026-10-17",
+      "evidence": {
+        "days": 15,
+        "spend": 751.79,
+        "daily_spend_trend": 1.5
+      },
+      "message": "email spent $752 over 15 days with zero conversions, and spend is still rising.",
+      "id": "F1"
+    },
+    {
+      "rule": "untracked_lift",
+      "channel": "direct",
+      "severity": "review",
+      "since": "2026-10-11",
+      "evidence": {
+        "direct_per_day_early": 3.1,
+        "direct_per_day_late": 6.9,
+        "ratio": 2.25,
+        "paid_spend_ratio": 1.01,
+        "self_reported_ai_share_early": 0.106,
+        "self_reported_ai_share_late": 0.216
+      },
+      "message": "Direct conversions grew 2.2x (3.1 to 6.9/day) while paid spend moved 1.01x. Self-reported AI answers went from 11% to 22%. Something untracked is driving buyers.",
+      "id": "F2"
+    }
+  ],
+  "tool_calls": 12,
+  "tools_used": [
+    "review_last_run",
+    "get_overview",
+    "get_flags",
+    "get_trends",
+    "get_ledger",
+    "compare_attribution",
+    "get_self_reported",
+    "drill_down",
+    "set_budget",
+    "recommend_test",
+    "recommend_test",
+    "write_memo"
+  ],
+  "label": "synthetic data",
+  "data_range": [
+    "2026-08-03",
+    "2026-10-31"
+  ],
+  "budgets_after": {
+    "google_search": 600,
+    "meta": 500,
+    "linkedin": 300,
+    "email": 0.0
+  }
+}

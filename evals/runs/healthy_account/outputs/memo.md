@@ -1,24 +1,30 @@
 *All data here is synthetic.*
 
 ## Last week's moves
-First run, so there is nothing to review.
+First run. There were no prior moves to review.
 
 ## What's happening
-- **LinkedIn:** the last 7 days had 8 conversions, CPA $267 and ROAS 0.87, against a prior 4-week average of $186 CPA and ROAS 1.03. Weekly CPA ranged $105-265 over 13 weeks on spend of about $2.1k a week, so the flag's "1.5x jump" is partly noise. The level is poor regardless. LinkedIn gets 4.5-8.3% of credit under the models and about 5% of self-reported answers, but about 17% of spend.
-- **Meta:** CPA improved to $44 from $58 and ROAS to 4.0 from 3.2, on spend up only 2%. Self-reported "Instagram or Facebook ad" is steady at about 22%. No action.
-- **Google Search:** CPA $24.5 and ROAS 7.7, both improved. Last-touch credit is 55%, but self-reported "Google" is about 43%, so last click may overstate it.
-- **Email:** CPA $5.2 and ROAS 32 on $277 of spend. It is tiny and efficient, with 17-30% credit depending on the model.
-- **Direct:** 7 conversions vs a 4.25 average, with no trend over 13 weeks (range 2-9). No spend is attached, and "AI assistant" and "ChatGPT" answers are about 1-4% a week with no clear rise. This is noise.
+- **Google Search:** CPA is $24.85 over the last 3 weeks vs $26.92 earlier (-8%). Latest week is $24.47 CPA and 7.7 ROAS on $4,111 spend.
+- **Meta:** CPA is flat at $55.12 vs $55.37. Last week was $44.44 CPA and 4.01 ROAS. Spend is steady at about $3.5k per week.
+- **Email:** CPA is $5.74 vs $5.89 and ROAS is about 32. It is stable.
+- **LinkedIn:** Last week was $267 CPA on 8 conversions and 0.87 ROAS. The 3-week CPA is $189 vs $159 earlier (+18%) on flat spend of about $2.1k per week. That is below the 40% trim threshold, though the flag's 1.5x shift after Oct 18 is worth watching. The last 6 days had two zero-conversion days (Oct 26 and Oct 28), which is not a week of zeros.
+- **Direct:** 7 conversions vs a 4.25 weekly average. Weekly counts range 2-9, so this is within noise. Self-reported "AI assistant" or "Asked ChatGPT" answers are 1% of responses (0-4% weekly range), with no upward trend. Google self-report is steady at 43%. There is no evidence of an untracked driver.
 
 ## Moves
-- LinkedIn daily budget $300 to $225. The reason is ROAS of about 1 and an implied CPA of at least $88 under every model. It is cheap to reverse.
-- No other changes.
+None. Daily budgets are unchanged: Google $600, Meta $500, LinkedIn $300, Email $40.
+- No channel meets the cut rule. LinkedIn is above the 1.5 target under 4 of 5 models.
+- No channel has strong enough evidence to scale.
 
 ## Where the models disagree
-Google Search credit ranges from 29% (first touch) to 55% (last touch), a 26-point spread. Implied CPA runs from $26 to $50. Email (17-30%) and Meta (22-32%) are narrower. LinkedIn is the one channel where the models agree, and it is the weakest in all of them.
+- **Google Search:** credit share runs from 29% (first-touch) to 55% (last-touch). Implied ROAS runs from 3.72 to 7.08. It clears the target under every model.
+- **LinkedIn:** implied ROAS runs from 1.13 (last-touch) to 2.11 (first-touch and Markov). Its true value is unresolved.
+- **Email and Meta:** both get more credit under first-touch, so they are likely undervalued by platform last-click.
 
 ## Test to run
-Google Search geo holdout. Pause brand keywords in about 20% of matched regions for 3-4 weeks. Measure total conversions across all channels in held-out vs control regions.
+LinkedIn geo or audience holdout. Pause LinkedIn in about 30% of matched regions for 4 weeks. Compare total conversions, including direct and self-reported "LinkedIn" answers. If incremental ROAS is below 1.5, cut at least 50%.
 
 ## Confidence
-Medium overall. I would reverse the LinkedIn cut if its conversions rebound above 15 a week at a CPA below $140. The holdout result could change the Google budget in either direction.
+Medium. Evidence that would change my mind:
+- If LinkedIn's 3-week CPA reaches about 40% above its earlier level, I would trim 15-30%.
+- A full week of zero LinkedIn conversions would mean pause.
+- A sustained rise in direct conversions alongside AI-assistant answers would point to an untracked driver.

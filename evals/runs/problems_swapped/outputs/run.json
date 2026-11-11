@@ -1,44 +1,41 @@
 {
   "run": 1,
-  "ran_at": "2026-11-11T23:26:29+00:00",
+  "ran_at": "2026-11-11T23:46:45+00:00",
   "data_end": "2026-10-31",
-  "headline": "Meta spent $8,082 over 14 days with zero conversions, so I paused it. Direct's 2.4x rise lines up with AI-assistant mentions, not paid spend.",
+  "headline": "Meta spent $8,082 over 14 days with zero conversions, so I paused it. Direct growth lines up with AI-assistant mentions, not paid spend.",
   "confidence": "medium",
   "moves": [
     {
       "channel": "meta",
       "from": 650.0,
       "to": 0.0,
-      "reason": "14 days (Oct 18-31) $8,082 spend, 0 conversions, daily spend rising ~$525 to ~$644. Self-reported Instagram/Facebook share also fell to 0% in the last two weeks (was ~20%), so this looks like real delivery/creative/pixel failure, not only tracking. Pause is cheap to reverse; re-enable after checking pixel/creative.",
+      "reason": "Zero conversions and $0 revenue for 14 straight days (since 10-18) on $8,082 spend; daily spend rose from ~$525 to ~$644. Self-reported 'Instagram or Facebook ad' also fell to 0% in the last 2 weeks, so it isn't only a tracking gap. Pause is cheap to reverse; restore after checking pixel/creative/account.",
       "confidence": "high",
-      "applied": true
-    },
-    {
-      "channel": "linkedin",
-      "from": 300.0,
-      "to": 210.0,
-      "reason": "Last 7d CPA $148.54, ROAS 0.96 (prior 4wk $168.92, 1.13). Every attribution model gives implied CPA of $76-135, so the result doesn't depend on the model: LinkedIn is below break-even. Cut 30% (300 to 210) rather than pause because it only gets 4.8-8.5% of credit and self-reported LinkedIn is 3-9%.",
-      "confidence": "medium",
       "applied": true
     }
   ],
   "tests": [
     {
       "channel": "google_search",
-      "hypothesis": "Google Search gets 33% (first-touch) to 66% (last-touch) of credit. Part of that is last-click capture of buyers that email, Meta, or AI assistants persuaded first. A holdout will show how many conversions are truly incremental.",
-      "design": "Geo split: pause Google Search (brand terms first, then non-brand) in about 20% of matched regions for 3-4 weeks. Keep the rest unchanged. Measure total conversions and revenue from all channels, direct included, in held-out and control regions. Compare against pre-period trends. Start after Meta is resolved so the two changes don't overlap."
+      "hypothesis": "Google search's last-click ROAS (7.4-7.6) overstates its incremental value; attribution models put it at 4.9 (first touch) to 9.7 (last touch), and CPA is up 30% since Oct 5 while direct and AI-referred buyers grew.",
+      "design": "Geo split holdout: pause or cut 50% of search spend in ~20% of matched regions for 3-4 weeks. Measure total conversions (all channels including direct) in held vs control regions, plus the self-reported 'Google' share. Brand and non-brand campaigns are split so we can see which one drives any drop."
+    },
+    {
+      "channel": "linkedin",
+      "hypothesis": "LinkedIn is above the 1.5 ROAS target under 4 of 5 models (1.88-2.49) but below it under last-touch (1.41), and its CPA is up 31% over 3 weeks. A holdout will show whether it is incremental.",
+      "design": "Pause LinkedIn for a random 50% of the target account list for 4 weeks. Compare total conversions and pipeline from held vs exposed accounts, including direct and untracked conversions."
     }
   ],
   "flag_verdicts": [
     {
       "flag_id": "F1",
       "verdict": "act",
-      "reason": "Meta had 0 conversions on every day from Oct 18 to Oct 31 on $8,082 of spend, and daily spend rose from $526 to $644. Self-reported Instagram/Facebook also fell to 0% in the last two weeks, so the failure looks real and not just a tracking gap. Paused."
+      "reason": "Meta had 0 conversions and $0 revenue from 10-18 to 10-31 on $8,082 spend, with daily spend rising from $526 to $644. Self-reported Instagram/Facebook share is also 0% in the last 2 weeks. Paused."
     },
     {
       "flag_id": "F2",
       "verdict": "watch",
-      "reason": "Direct rose from 2.2 to 5.4/day while paid spend moved 1.02x. Self-reported AI answers (AI assistant plus ChatGPT) rose from about 6% to 22%. Credit goes to AI and word of mouth, not to any paid channel. No budget move. Direct has since eased from 45 to 31 conversions/week, so I'm watching it."
+      "reason": "Direct conversions grew from 2.2 to 5.4/day while paid spend moved 1.02x. Self-reported AI answers ('AI assistant' plus 'Asked ChatGPT') rose from about 6% to 22-29%. This points to an untracked AI-referral source, not paid. No paid channel should get credit or budget for it. Direct has fallen from 43 to 31 conversions/week in the last 2 weeks, so keep watching."
     }
   ],
   "flags": [
@@ -77,14 +74,14 @@
     "review_last_run",
     "get_overview",
     "get_flags",
+    "get_trends",
     "get_ledger",
     "compare_attribution",
     "get_self_reported",
     "drill_down",
     "drill_down",
-    "drill_down",
     "set_budget",
-    "set_budget",
+    "recommend_test",
     "recommend_test",
     "write_memo"
   ],
@@ -96,7 +93,7 @@
   "budgets_after": {
     "google_search": 600,
     "meta": 0.0,
-    "linkedin": 210.0,
+    "linkedin": 300,
     "email": 40
   }
 }

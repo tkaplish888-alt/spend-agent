@@ -1,0 +1,332 @@
+{
+  "label": "synthetic data",
+  "ran_at": "2026-11-11T23:48:27+00:00",
+  "scenarios_passed": 6,
+  "scenarios": 8,
+  "checks_passed": 61,
+  "checks": 63,
+  "results": [
+    {
+      "scenario": "baseline_new_seed",
+      "about": "Same kinds of problems as the demo, new random account.",
+      "expected": {
+        "cut": "meta",
+        "pause": "linkedin",
+        "healthy": [
+          "google_search",
+          "email"
+        ],
+        "false_alarm": true,
+        "dark_funnel": true,
+        "email_under_credited": true
+      },
+      "passed": false,
+      "checks": {
+        "cut meta (costs rose)": true,
+        "paused linkedin (no results)": true,
+        "left healthy google_search alone (no cut over 25%)": true,
+        "left healthy email alone (no cut over 25%)": true,
+        "didn't act on the false alarm": true,
+        "explained the AI-driven buyers": true,
+        "didn't hand that credit to Google": true,
+        "spotted email's missing credit": false,
+        "reviewed last week first": true
+      },
+      "headline": "LinkedIn spent $5,249 over 14 days with zero conversions and is paused; Meta CPA is up 2.2x so it is trimmed 25%; the direct surge tracks AI-assistant referrals, not paid.",
+      "confidence": "medium",
+      "moves": [
+        {
+          "channel": "linkedin",
+          "from": 450.0,
+          "to": 0.0,
+          "confidence": "high"
+        },
+        {
+          "channel": "meta",
+          "from": 500.0,
+          "to": 375.0,
+          "confidence": "medium"
+        }
+      ],
+      "tests": [
+        "meta"
+      ],
+      "tool_calls": 12
+    },
+    {
+      "scenario": "subtler_cost_spike",
+      "about": "Meta's CPA rises about 1.5x instead of 2x, right at the flag threshold.",
+      "expected": {
+        "cut": "meta",
+        "pause": "linkedin",
+        "healthy": [
+          "google_search",
+          "email"
+        ],
+        "false_alarm": true,
+        "dark_funnel": true,
+        "email_under_credited": true
+      },
+      "passed": true,
+      "checks": {
+        "cut meta (costs rose)": true,
+        "paused linkedin (no results)": true,
+        "left healthy google_search alone (no cut over 25%)": true,
+        "left healthy email alone (no cut over 25%)": true,
+        "didn't act on the false alarm": true,
+        "explained the AI-driven buyers": true,
+        "didn't hand that credit to Google": true,
+        "spotted email's missing credit": true,
+        "reviewed last week first": true
+      },
+      "headline": "LinkedIn spent $5,417 over 14 days with zero conversions and is paused; Meta CPA is up about 50% and trimmed 15%; direct growth looks AI-driven, not paid.",
+      "confidence": "medium",
+      "moves": [
+        {
+          "channel": "linkedin",
+          "from": 450.0,
+          "to": 0.0,
+          "confidence": "high"
+        },
+        {
+          "channel": "meta",
+          "from": 500.0,
+          "to": 425.0,
+          "confidence": "medium"
+        }
+      ],
+      "tests": [
+        "meta",
+        "direct"
+      ],
+      "tool_calls": 13
+    },
+    {
+      "scenario": "problems_swapped",
+      "about": "Costs spike on Google Search and Meta stops converting. Nothing wrong with LinkedIn.",
+      "expected": {
+        "cut": "google_search",
+        "pause": "meta",
+        "healthy": [
+          "linkedin",
+          "email"
+        ],
+        "false_alarm": false,
+        "dark_funnel": true,
+        "email_under_credited": true
+      },
+      "passed": false,
+      "checks": {
+        "cut google_search (costs rose)": false,
+        "paused meta (no results)": true,
+        "left healthy linkedin alone (no cut over 25%)": true,
+        "left healthy email alone (no cut over 25%)": true,
+        "explained the AI-driven buyers": true,
+        "didn't hand that credit to Google": true,
+        "spotted email's missing credit": true,
+        "reviewed last week first": true
+      },
+      "headline": "Meta spent $8,082 over 14 days with zero conversions, so I paused it. Direct growth lines up with AI-assistant mentions, not paid spend.",
+      "confidence": "medium",
+      "moves": [
+        {
+          "channel": "meta",
+          "from": 650.0,
+          "to": 0.0,
+          "confidence": "high"
+        }
+      ],
+      "tests": [
+        "google_search",
+        "linkedin"
+      ],
+      "tool_calls": 13
+    },
+    {
+      "scenario": "healthy_account",
+      "about": "Nothing is wrong. Email is fairly credited and AI-driven buying is minimal. The right move is restraint.",
+      "expected": {
+        "cut": null,
+        "pause": null,
+        "healthy": [
+          "google_search",
+          "meta",
+          "linkedin",
+          "email"
+        ],
+        "false_alarm": false,
+        "dark_funnel": false,
+        "email_under_credited": false
+      },
+      "passed": true,
+      "checks": {
+        "left healthy google_search alone (no cut over 25%)": true,
+        "left healthy meta alone (no cut over 25%)": true,
+        "left healthy linkedin alone (no cut over 25%)": true,
+        "left healthy email alone (no cut over 25%)": true,
+        "reviewed last week first": true
+      },
+      "headline": "No budget moves this week: LinkedIn CPA is up but sits above the 1.5 ROAS target under 4 of 5 attribution models, so I'm testing it rather than cutting.",
+      "confidence": "medium",
+      "moves": [],
+      "tests": [
+        "linkedin"
+      ],
+      "tool_calls": 11
+    },
+    {
+      "scenario": "dark_funnel_heavy",
+      "about": "No paid-channel problems, but AI-assisted buyers grow from 20% to 60%.",
+      "expected": {
+        "cut": null,
+        "pause": null,
+        "healthy": [
+          "google_search",
+          "meta",
+          "linkedin",
+          "email"
+        ],
+        "false_alarm": false,
+        "dark_funnel": true,
+        "email_under_credited": true
+      },
+      "passed": true,
+      "checks": {
+        "left healthy google_search alone (no cut over 25%)": true,
+        "left healthy meta alone (no cut over 25%)": true,
+        "left healthy linkedin alone (no cut over 25%)": true,
+        "left healthy email alone (no cut over 25%)": true,
+        "explained the AI-driven buyers": true,
+        "didn't hand that credit to Google": true,
+        "spotted email's missing credit": true,
+        "reviewed last week first": true
+      },
+      "headline": "Direct conversions jumped 3.6x on flat spend alongside a rise in AI-assistant self-reports, so no paid channel should get the credit and no budgets move this week.",
+      "confidence": "medium",
+      "moves": [],
+      "tests": [
+        "google_search"
+      ],
+      "tool_calls": 11
+    },
+    {
+      "scenario": "false_alarm_only",
+      "about": "Only the harmless Google spend spike. Nothing to cut.",
+      "expected": {
+        "cut": null,
+        "pause": null,
+        "healthy": [
+          "google_search",
+          "meta",
+          "linkedin",
+          "email"
+        ],
+        "false_alarm": true,
+        "dark_funnel": false,
+        "email_under_credited": true
+      },
+      "passed": true,
+      "checks": {
+        "left healthy google_search alone (no cut over 25%)": true,
+        "left healthy meta alone (no cut over 25%)": true,
+        "left healthy linkedin alone (no cut over 25%)": true,
+        "left healthy email alone (no cut over 25%)": true,
+        "didn't act on the false alarm": true,
+        "spotted email's missing credit": true,
+        "reviewed last week first": true
+      },
+      "headline": "No budget moves this week: no channel shows a sustained efficiency drop, and LinkedIn, the weakest channel, is above the 1.5 ROAS target under 4 of 5 attribution models, so it gets a test instead of a cut.",
+      "confidence": "medium",
+      "moves": [],
+      "tests": [
+        "linkedin",
+        "direct"
+      ],
+      "tool_calls": 11
+    },
+    {
+      "scenario": "unseen_cost_spike_linkedin",
+      "about": "Added in v2. LinkedIn's costs rise about 2x; Meta and the rest are fine.",
+      "expected": {
+        "cut": "linkedin",
+        "pause": null,
+        "healthy": [
+          "google_search",
+          "meta",
+          "email"
+        ],
+        "false_alarm": true,
+        "dark_funnel": true,
+        "email_under_credited": true
+      },
+      "passed": true,
+      "checks": {
+        "cut linkedin (costs rose)": true,
+        "left healthy google_search alone (no cut over 25%)": true,
+        "left healthy meta alone (no cut over 25%)": true,
+        "left healthy email alone (no cut over 25%)": true,
+        "didn't act on the false alarm": true,
+        "explained the AI-driven buyers": true,
+        "didn't hand that credit to Google": true,
+        "spotted email's missing credit": true,
+        "reviewed last week first": true
+      },
+      "headline": "Direct conversions are up about 6x (about 10 to 62-66 per week) with no spend change, and self-reports point to AI assistants, so no paid channel should get credit; LinkedIn CPA is up 45% and is trimmed 20%.",
+      "confidence": "medium",
+      "moves": [
+        {
+          "channel": "linkedin",
+          "from": 300.0,
+          "to": 240.0,
+          "confidence": "medium"
+        }
+      ],
+      "tests": [
+        "linkedin"
+      ],
+      "tool_calls": 11
+    },
+    {
+      "scenario": "unseen_email_goes_dark",
+      "about": "Added in v2. Email stops converting for two weeks; moderate AI-driven buying; no other problems.",
+      "expected": {
+        "cut": null,
+        "pause": "email",
+        "healthy": [
+          "google_search",
+          "meta",
+          "linkedin"
+        ],
+        "false_alarm": false,
+        "dark_funnel": true,
+        "email_under_credited": true
+      },
+      "passed": true,
+      "checks": {
+        "paused email (no results)": true,
+        "left healthy google_search alone (no cut over 25%)": true,
+        "left healthy meta alone (no cut over 25%)": true,
+        "left healthy linkedin alone (no cut over 25%)": true,
+        "explained the AI-driven buyers": true,
+        "didn't hand that credit to Google": true,
+        "spotted email's missing credit": true,
+        "reviewed last week first": true
+      },
+      "headline": "Email spent $752 over 15 days with zero conversions, so I paused it. Direct's lift is untracked demand that looks AI-driven, and I left budgets alone.",
+      "confidence": "medium",
+      "moves": [
+        {
+          "channel": "email",
+          "from": 60.0,
+          "to": 0.0,
+          "confidence": "high"
+        }
+      ],
+      "tests": [
+        "linkedin",
+        "email"
+      ],
+      "tool_calls": 12
+    }
+  ]
+}

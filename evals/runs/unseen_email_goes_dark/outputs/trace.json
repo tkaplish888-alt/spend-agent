@@ -1,0 +1,145 @@
+[
+  {
+    "step": 1,
+    "tool": "review_last_run",
+    "input": {},
+    "thought": "",
+    "result_preview": "{\"first_run\": true, \"note\": \"No previous run. Nothing to review.\"}",
+    "ok": true,
+    "ms": 0
+  },
+  {
+    "step": 2,
+    "tool": "get_overview",
+    "input": {},
+    "thought": "",
+    "result_preview": "{\"label\": \"synthetic data\", \"data_range\": [\"2026-08-03\", \"2026-10-31\"], \"note\": \"Conversions are platform-reported (last tracked click). 'direct' has no tracked click.\", \"last_7_days_vs_prior_4_week_average\": [{\"channel\": \"direct\", \"spend\": 0.0, \"conversions\": 46, \"revenue\": 8486.79, \"cpa\": null, \"roas\": null, \"spend_prior4wk_avg\": 0.0, \"conversions_prior4wk_avg\": 43.75, \"revenue_prior4wk_avg\": 8116.72, \"cpa_prior4wk_avg\": null, \"roas_prior4wk_avg\": null}, {\"channel\": \"email\", \"spend\": 391.24, \"",
+    "ok": true,
+    "ms": 6
+  },
+  {
+    "step": 3,
+    "tool": "get_flags",
+    "input": {},
+    "thought": "",
+    "result_preview": "{\"flags\": [{\"rule\": \"spend_without_results\", \"channel\": \"email\", \"severity\": \"critical\", \"since\": \"2026-10-17\", \"evidence\": {\"days\": 15, \"spend\": 751.79, \"daily_spend_trend\": 1.5}, \"message\": \"email spent $752 over 15 days with zero conversions, and spend is still rising.\", \"id\": \"F1\"}, {\"rule\": \"untracked_lift\", \"channel\": \"direct\", \"severity\": \"review\", \"since\": \"2026-10-11\", \"evidence\": {\"direct_per_day_early\": 3.1, \"direct_per_day_late\": 6.9, \"ratio\": 2.25, \"paid_spend_ratio\": 1.01, \"self_re",
+    "ok": true,
+    "ms": 0
+  },
+  {
+    "step": 4,
+    "tool": "get_trends",
+    "input": {
+      "weeks": 13
+    },
+    "thought": "",
+    "result_preview": "{\"channels\": {\"email\": {\"weekly\": [{\"week_start\": \"2026-08-03\", \"spend\": 277.08, \"conversions\": 9, \"cpa\": 30.79, \"roas\": 6.01}, {\"week_start\": \"2026-08-10\", \"spend\": 283.08, \"conversions\": 17, \"cpa\": 16.65, \"roas\": 12.72}, {\"week_start\": \"2026-08-17\", \"spend\": 280.58, \"conversions\": 13, \"cpa\": 21.58, \"roas\": 8.5}, {\"week_start\": \"2026-08-24\", \"spend\": 282.74, \"conversions\": 15, \"cpa\": 18.85, \"roas\": 9.8}, {\"week_start\": \"2026-08-31\", \"spend\": 281.05, \"conversions\": 17, \"cpa\": 16.53, \"roas\": 10.6",
+    "ok": true,
+    "ms": 7
+  },
+  {
+    "step": 5,
+    "tool": "get_ledger",
+    "input": {},
+    "thought": "",
+    "result_preview": "{\"mode\": \"demo\", \"daily_budgets\": {\"google_search\": 600, \"meta\": 500, \"linkedin\": 300, \"email\": 60}, \"min_roas_target\": 1.5, \"staged_this_run\": {}, \"guardrails\": \"Max +50% per channel per run; cuts and pauses (0) allowed. Demo mode: changes apply to the simulated ledger.\"}",
+    "ok": true,
+    "ms": 0
+  },
+  {
+    "step": 6,
+    "tool": "compare_attribution",
+    "input": {},
+    "thought": "",
+    "result_preview": "{\"models\": \"- first_touch: all credit to the first tracked touch\\n- last_touch: all credit to the last tracked touch (what ad platforms report)\\n- linear: credit split evenly across every touch\\n- time_decay: later touches get more, halving for each step back\\n- markov: credit by removal effect, the share of conversions lost if that\\n  channel vanished from every journey (built on a transition matrix)\", \"credit_share_by_model\": {\"direct\": {\"first_touch\": 0.098, \"last_touch\": 0.098, \"linear\": 0.0",
+    "ok": true,
+    "ms": 5
+  },
+  {
+    "step": 7,
+    "tool": "get_self_reported",
+    "input": {},
+    "thought": "",
+    "result_preview": "{\"question\": \"How did you hear about us?\", \"response_rate\": 0.352, \"weekly_answer_share\": [{\"week_start\": \"2026-08-03\", \"An AI assistant recommended you\": 0.043, \"Asked ChatGPT\": 0.011, \"Google\": 0.479, \"Instagram or Facebook ad\": 0.16, \"LinkedIn\": 0.021, \"Word of mouth\": 0.181, \"Your newsletter\": 0.106, \"responses\": 94}, {\"week_start\": \"2026-08-10\", \"An AI assistant recommended you\": 0.025, \"Asked ChatGPT\": 0.074, \"Google\": 0.541, \"Instagram or Facebook ad\": 0.09, \"LinkedIn\": 0.025, \"Word of mo",
+    "ok": true,
+    "ms": 6
+  },
+  {
+    "step": 8,
+    "tool": "drill_down",
+    "input": {
+      "channel": "email",
+      "granularity": "day",
+      "periods": 21
+    },
+    "thought": "",
+    "result_preview": "{\"channel\": \"email\", \"granularity\": \"day\", \"rows\": [{\"date\": \"2026-10-11\", \"spend\": 40.54, \"conversions\": 0, \"revenue\": 0.0, \"cpa\": null, \"roas\": 0.0}, {\"date\": \"2026-10-12\", \"spend\": 40.68, \"conversions\": 3, \"revenue\": 353.91, \"cpa\": 13.56, \"roas\": 8.7}, {\"date\": \"2026-10-13\", \"spend\": 39.38, \"conversions\": 3, \"revenue\": 815.01, \"cpa\": 13.13, \"roas\": 20.7}, {\"date\": \"2026-10-14\", \"spend\": 39.49, \"conversions\": 3, \"revenue\": 726.35, \"cpa\": 13.16, \"roas\": 18.39}, {\"date\": \"2026-10-15\", \"spend\": 4",
+    "ok": true,
+    "ms": 2
+  },
+  {
+    "step": 9,
+    "tool": "set_budget",
+    "input": {
+      "channel": "email",
+      "daily_budget": 0,
+      "reason": "Zero conversions for 15 days since 10/17 on $752 spend, with daily spend rising from $39 to $60. Prior 10 weeks averaged about 15 conversions/week. Newsletter self-reports also fell to 0% in the last two weeks, so sends or tracking appear broken. Cheap to reverse once fixed.",
+      "confidence": "high"
+    },
+    "thought": "",
+    "result_preview": "{\"staged\": {\"channel\": \"email\", \"from\": 60.0, \"to\": 0.0, \"reason\": \"Zero conversions for 15 days since 10/17 on $752 spend, with daily spend rising from $39 to $60. Prior 10 weeks averaged about 15 conversions/week. Newsletter self-reports also fell to 0% in the last two weeks, so sends or tracking appear broken. Cheap to reverse once fixed.\", \"confidence\": \"high\"}, \"applies\": \"after this run\"}",
+    "ok": true,
+    "ms": 0
+  },
+  {
+    "step": 10,
+    "tool": "recommend_test",
+    "input": {
+      "channel": "linkedin",
+      "hypothesis": "LinkedIn's true ROAS is above the 1.5 target. Last-touch gives 1.14, while the other four models give 1.70 to 2.33.",
+      "design": "Run a geo holdout. Pause LinkedIn in about 20% of matched regions for 4 weeks and keep it running elsewhere. Measure total conversions and revenue across all channels, including direct and branded search, in held-out vs control regions. Keep the current budget until it reads out."
+    },
+    "thought": "",
+    "result_preview": "{\"recorded\": {\"channel\": \"linkedin\", \"hypothesis\": \"LinkedIn's true ROAS is above the 1.5 target. Last-touch gives 1.14, while the other four models give 1.70 to 2.33.\", \"design\": \"Run a geo holdout. Pause LinkedIn in about 20% of matched regions for 4 weeks and keep it running elsewhere. Measure total conversions and revenue across all channels, including direct and branded search, in held-out vs control regions. Keep the current budget until it reads out.\"}}",
+    "ok": true,
+    "ms": 0
+  },
+  {
+    "step": 11,
+    "tool": "recommend_test",
+    "input": {
+      "channel": "email",
+      "hypothesis": "Email's tracked conversions stopped on 10/17 because of a tracking or send failure, not because buyers stopped. Models credit it between 3.5% (last-touch) and 21% (first-touch).",
+      "design": "First, audit the send logs and UTM/conversion tracking from 10/17 onward. Once it is fixed, restart with a 10% random holdout of the list for 4 weeks. Compare conversions and revenue per recipient, tracked and untracked, between the held-out and emailed groups."
+    },
+    "thought": "",
+    "result_preview": "{\"recorded\": {\"channel\": \"email\", \"hypothesis\": \"Email's tracked conversions stopped on 10/17 because of a tracking or send failure, not because buyers stopped. Models credit it between 3.5% (last-touch) and 21% (first-touch).\", \"design\": \"First, audit the send logs and UTM/conversion tracking from 10/17 onward. Once it is fixed, restart with a 10% random holdout of the list for 4 weeks. Compare conversions and revenue per recipient, tracked and untracked, between the held-out and emailed groups",
+    "ok": true,
+    "ms": 0
+  },
+  {
+    "step": 12,
+    "tool": "write_memo",
+    "input": {
+      "headline": "Email spent $752 over 15 days with zero conversions, so I paused it. Direct's lift is untracked demand that looks AI-driven, and I left budgets alone.",
+      "overall_confidence": "medium",
+      "flag_verdicts": [
+        {
+          "flag_id": "F1",
+          "verdict": "act",
+          "reason": "Email has had 0 conversions since 10/17. It spent $752 over 15 days, and daily spend rose from $39 to $60. It averaged about 15 conversions a week before that. Newsletter self-reports fell to 0% in the last two weeks. Paused."
+        },
+        {
+          "flag_id": "F2",
+          "verdict": "watch",
+          "reason": "Direct rose from 3.1 to 6.9 conversions a day while paid spend moved 1.01x. 'Asked ChatGPT' answers rose from about 1% to 14-18%, and 'AI assistant' answers rose from 11% to 22% combined in the flag's window. That points to AI-driven discovery, not a paid channel, so I did not credit or move any paid budget. Keep monitoring."
+        }
+      ],
+      "memo_markdown": "*All data here is synthetic.*\n\n## Last week's moves\nFirst run, so there are no prior moves to judge.\n\n## What's happening\n- **Email:** 0 conversions from 10/17 to 10/31 on $752 spend. Daily spend climbed from $39 to $60. Before 10/17 it averaged about 15 conversions a week at about $20 CPA. Self-reported \"newsletter\" answers dropped from about 10% to 0% in the last two weeks. This looks like a broken send or tracking, and either way the spend is waste.\n- **Direct:** 3.1 to 6.9 conversions a day (2.2x) with flat paid spend. Self-reported \"Asked ChatGPT\" answers rose from about 1% to 14-18%. Untracked AI-assistant recommendations are the likely driver.\n- **Google Search:** CPA $17.76 over the last 3 weeks vs $18.22 earlier, and ROAS about 10. Stable.\n- **Meta:** CPA $55.21 vs $57.68, ROAS about 3.4. Stable.\n- **LinkedIn:** CPA $139.57 vs $173.55, so no deterioration. Last-touch ROAS is 0.98 for the latest week, which is below the 1.5 target.\n\nThe last week of data has only 6 days, so the lower weekly spend on every channel is not a real drop.\n\n## Moves\n- **Email:** daily budget $60 to $0. Cheap to reverse once tracking and sends are verified.\n- **Google Search, Meta, LinkedIn:** no change.\n\n## Where the models disagree\n- **Google Search:** credit ranges from 36% (first-touch) to 66% (last-touch), so its ROAS is 5.7 to 10.4. It clears the 1.5 target under every model.\n- **Email:** credit ranges from 3.5% to 21%, so its ROAS is 7.9 to 47.7. It is above target under every model, but the data is currently broken.\n- **LinkedIn:** ROAS is 1.14 under last-touch and 1.70 to 2.33 under the other four models. It is below target under only one model, so I won't cut it on that alone.\n\n## Test to run\n- **LinkedIn:** a 4-week geo holdout (about 20% of regions) measuring total conversions across all channels.\n- **Email:** audit the sends and tracking, then restart with a 10% list holdout.\n\n## Confidence\nMedium overall. I'm highly confident the email spend is wasted. I'm less sure whether the cause is tracking or sending. I'd change my mind on email if the logs show sends were delivered and sales were attributed elsewhere. I'd change my mind on LinkedIn if the holdout shows no drop in total conversions."
+    },
+    "thought": "",
+    "result_preview": "{\"done\": true}",
+    "ok": true,
+    "ms": 0
+  }
+]

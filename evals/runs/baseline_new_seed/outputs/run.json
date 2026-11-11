@@ -1,59 +1,54 @@
 {
   "run": 1,
-  "ran_at": "2026-11-11T23:25:36+00:00",
+  "ran_at": "2026-11-11T23:45:57+00:00",
   "data_end": "2026-10-31",
-  "headline": "LinkedIn spent $5,249 over 14 days with zero conversions and is paused; Meta CPA is up 2.4x and is cut 30%; the direct surge looks AI-driven, not paid-driven.",
+  "headline": "LinkedIn spent $5,249 over 14 days with zero conversions and is paused; Meta CPA is up 2.2x so it is trimmed 25%; the direct surge tracks AI-assistant referrals, not paid.",
   "confidence": "medium",
   "moves": [
     {
       "channel": "linkedin",
       "from": 450.0,
       "to": 0.0,
-      "reason": "14 days, $5,249 spend, 0 conversions; daily spend climbed from ~$290 to ~$423 (+46%). Before that, CPA was ~$185 (ROAS 1.02). Self-reported LinkedIn share fell to 0% in the last 2 weeks. All attribution models put its CPA at $93-197. Pause is cheap to reverse.",
+      "reason": "Zero conversions for 14 days (since 10/18) on $5,249 spend, with daily spend climbing from ~$300 to ~$423 (rising even above the $450 budget trend). Last-3-week CPA is $412 vs $168 earlier. Likely tracking break or delivery fault; either way the spend is waste. Cheap to reverse once tracking is verified.",
       "confidence": "high",
       "applied": true
     },
     {
       "channel": "meta",
       "from": 500.0,
-      "to": 350.0,
-      "reason": "Spend flat (~$3.5k/wk) but CPA rose from ~$58 (Aug-Sep) to $130-156 over the last 3 weeks; ROAS 3.1 to 1.3. Self-reported Instagram/Facebook share fell 18% to 6%, so the decline is corroborated and not just a tracking artifact. Even the most favorable model (first-touch) gives CPA $46, well above search at $17-33. Partial cut (-30%) rather than pause because the models still credit Meta 14-22% of conversions.",
+      "to": 375.0,
+      "reason": "CPA up 2.2x over the last 3 weeks ($64.54 to $143.82) on flat spend (~$3.4k/wk). Last-click ROAS 1.17-1.35 for 3 weeks, below the 1.5 target. Self-reported Instagram/Facebook share fell from 18% to 6%, which corroborates a real decline. Attribution models still show ROAS 2.55-4.09 (above target), so trim 25% rather than cut, and test.",
       "confidence": "medium",
       "applied": true
     }
   ],
   "tests": [
     {
-      "channel": "google_search",
-      "hypothesis": "Google Search is credited 39% (first-touch) to 69% (last-touch) of conversions, so its true incremental share is unknown. Part of its last-click credit may be capturing buyers sent by AI assistants or other channels.",
-      "design": "Geo split holdout: pause non-brand and brand search in ~20% of matched regions for 3-4 weeks, with the rest unchanged. Measure total conversions (all sources, including direct) per region, plus self-reported 'Google' share. Pre-register the lift threshold. Do not scale search before the result."
-    },
-    {
-      "channel": "email",
-      "hypothesis": "Email gets 5% of credit under last-touch but 22% under first-touch (CPA $3.65-$16.74). It may be much more valuable than reported, and it is cheap at $40/day.",
-      "design": "Randomly hold out 10% of the email list for 4 weeks. Compare conversion rate and revenue per recipient between held-out and mailed groups, including conversions with no tracked source."
+      "channel": "meta",
+      "hypothesis": "Meta's decline since ~9/28 is real lost efficiency, not just a last-click measurement artifact. If it is real, holding out Meta will cost few total conversions.",
+      "design": "Geo split holdout: pause Meta in ~20% of matched regions for 3-4 weeks while the rest runs at the trimmed $375/day. Measure total conversions (all channels, including direct) and revenue per region, and compare against the holdout. Also audit Meta pixel/CAPI and creative fatigue around 9/28 before reading results."
     }
   ],
   "flag_verdicts": [
     {
       "flag_id": "F1",
       "verdict": "act",
-      "reason": "Zero conversions for 14 days on $5,249, while daily spend rose from ~$290 to ~$423. Self-reported LinkedIn is 0% in the last 2 weeks. Paused."
+      "reason": "14 days, $5,249, 0 conversions, daily spend rising from ~$300 to ~$423. Paused. Check the tracking tag before re-enabling."
     },
     {
       "flag_id": "F2",
       "verdict": "act",
-      "reason": "Meta CPA went from ~$58 to $130-156 on flat spend. Self-reported Instagram/Facebook share fell 18% to 6%, which corroborates a real decline. Budget cut from $500 to $350/day."
+      "reason": "Meta CPA went from $64.54 to $143.82 (2.2x) over 3 weeks on flat spend. Self-reported Instagram/Facebook share fell from 18% to 6%. Trimmed 25% and a geo holdout test is recommended."
     },
     {
       "flag_id": "F3",
       "verdict": "dismiss",
-      "reason": "Search spend spike of 1.7x the median on 9/12-9/18 held CPA at $23.58 vs $19.34. The latest week's CPA is $17.13, in line with the prior 4-week average of $16.94. No action needed."
+      "reason": "The 9/12-9/18 spend spike (peak week $6,490) held CPA at $22 vs $20-21. Efficiency has since improved to $16-18. No action."
     },
     {
       "flag_id": "F4",
       "verdict": "watch",
-      "reason": "Direct rose from 1.8 to 7.6/day (4.2x) while paid spend moved 1.03x. Self-reported AI answers rose from 7% to 23%. Paid channels should not get credit for this, so there is no budget move. Keep monitoring."
+      "reason": "Direct rose from 1.8 to 7.6/day (4.2x) on paid spend at 1.03x. Self-reported AI answers (AI assistant plus ChatGPT) went from 7% to 23%, so an untracked AI-referral source is the likely cause. Don't credit paid channels or move budget on it."
     }
   ],
   "flags": [
@@ -117,19 +112,18 @@
       "id": "F4"
     }
   ],
-  "tool_calls": 13,
+  "tool_calls": 12,
   "tools_used": [
     "review_last_run",
     "get_overview",
     "get_flags",
+    "get_trends",
     "get_ledger",
     "compare_attribution",
     "get_self_reported",
     "drill_down",
-    "drill_down",
     "set_budget",
     "set_budget",
-    "recommend_test",
     "recommend_test",
     "write_memo"
   ],
@@ -140,7 +134,7 @@
   ],
   "budgets_after": {
     "google_search": 600,
-    "meta": 350.0,
+    "meta": 375.0,
     "linkedin": 0.0,
     "email": 40
   }

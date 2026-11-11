@@ -1,30 +1,27 @@
-*All data here is synthetic.*
+*All data in this report is synthetic.*
 
 ## Last week's moves
-First run. Nothing to review.
+First run. No prior moves to judge.
 
 ## What's happening
-- **Meta is broken.** It had 0 conversions on every day Oct 18-31 on $8,082 of spend. Daily spend rose from $526 to $644. The prior 4-week average was 44.75 conversions/week at $80 CPA. Self-reported "Instagram or Facebook ad" fell from about 20% to 0% in the last two weeks. Likely causes are a pixel, creative or delivery failure.
-- **Direct grew without paid support.** Direct went from 2.2 to 5.4/day (2.4x) while paid spend moved 1.02x. Self-reported "AI assistant" plus "Asked ChatGPT" rose from about 6% to 22%. I credit this to AI recommendations and make no paid move.
-- **Google Search efficiency fell.** CPA went from $16-18 in September to $24.24 in the last 7 days. Conversions fell from 233 (week of Sep 28) to 143 (week of Oct 26) on roughly flat spend. The decline began before the Meta outage. Self-reported Google is steady at about 40%. I made no change, and the test below addresses it.
-- **LinkedIn is below break-even.** Last 7 days: CPA $148.54, ROAS 0.96.
-- **Email is cheap.** CPA $23.30 and ROAS 8.39 on $280/week. Its first-touch credit is 26% against 4% last-touch.
+- **Meta:** 0 conversions for 14 days (10-18 to 10-31) on $8,082 spend. Daily spend rose from $526 to $644. Weekly CPA was $48-65 until the week of 10-05, then $87 (week of 10-12), then no conversions. Self-reported "Instagram or Facebook ad" fell from about 20% to 0% over the same 2 weeks, so this is probably a real failure (broken ads, account or pixel) rather than only a tracking gap.
+- **Direct / untracked:** Direct went from 13 conversions/week in early August to 31-45/week since mid-September. Paid spend was flat. Self-reported AI answers rose from about 6% to 22-29%. Something untracked, likely AI-assistant referrals, is driving buyers.
+- **Google search:** CPA is up 30%, from $18.58 to $24.12. Spend is flat at about $4.2k/week. Conversions fell from about 230 to about 175/week starting the week of 10-05. This is below the 40% trigger, so I did not trim it. ROAS is 7.4-8.0, far above the 1.5 target.
+- **LinkedIn:** CPA is up 31%, from $128 to $168. Last-touch ROAS is 1.12 (reported) or 1.41 (attribution model), under the 1.5 target. The other four models give 1.88-2.49, above target. It is not below target under every model, so I did not cut it.
+- **Email:** Stable. CPA is about $23 and ROAS 8.4.
 
 ## Moves
-- Meta: $650 to $0/day. Paused while the outage is investigated. High confidence.
-- LinkedIn: $300 to $210/day. Every model implies a CPA of $76-135, so the case doesn't depend on the model. Medium confidence.
-- Google Search and Email: unchanged.
+- **Meta:** $650/day → $0. 14 days of zero results is waste. It is easy to reverse once the ads and tracking are checked.
+- No other changes.
 
 ## Where the models disagree
-- Google Search credit ranges from 33% (first-touch) to 66% (last-touch). Implied CPA ranges from $19.58 to $38.97.
-- Email credit ranges from 4% (last-touch) to 26% (first-touch). Implied CPA ranges from $3.35 to $20.68.
-- I did not scale either channel on one model's say-so.
+- **Google search:** credit share runs from 33% (first touch) to 66% (last touch). Implied ROAS is 4.9 to 9.7, above target in every case.
+- **Email:** credit share runs from 4% (last touch) to 26% (first touch). Implied ROAS is 9 to 57. Email is likely undervalued by last click, but the budget is only $40/day.
+- **LinkedIn:** implied ROAS is 1.41 to 2.49, straddling the 1.5 target.
 
 ## Test to run
-Geo holdout of Google Search in about 20% of matched regions for 3-4 weeks. Measure total conversions across all channels, direct included. Start it after Meta is resolved so the two changes don't overlap. An email holdout is a sensible follow-up.
+- **Google search:** a geo holdout, cutting 50% of spend in about 20% of matched regions for 3-4 weeks. Measure total conversions including direct, and the self-reported "Google" share.
+- **LinkedIn:** a 50% account-list holdout for 4 weeks.
 
 ## Confidence
-Medium overall. High on the Meta pause. Medium on LinkedIn. I would reverse the Meta pause once the pixel and creative are fixed and test conversions appear. Three things would change my mind:
-- A continuing Google decline after the Meta outage is resolved.
-- Direct staying elevated while AI mentions fall.
-- A LinkedIn holdout showing real lift.
+Medium overall. High confidence on the Meta pause. Lower confidence on the cause of the direct lift. I would change my mind if Meta conversions show up in a delayed report (a tracking gap), or if direct drops while AI answers stay high. I would trim Google search if its CPA rises above about $26 (40% over its earlier level).

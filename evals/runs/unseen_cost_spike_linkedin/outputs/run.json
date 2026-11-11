@@ -1,0 +1,114 @@
+{
+  "run": 1,
+  "ran_at": "2026-11-11T23:48:06+00:00",
+  "data_end": "2026-10-31",
+  "headline": "Direct conversions are up about 6x (about 10 to 62-66 per week) with no spend change, and self-reports point to AI assistants, so no paid channel should get credit; LinkedIn CPA is up 45% and is trimmed 20%.",
+  "confidence": "medium",
+  "moves": [
+    {
+      "channel": "linkedin",
+      "from": 300.0,
+      "to": 240.0,
+      "reason": "CPA last 3 wks $282.6 vs $195.6 earlier (+45%) on flat spend (-6%); flag F1 level shift $150->$248 since 8/28. Last-touch ROAS 0.89 and time-decay 1.34 are below the 1.5 target, but first-touch 1.9, Markov 1.83 and linear 1.53 are above, so no full cut. Trim 20% and test.",
+      "confidence": "medium",
+      "applied": true
+    }
+  ],
+  "tests": [
+    {
+      "channel": "linkedin",
+      "hypothesis": "LinkedIn's true incremental ROAS is above the 1.5 target (as first-touch/Markov/linear imply), and the CPA rise since 8/28 is not just lost incremental value.",
+      "design": "Geo or audience holdout: suppress LinkedIn for a random 50% of target accounts or regions for 4 weeks while keeping the rest at the trimmed $240/day. Measure total conversions and revenue (all channels including direct and email) in held-out versus exposed groups. Pause LinkedIn if lift is under the 1.5 ROAS break-even."
+    }
+  ],
+  "flag_verdicts": [
+    {
+      "flag_id": "F1",
+      "verdict": "act",
+      "reason": "LinkedIn CPA $282.6 over the last 3 weeks vs $195.6 earlier (+45%) on flat spend. Trimmed 20% ($300 to $240/day) and holdout test recommended. Not paused, because 3 of 5 models put ROAS above the 1.5 target."
+    },
+    {
+      "flag_id": "F2",
+      "verdict": "dismiss",
+      "reason": "Google spend spike on 9/12-9/18 (weekly spend $5.2k and $6.7k vs about $4.1k baseline) lifted CPA to about $21-22. It has since reverted: last 3 weeks CPA is $14.51 and ROAS is 12-13. Efficiency is better than before the spike."
+    },
+    {
+      "flag_id": "F3",
+      "verdict": "watch",
+      "reason": "Direct rose from 10-15 per week in August to 59-66 per week in the last 3 weeks, with zero paid-spend change. Self-reported 'Asked ChatGPT' went from 0.9% to 19.3% in the latest week, and 'AI assistant' from 0% to 5-8%. The buyers are most likely AI-driven and untracked. I credited no paid channel and moved no budget on it."
+    }
+  ],
+  "flags": [
+    {
+      "rule": "cpa_level_shift",
+      "channel": "linkedin",
+      "severity": "warning",
+      "since": "2026-08-28",
+      "evidence": {
+        "cpa_before": 150.01,
+        "cpa_after": 247.54,
+        "ratio": 1.65,
+        "days_after": 65
+      },
+      "message": "linkedin CPA rose 1.7x, from $150 to $248, starting 2026-08-28.",
+      "id": "F1"
+    },
+    {
+      "rule": "spend_spike",
+      "channel": "google_search",
+      "severity": "warning",
+      "since": "2026-09-12",
+      "until": "2026-09-18",
+      "evidence": {
+        "days": 7,
+        "spend_vs_median": 1.79,
+        "cpa_during": 23.9,
+        "cpa_before": 17.13,
+        "cpa_ratio": 1.39
+      },
+      "message": "google_search spend jumped for 7 days (2026-09-12 to 2026-09-18); CPA rose to $24 from $17.",
+      "id": "F2"
+    },
+    {
+      "rule": "untracked_lift",
+      "channel": "direct",
+      "severity": "review",
+      "since": "2026-10-11",
+      "evidence": {
+        "direct_per_day_early": 1.6,
+        "direct_per_day_late": 9.3,
+        "ratio": 5.78,
+        "paid_spend_ratio": 1.0,
+        "self_reported_ai_share_early": 0.058,
+        "self_reported_ai_share_late": 0.203
+      },
+      "message": "Direct conversions grew 5.8x (1.6 to 9.3/day) while paid spend moved 1.00x. Self-reported AI answers went from 6% to 20%. Something untracked is driving buyers.",
+      "id": "F3"
+    }
+  ],
+  "tool_calls": 11,
+  "tools_used": [
+    "review_last_run",
+    "get_overview",
+    "get_flags",
+    "get_trends",
+    "get_ledger",
+    "compare_attribution",
+    "get_self_reported",
+    "drill_down",
+    "set_budget",
+    "recommend_test",
+    "write_memo"
+  ],
+  "label": "synthetic data",
+  "data_range": [
+    "2026-08-03",
+    "2026-10-31"
+  ],
+  "budgets_after": {
+    "google_search": 600,
+    "meta": 500,
+    "linkedin": 240.0,
+    "email": 40
+  }
+}

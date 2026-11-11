@@ -1,0 +1,31 @@
+[
+  {
+    "rule": "spend_without_results",
+    "channel": "email",
+    "severity": "critical",
+    "since": "2026-10-17",
+    "evidence": {
+      "days": 15,
+      "spend": 751.79,
+      "daily_spend_trend": 1.5
+    },
+    "message": "email spent $752 over 15 days with zero conversions, and spend is still rising.",
+    "id": "F1"
+  },
+  {
+    "rule": "untracked_lift",
+    "channel": "direct",
+    "severity": "review",
+    "since": "2026-10-11",
+    "evidence": {
+      "direct_per_day_early": 3.1,
+      "direct_per_day_late": 6.9,
+      "ratio": 2.25,
+      "paid_spend_ratio": 1.01,
+      "self_reported_ai_share_early": 0.106,
+      "self_reported_ai_share_late": 0.216
+    },
+    "message": "Direct conversions grew 2.2x (3.1 to 6.9/day) while paid spend moved 1.01x. Self-reported AI answers went from 11% to 22%. Something untracked is driving buyers.",
+    "id": "F2"
+  }
+]

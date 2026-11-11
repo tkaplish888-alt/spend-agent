@@ -1,0 +1,48 @@
+[
+  {
+    "rule": "cpa_level_shift",
+    "channel": "linkedin",
+    "severity": "warning",
+    "since": "2026-08-28",
+    "evidence": {
+      "cpa_before": 150.01,
+      "cpa_after": 247.54,
+      "ratio": 1.65,
+      "days_after": 65
+    },
+    "message": "linkedin CPA rose 1.7x, from $150 to $248, starting 2026-08-28.",
+    "id": "F1"
+  },
+  {
+    "rule": "spend_spike",
+    "channel": "google_search",
+    "severity": "warning",
+    "since": "2026-09-12",
+    "until": "2026-09-18",
+    "evidence": {
+      "days": 7,
+      "spend_vs_median": 1.79,
+      "cpa_during": 23.9,
+      "cpa_before": 17.13,
+      "cpa_ratio": 1.39
+    },
+    "message": "google_search spend jumped for 7 days (2026-09-12 to 2026-09-18); CPA rose to $24 from $17.",
+    "id": "F2"
+  },
+  {
+    "rule": "untracked_lift",
+    "channel": "direct",
+    "severity": "review",
+    "since": "2026-10-11",
+    "evidence": {
+      "direct_per_day_early": 1.6,
+      "direct_per_day_late": 9.3,
+      "ratio": 5.78,
+      "paid_spend_ratio": 1.0,
+      "self_reported_ai_share_early": 0.058,
+      "self_reported_ai_share_late": 0.203
+    },
+    "message": "Direct conversions grew 5.8x (1.6 to 9.3/day) while paid spend moved 1.00x. Self-reported AI answers went from 6% to 20%. Something untracked is driving buyers.",
+    "id": "F3"
+  }
+]
