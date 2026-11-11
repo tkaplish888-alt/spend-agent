@@ -126,8 +126,11 @@ def grade(entry: dict, memo: str, ledger: dict, start_budgets: dict, exp: dict) 
         checks["didn't hand that credit to Google"] = change("google_search") <= 0.0
     if exp["email_under_credited"]:
         tested = "email" in {t["channel"] for t in entry["tests"]}
-        checks["spotted email's missing credit"] = tested or ("email" in text and any(
-            k in text for k in ["under-credit", "undercredit", "undervalued", "under-valued", "less credit", "little credit"]))
+        # Spotted = tested email, or discussed email's credit gap in the memo
+        # (e.g. "Email gets 4% under last-touch vs 26% first-touch").
+        talks_credit = any("email" in ln and any(k in ln for k in ["credit", "under", "undervalued"])
+                           for ln in text.splitlines())
+        checks["spotted email's missing credit"] = tested or talks_credit
     checks["reviewed last week first"] = bool(entry["tools_used"]) and entry["tools_used"][0] == "review_last_run"
     return checks
 
@@ -163,6 +166,27 @@ def run_scenario(client, base_cfg: dict, name: str, dry: bool = False) -> dict:
     return out
 
 
+def regrade(base_cfg: dict, name: str) -> dict:
+    """Re-score a finished run from its saved outputs, without calling the agent."""
+    from agent.run_week import reset
+    import tempfile
+    cfg = scenario_cfg(base_cfg, name)
+    with tempfile.TemporaryDirectory() as d:
+        reset(cfg, Path(d))
+        start_budgets = json.loads((Path(d) / "state" / "ledger.json").read_text())["daily_budgets"]
+    out_dir = RUNS / name / "outputs"
+    entry = json.loads((out_dir / "run.json").read_text())
+    memo = (out_dir / "memo.md").read_text()
+    ledger = {"daily_budgets": entry["budgets_after"]}
+    exp = expectations(cfg["demo"])
+    checks = grade(entry, memo, ledger, start_budgets, exp)
+    return {"scenario": name, "about": SCENARIOS[name]["about"], "expected": exp,
+            "passed": all(checks.values()), "checks": checks,
+            "headline": entry["headline"], "confidence": entry["confidence"],
+            "moves": [{k: m[k] for k in ("channel", "from", "to", "confidence")} for m in entry["moves"]],
+            "tests": [t["channel"] for t in entry["tests"]], "tool_calls": entry["tool_calls"]}
+
+
 def write_report(results: list[dict]) -> None:
     graded = [r for r in results if "passed" in r]
     n_pass = sum(r["passed"] for r in graded)
@@ -192,11 +216,16 @@ def write_report(results: list[dict]) -> None:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--only", nargs="*", help="Scenario names to run")
+    ap.add_argument("--regrade", action="store_true", help="Re-score saved runs; no agent calls")
     ap.add_argument("--dry-run", action="store_true", help="Build accounts and list flags; no agent calls")
     args = ap.parse_args()
     base = yaml.safe_load((ROOT / "config.yaml").read_text())
     names = args.only or list(SCENARIOS)
     client = None
+    if args.regrade:
+        write_report([regrade(base, n) for n in names])
+        print((ROOT / "evals" / "RESULTS.md").read_text().splitlines()[2])
+        return
     if not args.dry_run:
         import anthropic
         client = anthropic.Anthropic()

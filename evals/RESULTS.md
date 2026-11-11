@@ -1,6 +1,6 @@
 # Held-out eval results
 
-**3 of 6 scenarios passed** (40 of 46 checks). Each scenario is a fresh synthetic account the agent was not built around, graded against what that scenario planted. One run per scenario.
+**3 of 6 scenarios passed** (42 of 46 checks). Each scenario is a fresh synthetic account the agent was not built around, graded against what that scenario planted. One run per scenario.
 
 ## ✅ baseline_new_seed
 
@@ -46,7 +46,7 @@ Agent: Meta spent $8,082 over 14 days with zero conversions, so I paused it. Dir
 - ✅ left healthy email alone (no cut over 25%)
 - ✅ explained the AI-driven buyers
 - ✅ didn't hand that credit to Google
-- ❌ spotted email's missing credit
+- ✅ spotted email's missing credit
 - ✅ reviewed last week first
 
 ## ✅ healthy_account
@@ -87,5 +87,5 @@ Agent: Cut LinkedIn 33% ($300 to $200/day) because every model shows it is the c
 - ❌ left healthy linkedin alone (no cut over 25%)
 - ✅ left healthy email alone (no cut over 25%)
 - ✅ didn't act on the false alarm
-- ❌ spotted email's missing credit
+- ✅ spotted email's missing credit
 - ✅ reviewed last week first

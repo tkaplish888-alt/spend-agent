@@ -1,9 +1,9 @@
 {
   "label": "synthetic data",
-  "ran_at": "2026-11-11T23:27:39+00:00",
+  "ran_at": "2026-11-11T23:28:43+00:00",
   "scenarios_passed": 3,
   "scenarios": 6,
-  "checks_passed": 40,
+  "checks_passed": 42,
   "checks": 46,
   "results": [
     {
@@ -124,7 +124,7 @@
         "left healthy email alone (no cut over 25%)": true,
         "explained the AI-driven buyers": true,
         "didn't hand that credit to Google": true,
-        "spotted email's missing credit": false,
+        "spotted email's missing credit": true,
         "reviewed last week first": true
       },
       "headline": "Meta spent $8,082 over 14 days with zero conversions, so I paused it. Direct's 2.4x rise lines up with AI-assistant mentions, not paid spend.",
@@ -253,7 +253,7 @@
         "left healthy linkedin alone (no cut over 25%)": false,
         "left healthy email alone (no cut over 25%)": true,
         "didn't act on the false alarm": true,
-        "spotted email's missing credit": false,
+        "spotted email's missing credit": true,
         "reviewed last week first": true
       },
       "headline": "Cut LinkedIn 33% ($300 to $200/day) because every model shows it is the costliest channel at about $139 CPA, and test Google search incrementality before moving its budget.",
