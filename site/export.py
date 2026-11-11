@@ -98,7 +98,12 @@ def main(root: Path = ROOT) -> dict:
 
     verdicts = {v["flag_id"]: v for v in run.get("flag_verdicts", [])}
     total_true = sum(c["true_conversions"] for c in gt["channels"].values())
+    # Budgets when the agent first took over: the "from" of its first move on a
+    # channel, else the configured budget (LinkedIn had crept up to $450 by then).
     starting = {ch: c["budget"] for ch, c in cfg["demo"]["channels"].items()}
+    for h in reversed(ledger.get("history", [])):
+        for m in h.get("moves", []):
+            starting[m["channel"]] = m["from"]
 
     data = {
         "label": "Synthetic data. Every number here is generated; no real ad account.",
@@ -120,7 +125,8 @@ def main(root: Path = ROOT) -> dict:
         "scorecard": score,
         "trace": [{"step": t["step"], "tool": t["tool"],
                    "label": TOOL_LABELS.get(t["tool"], t["tool"]),
-                   "input": t["input"]} for t in trace],
+                   # Short arguments only; long ones (memo text, test design) live elsewhere on the page.
+                   "input": {k: v for k, v in t["input"].items() if len(str(v)) <= 40}} for t in trace],
         "dark_funnel_scenarios": dark_funnel_scenarios(cfg["demo"]),
     }
     OUT.write_text(json.dumps(data, indent=1))

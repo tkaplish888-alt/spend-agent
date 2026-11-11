@@ -26,8 +26,8 @@
  "budgets": {
   "starting": {
    "google_search": 600,
-   "meta": 500,
-   "linkedin": 300,
+   "meta": 500.0,
+   "linkedin": 450.0,
    "email": 40
   },
   "current": {
@@ -308,9 +308,7 @@
    "tool": "recommend_test",
    "label": "Recommended an incrementality test",
    "input": {
-    "channel": "google_search",
-    "hypothesis": "Google Search's incremental CPA is well above the $19.64 last-click CPA, because last-touch gives it 68% of credit versus 39% first-touch, and 47-50% of buyers say 'Google' while many may have been persuaded by AI assistants or Meta first.",
-    "design": "Geo holdout: pause Google Search in about 15% of matched regions for 3 to 4 weeks, with brand and non-brand campaigns tagged separately and the budget kept at $600/day elsewhere. Measure total conversions (tracked plus direct) per region, plus the self-reported 'Google' share. Compare the drop against the roughly 219 conversions per week Google reports. Don't cut Google until it reads out, since it's about 58% of spend."
+    "channel": "google_search"
    }
   },
   {
@@ -318,31 +316,7 @@
    "tool": "write_memo",
    "label": "Wrote the memo",
    "input": {
-    "headline": "No budget changes this week: the LinkedIn pause and Meta cut are holding, and the direct surge still tracks AI-assistant answers, not paid spend.",
-    "overall_confidence": "medium",
-    "flag_verdicts": [
-     {
-      "flag_id": "F1",
-      "verdict": "watch",
-      "reason": "Meta CPA is $89 this week vs $98-105 before the cut, and ROAS is 1.97 vs 1.95. Spend fell 22% and conversions fell only 31 vs 35.75. The cut did no visible harm. The models disagree on Meta (CPA $45-$70), so hold at $400 until the geo holdout reads out."
-     },
-     {
-      "flag_id": "F2",
-      "verdict": "dismiss",
-      "reason": "Already acted on. LinkedIn is paused at $0 and there were 0 conversions on $5,328 in the 14 days before the pause. Self-reported LinkedIn share is 0% for 3 weeks. Keep it paused."
-     },
-     {
-      "flag_id": "F3",
-      "verdict": "dismiss",
-      "reason": "The Sep 12-18 Google spend spike ran at 1.72x median spend with CPA at $20.56 vs $18.33. Efficiency barely moved, and current CPA is $19.64 with ROAS 9.86. No action."
-     },
-     {
-      "flag_id": "F4",
-      "verdict": "act",
-      "reason": "Direct is 63 conversions/week vs a 56 prior average, and up from about 10/week in early Oct by the flag's measure. Paid spend ratio is 0.95. Self-reported 'Asked ChatGPT' is 24% in the latest week, up from 2-6% in Aug. Treat it as an untracked AI-assistant effect and don't credit any paid channel. No budget move, since there is no AI lever to buy."
-     }
-    ],
-    "memo_markdown": "*Synthetic data throughout.*\n\n## Last week's moves\n- **LinkedIn $450 to $0:** worked. Spend went from $2,965 to $0 and conversions stayed at 0, so nothing was lost. Prior 4-week CPA was $430, with ROAS 0.44.\n- **Meta $500 to $400:** worked so far. Spend fell $3,566 to $2,764 (-22%), conversions went 34 to 31, CPA $105 to $89, ROAS 1.97. This is one week of data, so it is directional only.\n- Account spend fell $11,093 to $7,348. Conversions fell 355 to 325, mostly from the paused LinkedIn and the cut Meta.\n\n## What's happening\n- Google Search is stable: $4,302 spend, 219 conversions (vs 230 prior average), CPA $19.64, ROAS 9.86.\n- Direct is 63 conversions/week vs a 56 prior average (peak 71 in the week of Oct 26) with $0 spend. Self-reported \"Asked ChatGPT\" is 24% this week, up from 2% in early Aug. \"AI assistant recommended\" is 2% this week but 6.5-9% over the prior 4 weeks. Meta self-report is 9% (19% in Aug) and LinkedIn 0%.\n- Email is 12 conversions vs 18.5 prior average, CPA $23.58 vs $15.13. It is on $283/week, and weekly CPA has swung between $13 and $28 since mid-Sep, so this looks like noise.\n\n## Moves\n- None. Google $600, Meta $400, LinkedIn $0 and Email $40 per day all stay. The evidence for changes is thin, and Meta and Google both rest on contested attribution.\n\n## Where the models disagree\n- **Google:** 39% (first-touch) to 68% (last-touch) credit, with implied CPA $19 to $33.\n- **Email:** 4% to 22% credit, with implied CPA $3.61 to $19.21. It is probably undervalued by last click.\n- **Meta:** 14% to 22% credit, with implied CPA $45 to $70.\n- **LinkedIn:** 3% to 7% credit, with implied CPA $86 to $182. Every model is worse than Google, and it had zero conversions at the end.\n\n## Test to run\n1. **Meta geo holdout** (recommended last week, not yet confirmed running): off in about 20% of regions for 4 weeks.\n2. **Google Search geo holdout** (new): off in about 15% of regions for 3-4 weeks, with brand and non-brand split. Measure total conversions and the self-reported Google share. Google is about 58% of spend, so its incrementality matters most.\n\n## Confidence\nMedium. I'd change my mind if:\n- Meta conversions fall by more than the 22% spend cut over the next two weeks.\n- The holdouts show Google or Meta incrementality far from their reported CPAs.\n- Direct reverts without any change in AI-assistant answers."
+    "overall_confidence": "medium"
    }
   }
  ],
