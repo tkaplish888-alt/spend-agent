@@ -1,0 +1,82 @@
+{
+  "run": 1,
+  "ran_at": "2026-11-11T23:27:16+00:00",
+  "data_end": "2026-10-31",
+  "headline": "Direct conversions jumped 3.6x with flat paid spend and AI-sourced self-reports doubled, so the lift is untracked AI-driven demand and no paid channel should be credited or scaled; LinkedIn cut 33%.",
+  "confidence": "medium",
+  "moves": [
+    {
+      "channel": "linkedin",
+      "from": 300.0,
+      "to": 200.0,
+      "reason": "13-wk CPA ~$115-130 and ROAS ~1.5 (last 7d $115 CPA, 1.49 ROAS) vs Google $10 and Meta $67. Attribution models agree it is weakest (implied CPA $74-132 under all five; share 3-6%). Cut 33% is cheap to reverse; stay above zero as only 3.2-5.8% credit means value is low but not proven nil.",
+      "confidence": "medium",
+      "applied": true
+    }
+  ],
+  "tests": [
+    {
+      "channel": "google_search",
+      "hypothesis": "Google's 65% last-touch credit (vs 43% first-touch) is inflated by branded searches from buyers persuaded elsewhere (AI assistants, newsletter); true incremental share is lower than the reported $10.37 CPA implies.",
+      "design": "Geo split holdout for 4 weeks: pause branded search in ~20% of matched regions, keep non-brand running everywhere. Measure total conversions (paid + direct + organic) per region vs control, plus self-reported 'Google' share. Pre-register: if total conversions in held-out regions fall less than ~half of the Google-attributed conversions, treat branded as largely non-incremental and trim it."
+    },
+    {
+      "channel": "direct",
+      "hypothesis": "The direct surge (5.7 to 20.7/day; 33 to 152 weekly) comes from AI-assistant recommendations, not paid media.",
+      "design": "Add 'ChatGPT/AI assistant' as a tracked landing-page source: UTM-tag or referral-capture AI traffic, add a post-purchase question with AI answers split by assistant, and monitor weekly for 6 weeks whether direct conversions track the AI answer share (currently ~37-41% combined) while paid spend stays flat. No budget change on paid channels in response."
+    }
+  ],
+  "flag_verdicts": [
+    {
+      "flag_id": "F1",
+      "verdict": "act",
+      "reason": "Direct rose 5.7 to 20.7/day (weekly 33 to 152) with paid spend at 1.00x. Self-reported AI answers (AI assistant + ChatGPT) rose from ~16% in early Aug to ~41% in the latest week, while 'Instagram/Facebook ad' fell from 20% to 9.5%. Pattern fits AI-driven demand, not paid. Action: no paid scale-up, recommend tracking/test."
+    }
+  ],
+  "flags": [
+    {
+      "rule": "untracked_lift",
+      "channel": "direct",
+      "severity": "review",
+      "since": "2026-10-11",
+      "evidence": {
+        "direct_per_day_early": 5.7,
+        "direct_per_day_late": 20.7,
+        "ratio": 3.62,
+        "paid_spend_ratio": 1.0,
+        "self_reported_ai_share_early": 0.18,
+        "self_reported_ai_share_late": 0.371
+      },
+      "message": "Direct conversions grew 3.6x (5.7 to 20.7/day) while paid spend moved 1.00x. Self-reported AI answers went from 18% to 37%. Something untracked is driving buyers.",
+      "id": "F1"
+    }
+  ],
+  "tool_calls": 14,
+  "tools_used": [
+    "review_last_run",
+    "get_overview",
+    "get_flags",
+    "get_ledger",
+    "compare_attribution",
+    "get_self_reported",
+    "drill_down",
+    "drill_down",
+    "drill_down",
+    "drill_down",
+    "set_budget",
+    "recommend_test",
+    "recommend_test",
+    "write_memo"
+  ],
+  "label": "synthetic data",
+  "data_range": [
+    "2026-08-03",
+    "2026-10-31"
+  ],
+  "budgets_after": {
+    "google_search": 600,
+    "meta": 500,
+    "linkedin": 200.0,
+    "email": 40
+  }
+}

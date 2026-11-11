@@ -1,0 +1,147 @@
+[
+  {
+    "step": 1,
+    "tool": "review_last_run",
+    "input": {},
+    "thought": "",
+    "result_preview": "{\"first_run\": true, \"note\": \"No previous run. Nothing to review.\"}",
+    "ok": true,
+    "ms": 0
+  },
+  {
+    "step": 2,
+    "tool": "get_overview",
+    "input": {},
+    "thought": "",
+    "result_preview": "{\"label\": \"synthetic data\", \"data_range\": [\"2026-08-03\", \"2026-10-31\"], \"note\": \"Conversions are platform-reported (last tracked click). 'direct' has no tracked click.\", \"last_7_days_vs_prior_4_week_average\": [{\"channel\": \"direct\", \"spend\": 0.0, \"conversions\": 3, \"revenue\": 392.9, \"cpa\": null, \"roas\": null, \"spend_prior4wk_avg\": 0.0, \"conversions_prior4wk_avg\": 6.25, \"revenue_prior4wk_avg\": 1186.9, \"cpa_prior4wk_avg\": null, \"roas_prior4wk_avg\": null}, {\"channel\": \"email\", \"spend\": 277.28, \"conve",
+    "ok": true,
+    "ms": 9
+  },
+  {
+    "step": 3,
+    "tool": "get_flags",
+    "input": {},
+    "thought": "",
+    "result_preview": "{\"flags\": [{\"rule\": \"spend_spike\", \"channel\": \"google_search\", \"severity\": \"review\", \"since\": \"2026-09-12\", \"until\": \"2026-09-18\", \"evidence\": {\"days\": 7, \"spend_vs_median\": 1.77, \"cpa_during\": 26.37, \"cpa_before\": 22.67, \"cpa_ratio\": 1.16}, \"message\": \"google_search spend jumped for 7 days (2026-09-12 to 2026-09-18); CPA held at $26 vs $23. Likely fine, confirm before acting.\", \"id\": \"F1\"}, {\"rule\": \"untracked_lift\", \"channel\": \"direct\", \"severity\": \"review\", \"since\": \"2026-10-11\", \"evidence\": ",
+    "ok": true,
+    "ms": 0
+  },
+  {
+    "step": 4,
+    "tool": "get_ledger",
+    "input": {},
+    "thought": "",
+    "result_preview": "{\"mode\": \"demo\", \"daily_budgets\": {\"google_search\": 600, \"meta\": 500, \"linkedin\": 300, \"email\": 40}, \"staged_this_run\": {}, \"guardrails\": \"Max +50% per channel per run; cuts and pauses (0) allowed. Demo mode: changes apply to the simulated ledger.\"}",
+    "ok": true,
+    "ms": 0
+  },
+  {
+    "step": 5,
+    "tool": "compare_attribution",
+    "input": {},
+    "thought": "",
+    "result_preview": "{\"models\": \"- first_touch: all credit to the first tracked touch\\n- last_touch: all credit to the last tracked touch (what ad platforms report)\\n- linear: credit split evenly across every touch\\n- time_decay: later touches get more, halving for each step back\\n- markov: credit by removal effect, the share of conversions lost if that\\n  channel vanished from every journey (built on a transition matrix)\", \"credit_share_by_model\": {\"direct\": {\"first_touch\": 0.014, \"last_touch\": 0.014, \"linear\": 0.0",
+    "ok": true,
+    "ms": 5
+  },
+  {
+    "step": 6,
+    "tool": "get_self_reported",
+    "input": {},
+    "thought": "",
+    "result_preview": "{\"question\": \"How did you hear about us?\", \"response_rate\": 0.365, \"weekly_answer_share\": [{\"week_start\": \"2026-08-03\", \"An AI assistant recommended you\": 0.0, \"Asked ChatGPT\": 0.0, \"Google\": 0.468, \"Instagram or Facebook ad\": 0.234, \"LinkedIn\": 0.052, \"Word of mouth\": 0.143, \"Your newsletter\": 0.104, \"responses\": 77}, {\"week_start\": \"2026-08-10\", \"An AI assistant recommended you\": 0.0, \"Asked ChatGPT\": 0.028, \"Google\": 0.413, \"Instagram or Facebook ad\": 0.211, \"LinkedIn\": 0.083, \"Word of mouth\"",
+    "ok": true,
+    "ms": 8
+  },
+  {
+    "step": 7,
+    "tool": "drill_down",
+    "input": {
+      "channel": "google_search",
+      "granularity": "week",
+      "periods": 13
+    },
+    "thought": "",
+    "result_preview": "{\"channel\": \"google_search\", \"granularity\": \"week\", \"rows\": [{\"week_start\": \"2026-08-03\", \"spend\": 4226.57, \"conversions\": 177, \"revenue\": 34217.87, \"cpa\": 23.88, \"roas\": 8.1}, {\"week_start\": \"2026-08-10\", \"spend\": 4260.37, \"conversions\": 185, \"revenue\": 34262.68, \"cpa\": 23.03, \"roas\": 8.04}, {\"week_start\": \"2026-08-17\", \"spend\": 4143.16, \"conversions\": 214, \"revenue\": 40920.07, \"cpa\": 19.36, \"roas\": 9.88}, {\"week_start\": \"2026-08-24\", \"spend\": 4210.78, \"conversions\": 185, \"revenue\": 35130.44, \"",
+    "ok": true,
+    "ms": 6
+  },
+  {
+    "step": 8,
+    "tool": "drill_down",
+    "input": {
+      "channel": "direct",
+      "granularity": "week",
+      "periods": 13
+    },
+    "thought": "",
+    "result_preview": "{\"channel\": \"direct\", \"granularity\": \"week\", \"rows\": [{\"week_start\": \"2026-08-03\", \"spend\": 0.0, \"conversions\": 2, \"revenue\": 344.17, \"cpa\": null, \"roas\": null}, {\"week_start\": \"2026-08-10\", \"spend\": 0.0, \"conversions\": 3, \"revenue\": 528.45, \"cpa\": null, \"roas\": null}, {\"week_start\": \"2026-08-17\", \"spend\": 0.0, \"conversions\": 5, \"revenue\": 920.94, \"cpa\": null, \"roas\": null}, {\"week_start\": \"2026-08-24\", \"spend\": 0.0, \"conversions\": 3, \"revenue\": 432.93, \"cpa\": null, \"roas\": null}, {\"week_start\":",
+    "ok": true,
+    "ms": 5
+  },
+  {
+    "step": 9,
+    "tool": "drill_down",
+    "input": {
+      "channel": "linkedin",
+      "granularity": "week",
+      "periods": 13
+    },
+    "thought": "",
+    "result_preview": "{\"channel\": \"linkedin\", \"granularity\": \"week\", \"rows\": [{\"week_start\": \"2026-08-03\", \"spend\": 2125.53, \"conversions\": 11, \"revenue\": 1982.78, \"cpa\": 193.23, \"roas\": 0.93}, {\"week_start\": \"2026-08-10\", \"spend\": 2155.65, \"conversions\": 12, \"revenue\": 2225.3, \"cpa\": 179.64, \"roas\": 1.03}, {\"week_start\": \"2026-08-17\", \"spend\": 2047.0, \"conversions\": 12, \"revenue\": 2266.45, \"cpa\": 170.58, \"roas\": 1.11}, {\"week_start\": \"2026-08-24\", \"spend\": 2150.18, \"conversions\": 15, \"revenue\": 2713.93, \"cpa\": 143.3",
+    "ok": true,
+    "ms": 5
+  },
+  {
+    "step": 10,
+    "tool": "set_budget",
+    "input": {
+      "channel": "linkedin",
+      "daily_budget": 200,
+      "reason": "Cut 33%. CPA $138.92 last 7d (4wk avg $138.41), ROAS 1.13 vs 1.35; 13-week CPA never below $97. All five models agree it is the costliest channel (implied CPA $79-$141 vs $43-$58 Meta), spread only 4 pts, so cut is not dependent on one model's rule. Cheap to reverse.",
+      "confidence": "medium"
+    },
+    "thought": "",
+    "result_preview": "{\"staged\": {\"channel\": \"linkedin\", \"from\": 300.0, \"to\": 200.0, \"reason\": \"Cut 33%. CPA $138.92 last 7d (4wk avg $138.41), ROAS 1.13 vs 1.35; 13-week CPA never below $97. All five models agree it is the costliest channel (implied CPA $79-$141 vs $43-$58 Meta), spread only 4 pts, so cut is not dependent on one model's rule. Cheap to reverse.\", \"confidence\": \"medium\"}, \"applies\": \"after this run\"}",
+    "ok": true,
+    "ms": 0
+  },
+  {
+    "step": 11,
+    "tool": "recommend_test",
+    "input": {
+      "channel": "google_search",
+      "hypothesis": "Google search's true incremental share is well below the 66.8% last-touch credit (first-touch 32.3%); a meaningful part of its conversions are captured demand from buyers persuaded by email/Meta/word of mouth.",
+      "design": "Geo-split holdout: pick matched regions, cut Google search (especially brand terms) by ~50% in the treatment half for 4 weeks while holding the rest constant. Measure total conversions and revenue across all channels incl. direct in both halves, plus self-reported 'Google' share. Compare total-conversion drop to the ~185 weekly search conversions reported. Pre-register a stop rule if total conversions drop >15%."
+    },
+    "thought": "",
+    "result_preview": "{\"recorded\": {\"channel\": \"google_search\", \"hypothesis\": \"Google search's true incremental share is well below the 66.8% last-touch credit (first-touch 32.3%); a meaningful part of its conversions are captured demand from buyers persuaded by email/Meta/word of mouth.\", \"design\": \"Geo-split holdout: pick matched regions, cut Google search (especially brand terms) by ~50% in the treatment half for 4 weeks while holding the rest constant. Measure total conversions and revenue across all channels inc",
+    "ok": true,
+    "ms": 0
+  },
+  {
+    "step": 12,
+    "tool": "write_memo",
+    "input": {
+      "headline": "Cut LinkedIn 33% ($300 to $200/day) because every model shows it is the costliest channel at about $139 CPA, and test Google search incrementality before moving its budget.",
+      "overall_confidence": "medium",
+      "flag_verdicts": [
+        {
+          "flag_id": "F1",
+          "verdict": "dismiss",
+          "reason": "Google spend spiked 2026-09-12 to 09-18 (1.77x median). Conversions rose too: 271 in week of 09-14 vs 187 the week before, and CPA was $23.90 vs $28.54. Spend has since returned to about $4.1k/week and the last week's CPA is $19.94. No lasting efficiency loss."
+        },
+        {
+          "flag_id": "F2",
+          "verdict": "watch",
+          "reason": "Direct rose from 0.5 to 0.7 per day with flat paid spend, but the counts are tiny (2-8 per week, only 2 last week, below the prior 4-week average of 6.25). The AI-answer share went 2% to 5% on roughly 100 responses a week, and it fell back to 1% in the latest week. This is too noisy to credit any paid channel, or to act on. Re-check next run."
+        }
+      ],
+      "memo_markdown": "*All data here is synthetic.*\n\n## Last week's moves\nFirst run. There are no prior moves to judge.\n\n## What's happening\n- **Google search** is the largest channel: $4,293 spend, 206 conversions, CPA $20.84 and ROAS 9.10 over the last 7 days. The prior 4-week average was CPA $24.07 and ROAS 7.84. The September spend spike (F1) did not hurt efficiency.\n- **Meta** is steady: CPA $55.99 and ROAS 3.41, against a prior CPA of $58.08 and ROAS 3.17.\n- **LinkedIn** is weak: CPA $138.92 and ROAS 1.13 on $2,084 a week. Its CPA has not been below $97 in any of the last 13 weeks.\n- **Email** is small: $277 a week, CPA $18.49, ROAS 8.58 (down from 11.46).\n- **Direct** has no spend and had 3 conversions in the last 7 days (prior average 6.25). The F2 \"lift\" is 0.5 to 0.7 per day. Self-reported AI answers moved from 2% to 5% and then back to about 1% to 4% in the last two weeks. This is not a reliable signal yet.\n\n## Moves\n- **LinkedIn:** $300 to $200/day. All five models put its implied CPA at $79-$141, versus $43-$58 for Meta, and its credit spread is only 4 points. It is cheap to reverse.\n- **Google search, Meta, Email:** no change.\n\n## Where the models disagree\n- **Google search** gets 32.3% of credit under first-touch and 66.8% under last-touch (spread 34.5 points). Implied CPA ranges from $23 to $48.\n- **Email** gets 5.2% under last-touch and 28.3% under first-touch. Implied CPA ranges from $3.48 to $18.95.\n- I am not scaling or cutting either channel on one model's view.\n\n## Test to run\nRun a geo holdout on Google search, cutting it about 50% in half of matched regions for 4 weeks. Measure total conversions across all channels, including direct and self-reported \"Google\" share. Stop if total conversions drop more than 15%.\n\n## Confidence\nMedium overall. The LinkedIn cut is well supported. The Google and email conclusions are unknown until the test reads out. I would reverse the LinkedIn cut if total conversions fall noticeably after it. I would take F2 seriously if direct stays above 1 per day for 3 or more weeks while the AI-answer share stays above 4%."
+    },
+    "thought": "",
+    "result_preview": "{\"done\": true}",
+    "ok": true,
+    "ms": 0
+  }
+]

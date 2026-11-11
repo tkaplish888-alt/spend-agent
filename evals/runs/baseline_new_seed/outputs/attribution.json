@@ -1,0 +1,76 @@
+{
+  "credit_share": {
+    "direct": {
+      "first_touch": 0.0921,
+      "last_touch": 0.0921,
+      "linear": 0.0921,
+      "time_decay": 0.0921,
+      "markov": 0.0677
+    },
+    "email": {
+      "first_touch": 0.2245,
+      "last_touch": 0.049,
+      "linear": 0.1337,
+      "time_decay": 0.1041,
+      "markov": 0.165
+    },
+    "google_search": {
+      "first_touch": 0.3933,
+      "last_touch": 0.6885,
+      "linear": 0.5367,
+      "time_decay": 0.5877,
+      "markov": 0.5062
+    },
+    "linkedin": {
+      "first_touch": 0.0684,
+      "last_touch": 0.0324,
+      "linear": 0.0548,
+      "time_decay": 0.0481,
+      "markov": 0.0637
+    },
+    "meta": {
+      "first_touch": 0.2217,
+      "last_touch": 0.1381,
+      "linear": 0.1827,
+      "time_decay": 0.168,
+      "markov": 0.1974
+    }
+  },
+  "disagreement": {
+    "google_search": {
+      "min_share": 0.393,
+      "max_share": 0.688,
+      "lowest_model": "first_touch",
+      "highest_model": "last_touch",
+      "spread": 0.295
+    },
+    "email": {
+      "min_share": 0.049,
+      "max_share": 0.224,
+      "lowest_model": "last_touch",
+      "highest_model": "first_touch",
+      "spread": 0.175
+    },
+    "meta": {
+      "min_share": 0.138,
+      "max_share": 0.222,
+      "lowest_model": "last_touch",
+      "highest_model": "first_touch",
+      "spread": 0.084
+    },
+    "linkedin": {
+      "min_share": 0.032,
+      "max_share": 0.068,
+      "lowest_model": "last_touch",
+      "highest_model": "first_touch",
+      "spread": 0.036
+    },
+    "direct": {
+      "min_share": 0.068,
+      "max_share": 0.092,
+      "lowest_model": "markov",
+      "highest_model": "first_touch",
+      "spread": 0.024
+    }
+  }
+}

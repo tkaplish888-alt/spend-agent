@@ -1,0 +1,18 @@
+[
+  {
+    "rule": "untracked_lift",
+    "channel": "direct",
+    "severity": "review",
+    "since": "2026-10-11",
+    "evidence": {
+      "direct_per_day_early": 5.7,
+      "direct_per_day_late": 20.7,
+      "ratio": 3.62,
+      "paid_spend_ratio": 1.0,
+      "self_reported_ai_share_early": 0.18,
+      "self_reported_ai_share_late": 0.371
+    },
+    "message": "Direct conversions grew 3.6x (5.7 to 20.7/day) while paid spend moved 1.00x. Self-reported AI answers went from 18% to 37%. Something untracked is driving buyers.",
+    "id": "F1"
+  }
+]

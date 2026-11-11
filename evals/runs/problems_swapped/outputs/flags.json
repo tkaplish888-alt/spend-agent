@@ -1,0 +1,31 @@
+[
+  {
+    "rule": "spend_without_results",
+    "channel": "meta",
+    "severity": "critical",
+    "since": "2026-10-18",
+    "evidence": {
+      "days": 14,
+      "spend": 8082.4,
+      "daily_spend_trend": 9.1
+    },
+    "message": "meta spent $8,082 over 14 days with zero conversions, and spend is still rising.",
+    "id": "F1"
+  },
+  {
+    "rule": "untracked_lift",
+    "channel": "direct",
+    "severity": "review",
+    "since": "2026-10-11",
+    "evidence": {
+      "direct_per_day_early": 2.2,
+      "direct_per_day_late": 5.4,
+      "ratio": 2.43,
+      "paid_spend_ratio": 1.02,
+      "self_reported_ai_share_early": 0.066,
+      "self_reported_ai_share_late": 0.223
+    },
+    "message": "Direct conversions grew 2.4x (2.2 to 5.4/day) while paid spend moved 1.02x. Self-reported AI answers went from 7% to 22%. Something untracked is driving buyers.",
+    "id": "F2"
+  }
+]

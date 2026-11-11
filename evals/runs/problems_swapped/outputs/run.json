@@ -1,0 +1,102 @@
+{
+  "run": 1,
+  "ran_at": "2026-11-11T23:26:29+00:00",
+  "data_end": "2026-10-31",
+  "headline": "Meta spent $8,082 over 14 days with zero conversions, so I paused it. Direct's 2.4x rise lines up with AI-assistant mentions, not paid spend.",
+  "confidence": "medium",
+  "moves": [
+    {
+      "channel": "meta",
+      "from": 650.0,
+      "to": 0.0,
+      "reason": "14 days (Oct 18-31) $8,082 spend, 0 conversions, daily spend rising ~$525 to ~$644. Self-reported Instagram/Facebook share also fell to 0% in the last two weeks (was ~20%), so this looks like real delivery/creative/pixel failure, not only tracking. Pause is cheap to reverse; re-enable after checking pixel/creative.",
+      "confidence": "high",
+      "applied": true
+    },
+    {
+      "channel": "linkedin",
+      "from": 300.0,
+      "to": 210.0,
+      "reason": "Last 7d CPA $148.54, ROAS 0.96 (prior 4wk $168.92, 1.13). Every attribution model gives implied CPA of $76-135, so the result doesn't depend on the model: LinkedIn is below break-even. Cut 30% (300 to 210) rather than pause because it only gets 4.8-8.5% of credit and self-reported LinkedIn is 3-9%.",
+      "confidence": "medium",
+      "applied": true
+    }
+  ],
+  "tests": [
+    {
+      "channel": "google_search",
+      "hypothesis": "Google Search gets 33% (first-touch) to 66% (last-touch) of credit. Part of that is last-click capture of buyers that email, Meta, or AI assistants persuaded first. A holdout will show how many conversions are truly incremental.",
+      "design": "Geo split: pause Google Search (brand terms first, then non-brand) in about 20% of matched regions for 3-4 weeks. Keep the rest unchanged. Measure total conversions and revenue from all channels, direct included, in held-out and control regions. Compare against pre-period trends. Start after Meta is resolved so the two changes don't overlap."
+    }
+  ],
+  "flag_verdicts": [
+    {
+      "flag_id": "F1",
+      "verdict": "act",
+      "reason": "Meta had 0 conversions on every day from Oct 18 to Oct 31 on $8,082 of spend, and daily spend rose from $526 to $644. Self-reported Instagram/Facebook also fell to 0% in the last two weeks, so the failure looks real and not just a tracking gap. Paused."
+    },
+    {
+      "flag_id": "F2",
+      "verdict": "watch",
+      "reason": "Direct rose from 2.2 to 5.4/day while paid spend moved 1.02x. Self-reported AI answers (AI assistant plus ChatGPT) rose from about 6% to 22%. Credit goes to AI and word of mouth, not to any paid channel. No budget move. Direct has since eased from 45 to 31 conversions/week, so I'm watching it."
+    }
+  ],
+  "flags": [
+    {
+      "rule": "spend_without_results",
+      "channel": "meta",
+      "severity": "critical",
+      "since": "2026-10-18",
+      "evidence": {
+        "days": 14,
+        "spend": 8082.4,
+        "daily_spend_trend": 9.1
+      },
+      "message": "meta spent $8,082 over 14 days with zero conversions, and spend is still rising.",
+      "id": "F1"
+    },
+    {
+      "rule": "untracked_lift",
+      "channel": "direct",
+      "severity": "review",
+      "since": "2026-10-11",
+      "evidence": {
+        "direct_per_day_early": 2.2,
+        "direct_per_day_late": 5.4,
+        "ratio": 2.43,
+        "paid_spend_ratio": 1.02,
+        "self_reported_ai_share_early": 0.066,
+        "self_reported_ai_share_late": 0.223
+      },
+      "message": "Direct conversions grew 2.4x (2.2 to 5.4/day) while paid spend moved 1.02x. Self-reported AI answers went from 7% to 22%. Something untracked is driving buyers.",
+      "id": "F2"
+    }
+  ],
+  "tool_calls": 13,
+  "tools_used": [
+    "review_last_run",
+    "get_overview",
+    "get_flags",
+    "get_ledger",
+    "compare_attribution",
+    "get_self_reported",
+    "drill_down",
+    "drill_down",
+    "drill_down",
+    "set_budget",
+    "set_budget",
+    "recommend_test",
+    "write_memo"
+  ],
+  "label": "synthetic data",
+  "data_range": [
+    "2026-08-03",
+    "2026-10-31"
+  ],
+  "budgets_after": {
+    "google_search": 600,
+    "meta": 0.0,
+    "linkedin": 210.0,
+    "email": 40
+  }
+}
