@@ -92,6 +92,24 @@ def dark_funnel_scenarios(demo_cfg: dict) -> list[dict]:
     return out
 
 
+def _evals(root: Path) -> dict:
+    """Held-out eval summary for v1 and the current version (if run)."""
+    def load(p):
+        if not p.exists():
+            return None
+        r = _read(p)
+        return {"scenarios_passed": r["scenarios_passed"], "scenarios": r["scenarios"],
+                "checks_passed": r["checks_passed"], "checks": r["checks"],
+                "results": [{"scenario": x["scenario"], "about": x["about"], "passed": x["passed"],
+                             "failed_checks": [c for c, ok in x["checks"].items() if not ok]}
+                            for x in r["results"]]}
+    return {"v1": load(root / "evals" / "v1" / "results.json"),
+            "v2": load(root / "evals" / "results.json"),
+            "what_changed_in_v2": ["Business target: keep a channel if it returns at least $1.50 per $1 under any reasonable attribution model",
+                                   "New get_trends tool so it checks every channel, not only flagged ones",
+                                   "Rule: trim a channel whose costs rose 40%+ over 3 weeks, and test it"]}
+
+
 def main(root: Path = ROOT) -> dict:
     cfg = yaml.safe_load((root / "config.yaml").read_text())
     run = _read(root / "outputs" / "run.json")
@@ -135,6 +153,7 @@ def main(root: Path = ROOT) -> dict:
                    # Short arguments only; long ones (memo text, test design) live elsewhere on the page.
                    "input": {k: v for k, v in t["input"].items() if len(str(v)) <= 40}} for t in trace],
         "dark_funnel_scenarios": dark_funnel_scenarios(cfg["demo"]),
+        "held_out_evals": _evals(root),
     }
     OUT.write_text(json.dumps(data, indent=1))
     return data
