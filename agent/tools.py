@@ -102,6 +102,33 @@ class ToolBox:
             cols = ["week_start", "spend", "conversions", "revenue", "cpa", "roas"]
         return {"channel": channel, "granularity": granularity, "rows": _records(m[cols])}
 
+    def get_trends(self, weeks: int = 8) -> dict:
+        """Weekly CPA and ROAS for every paid channel, plus a recent-vs-earlier change.
+
+        Added in v2: the v1 agent leaned on the rule-based flags and missed a
+        cost rise the rules didn't catch. This puts every channel's trend in
+        front of it in one call.
+        """
+        weeks = max(4, min(int(weeks), 13))
+        m = metrics.weekly_metrics(self.data.daily)
+        m = m[m["channel"].isin(self.paid)]
+        out = {}
+        for ch, g in m.groupby("channel"):
+            g = g.sort_values("week_start").tail(weeks)
+            recent, earlier = g.tail(3), g.head(max(len(g) - 3, 1))
+            def cpa(x):
+                c = x["conversions"].sum()
+                return round(float(x["spend"].sum() / c), 2) if c else None
+            r, e = cpa(recent), cpa(earlier)
+            out[ch] = {
+                "weekly": _records(g[["week_start", "spend", "conversions", "cpa", "roas"]]),
+                "cpa_last_3_weeks": r, "cpa_earlier_weeks": e,
+                "cpa_change": round(r / e, 2) if r and e else None,
+                "spend_change": round(float(recent["spend"].mean() / earlier["spend"].mean()), 2),
+            }
+        return {"channels": out,
+                "note": "Platform-reported (last click). cpa_change > 1 means each sale got more expensive recently."}
+
     def compare_attribution(self) -> dict:
         share = (self.credit / self.credit.sum()).round(3)
         spend = self.data.daily.groupby("channel")["spend"].sum()
@@ -110,8 +137,16 @@ class ToolBox:
             "credit_share_by_model": json.loads(share.to_json(orient="index")),
             "disagreement": json.loads(attribution.disagreement(self.credit).to_json(orient="index")),
             "implied_cpa_by_model": json.loads(attribution.implied_cpa(self.credit, spend).to_json(orient="index")),
+            "implied_roas_by_model": json.loads(self._implied_roas(spend).to_json(orient="index")),
+            "min_roas_target": self.cfg.get("targets", {}).get("min_roas"),
             "note": "Models only see tracked clicks. Large spread means credit depends on the rule, not the data.",
         }
+
+    def _implied_roas(self, spend: pd.Series) -> pd.DataFrame:
+        d = self.data.daily
+        rev_per_sale = float(d["revenue"].sum() / max(d["conversions"].sum(), 1))
+        s = spend.reindex(self.credit.index)
+        return (self.credit * rev_per_sale).div(s, axis=0)[s > 0].round(2)
 
     def get_self_reported(self) -> dict:
         c = self.data.conversions.dropna(subset=["self_reported"]).copy()
@@ -125,6 +160,7 @@ class ToolBox:
 
     def get_ledger(self) -> dict:
         return {"mode": self.cfg["action_mode"], "daily_budgets": self.ledger["daily_budgets"],
+                "min_roas_target": self.cfg.get("targets", {}).get("min_roas"),
                 "staged_this_run": self.staged,
                 "guardrails": f"Max +{int(MAX_INCREASE * 100)}% per channel per run; cuts and pauses (0) allowed. "
                               + ("Demo mode: changes apply to the simulated ledger."
@@ -188,7 +224,8 @@ TOOLS = [
     {"name": "get_overview", "description": "Each channel's last 7 days vs its prior 4-week weekly average: spend, reported conversions, revenue, CPA, ROAS.", "input_schema": _schema({})},
     {"name": "get_flags", "description": "Rule-based anomaly flags with evidence. Leads to investigate, not conclusions.", "input_schema": _schema({})},
     {"name": "drill_down", "description": "One channel's metrics by week or by day.", "input_schema": _schema({"channel": CH, "granularity": {"type": "string", "enum": ["week", "day"]}, "periods": {"type": "integer", "description": "How many recent weeks or days"}}, ["channel"])},
-    {"name": "compare_attribution", "description": "Credit share per channel under five attribution models (first-touch, last-touch, linear, time-decay, Markov), where they disagree, and implied CPA under each.", "input_schema": _schema({})},
+    {"name": "get_trends", "description": "Every paid channel's weekly CPA and ROAS, with the last 3 weeks vs earlier. Use it to check all channels, not only flagged ones.", "input_schema": _schema({"weeks": {"type": "integer", "description": "Recent weeks to include (4 to 13)"}})},
+    {"name": "compare_attribution", "description": "Credit share per channel under five attribution models (first-touch, last-touch, linear, time-decay, Markov), where they disagree, implied CPA and implied ROAS under each, and the account's ROAS target.", "input_schema": _schema({})},
     {"name": "get_self_reported", "description": "Weekly share of answers to 'How did you hear about us?' from buyers who answered.", "input_schema": _schema({})},
     {"name": "get_ledger", "description": "Current daily budgets, anything staged this run, and the guardrails on changes.", "input_schema": _schema({})},
     {"name": "set_budget", "description": "Stage a new daily budget for one channel. Use 0 to pause. Calling again for the same channel replaces the earlier change.", "input_schema": _schema({"channel": PAID_CH, "daily_budget": {"type": "number"}, "reason": {"type": "string", "description": "Cite the numbers behind this move"}, "confidence": CONF}, ["channel", "daily_budget", "reason", "confidence"])},

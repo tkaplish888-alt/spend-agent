@@ -1,0 +1,16 @@
+[
+  {
+    "rule": "cpa_level_shift",
+    "channel": "linkedin",
+    "severity": "warning",
+    "since": "2026-10-18",
+    "evidence": {
+      "cpa_before": 156.24,
+      "cpa_after": 237.6,
+      "ratio": 1.52,
+      "days_after": 14
+    },
+    "message": "linkedin CPA rose 1.5x, from $156 to $238, starting 2026-10-18.",
+    "id": "F1"
+  }
+]

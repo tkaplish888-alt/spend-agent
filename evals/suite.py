@@ -64,6 +64,20 @@ SCENARIOS = {
         "demo": {"seed": 13, "dark_funnel": LOW_DARK_FUNNEL,
                  "planted": {"meta_cpa_doubles": OFF, "linkedin_no_results": OFF}},
     },
+    # Added in v2, after the v1 failures were known, to check the v2 fixes
+    # generalize instead of fitting the six scenarios above.
+    "unseen_cost_spike_linkedin": {
+        "about": "Added in v2. LinkedIn's costs rise about 2x; Meta and the rest are fine.",
+        "demo": {"seed": 404, "planted": {
+            "meta_cpa_doubles": {"channel": "linkedin", "efficiency": 0.5, "from_day": 50},
+            "linkedin_no_results": OFF}},
+    },
+    "unseen_email_goes_dark": {
+        "about": "Added in v2. Email stops converting for two weeks; moderate AI-driven buying; no other problems.",
+        "demo": {"seed": 909, "dark_funnel": {"agent_share_start": 0.1, "agent_share_end": 0.35},
+                 "planted": {"meta_cpa_doubles": OFF, "google_promo_spike": OFF,
+                             "linkedin_no_results": {"channel": "email", "budget_end": 60}}},
+    },
 }
 
 

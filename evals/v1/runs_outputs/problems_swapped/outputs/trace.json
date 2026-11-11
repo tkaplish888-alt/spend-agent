@@ -1,0 +1,161 @@
+[
+  {
+    "step": 1,
+    "tool": "review_last_run",
+    "input": {},
+    "thought": "",
+    "result_preview": "{\"first_run\": true, \"note\": \"No previous run. Nothing to review.\"}",
+    "ok": true,
+    "ms": 0
+  },
+  {
+    "step": 2,
+    "tool": "get_overview",
+    "input": {},
+    "thought": "",
+    "result_preview": "{\"label\": \"synthetic data\", \"data_range\": [\"2026-08-03\", \"2026-10-31\"], \"note\": \"Conversions are platform-reported (last tracked click). 'direct' has no tracked click.\", \"last_7_days_vs_prior_4_week_average\": [{\"channel\": \"direct\", \"spend\": 0.0, \"conversions\": 33, \"revenue\": 6469.55, \"cpa\": null, \"roas\": null, \"spend_prior4wk_avg\": 0.0, \"conversions_prior4wk_avg\": 40.0, \"revenue_prior4wk_avg\": 7758.72, \"cpa_prior4wk_avg\": null, \"roas_prior4wk_avg\": null}, {\"channel\": \"email\", \"spend\": 279.59, \"c",
+    "ok": true,
+    "ms": 9
+  },
+  {
+    "step": 3,
+    "tool": "get_flags",
+    "input": {},
+    "thought": "",
+    "result_preview": "{\"flags\": [{\"rule\": \"spend_without_results\", \"channel\": \"meta\", \"severity\": \"critical\", \"since\": \"2026-10-18\", \"evidence\": {\"days\": 14, \"spend\": 8082.4, \"daily_spend_trend\": 9.1}, \"message\": \"meta spent $8,082 over 14 days with zero conversions, and spend is still rising.\", \"id\": \"F1\"}, {\"rule\": \"untracked_lift\", \"channel\": \"direct\", \"severity\": \"review\", \"since\": \"2026-10-11\", \"evidence\": {\"direct_per_day_early\": 2.2, \"direct_per_day_late\": 5.4, \"ratio\": 2.43, \"paid_spend_ratio\": 1.02, \"self_re",
+    "ok": true,
+    "ms": 0
+  },
+  {
+    "step": 4,
+    "tool": "get_ledger",
+    "input": {},
+    "thought": "",
+    "result_preview": "{\"mode\": \"demo\", \"daily_budgets\": {\"google_search\": 600, \"meta\": 650, \"linkedin\": 300, \"email\": 40}, \"staged_this_run\": {}, \"guardrails\": \"Max +50% per channel per run; cuts and pauses (0) allowed. Demo mode: changes apply to the simulated ledger.\"}",
+    "ok": true,
+    "ms": 0
+  },
+  {
+    "step": 5,
+    "tool": "compare_attribution",
+    "input": {},
+    "thought": "",
+    "result_preview": "{\"models\": \"- first_touch: all credit to the first tracked touch\\n- last_touch: all credit to the last tracked touch (what ad platforms report)\\n- linear: credit split evenly across every touch\\n- time_decay: later touches get more, halving for each step back\\n- markov: credit by removal effect, the share of conversions lost if that\\n  channel vanished from every journey (built on a transition matrix)\", \"credit_share_by_model\": {\"direct\": {\"first_touch\": 0.09, \"last_touch\": 0.09, \"linear\": 0.09,",
+    "ok": true,
+    "ms": 5
+  },
+  {
+    "step": 6,
+    "tool": "get_self_reported",
+    "input": {},
+    "thought": "",
+    "result_preview": "{\"question\": \"How did you hear about us?\", \"response_rate\": 0.345, \"weekly_answer_share\": [{\"week_start\": \"2026-08-03\", \"An AI assistant recommended you\": 0.027, \"Asked ChatGPT\": 0.036, \"Google\": 0.464, \"Instagram or Facebook ad\": 0.143, \"LinkedIn\": 0.045, \"Word of mouth\": 0.152, \"Your newsletter\": 0.134, \"responses\": 112}, {\"week_start\": \"2026-08-10\", \"An AI assistant recommended you\": 0.025, \"Asked ChatGPT\": 0.05, \"Google\": 0.408, \"Instagram or Facebook ad\": 0.2, \"LinkedIn\": 0.042, \"Word of mo",
+    "ok": true,
+    "ms": 8
+  },
+  {
+    "step": 7,
+    "tool": "drill_down",
+    "input": {
+      "channel": "meta",
+      "granularity": "day",
+      "periods": 28
+    },
+    "thought": "",
+    "result_preview": "{\"channel\": \"meta\", \"granularity\": \"day\", \"rows\": [{\"date\": \"2026-10-04\", \"spend\": 491.41, \"conversions\": 6, \"revenue\": 1288.97, \"cpa\": 81.9, \"roas\": 2.62}, {\"date\": \"2026-10-05\", \"spend\": 508.52, \"conversions\": 6, \"revenue\": 1093.41, \"cpa\": 84.75, \"roas\": 2.15}, {\"date\": \"2026-10-06\", \"spend\": 526.56, \"conversions\": 11, \"revenue\": 2089.35, \"cpa\": 47.87, \"roas\": 3.97}, {\"date\": \"2026-10-07\", \"spend\": 496.34, \"conversions\": 6, \"revenue\": 1104.37, \"cpa\": 82.72, \"roas\": 2.23}, {\"date\": \"2026-10-08\"",
+    "ok": true,
+    "ms": 5
+  },
+  {
+    "step": 8,
+    "tool": "drill_down",
+    "input": {
+      "channel": "direct",
+      "granularity": "week",
+      "periods": 13
+    },
+    "thought": "",
+    "result_preview": "{\"channel\": \"direct\", \"granularity\": \"week\", \"rows\": [{\"week_start\": \"2026-08-03\", \"spend\": 0.0, \"conversions\": 13, \"revenue\": 2430.57, \"cpa\": null, \"roas\": null}, {\"week_start\": \"2026-08-10\", \"spend\": 0.0, \"conversions\": 13, \"revenue\": 2351.99, \"cpa\": null, \"roas\": null}, {\"week_start\": \"2026-08-17\", \"spend\": 0.0, \"conversions\": 15, \"revenue\": 2948.5, \"cpa\": null, \"roas\": null}, {\"week_start\": \"2026-08-24\", \"spend\": 0.0, \"conversions\": 21, \"revenue\": 4000.27, \"cpa\": null, \"roas\": null}, {\"week_",
+    "ok": true,
+    "ms": 6
+  },
+  {
+    "step": 9,
+    "tool": "drill_down",
+    "input": {
+      "channel": "google_search",
+      "granularity": "week",
+      "periods": 8
+    },
+    "thought": "",
+    "result_preview": "{\"channel\": \"google_search\", \"granularity\": \"week\", \"rows\": [{\"week_start\": \"2026-09-07\", \"spend\": 4126.13, \"conversions\": 222, \"revenue\": 42496.81, \"cpa\": 18.59, \"roas\": 10.3}, {\"week_start\": \"2026-09-14\", \"spend\": 4034.75, \"conversions\": 247, \"revenue\": 46618.24, \"cpa\": 16.34, \"roas\": 11.55}, {\"week_start\": \"2026-09-21\", \"spend\": 4213.23, \"conversions\": 261, \"revenue\": 49967.15, \"cpa\": 16.14, \"roas\": 11.86}, {\"week_start\": \"2026-09-28\", \"spend\": 4165.51, \"conversions\": 233, \"revenue\": 43807.23",
+    "ok": true,
+    "ms": 5
+  },
+  {
+    "step": 10,
+    "tool": "set_budget",
+    "input": {
+      "channel": "meta",
+      "daily_budget": 0,
+      "reason": "14 days (Oct 18-31) $8,082 spend, 0 conversions, daily spend rising ~$525 to ~$644. Self-reported Instagram/Facebook share also fell to 0% in the last two weeks (was ~20%), so this looks like real delivery/creative/pixel failure, not only tracking. Pause is cheap to reverse; re-enable after checking pixel/creative.",
+      "confidence": "high"
+    },
+    "thought": "",
+    "result_preview": "{\"staged\": {\"channel\": \"meta\", \"from\": 650.0, \"to\": 0.0, \"reason\": \"14 days (Oct 18-31) $8,082 spend, 0 conversions, daily spend rising ~$525 to ~$644. Self-reported Instagram/Facebook share also fell to 0% in the last two weeks (was ~20%), so this looks like real delivery/creative/pixel failure, not only tracking. Pause is cheap to reverse; re-enable after checking pixel/creative.\", \"confidence\": \"high\"}, \"applies\": \"after this run\"}",
+    "ok": true,
+    "ms": 0
+  },
+  {
+    "step": 11,
+    "tool": "set_budget",
+    "input": {
+      "channel": "linkedin",
+      "daily_budget": 210,
+      "reason": "Last 7d CPA $148.54, ROAS 0.96 (prior 4wk $168.92, 1.13). Every attribution model gives implied CPA of $76-135, so the result doesn't depend on the model: LinkedIn is below break-even. Cut 30% (300 to 210) rather than pause because it only gets 4.8-8.5% of credit and self-reported LinkedIn is 3-9%.",
+      "confidence": "medium"
+    },
+    "thought": "",
+    "result_preview": "{\"staged\": {\"channel\": \"linkedin\", \"from\": 300.0, \"to\": 210.0, \"reason\": \"Last 7d CPA $148.54, ROAS 0.96 (prior 4wk $168.92, 1.13). Every attribution model gives implied CPA of $76-135, so the result doesn't depend on the model: LinkedIn is below break-even. Cut 30% (300 to 210) rather than pause because it only gets 4.8-8.5% of credit and self-reported LinkedIn is 3-9%.\", \"confidence\": \"medium\"}, \"applies\": \"after this run\"}",
+    "ok": true,
+    "ms": 0
+  },
+  {
+    "step": 12,
+    "tool": "recommend_test",
+    "input": {
+      "channel": "google_search",
+      "hypothesis": "Google Search gets 33% (first-touch) to 66% (last-touch) of credit. Part of that is last-click capture of buyers that email, Meta, or AI assistants persuaded first. A holdout will show how many conversions are truly incremental.",
+      "design": "Geo split: pause Google Search (brand terms first, then non-brand) in about 20% of matched regions for 3-4 weeks. Keep the rest unchanged. Measure total conversions and revenue from all channels, direct included, in held-out and control regions. Compare against pre-period trends. Start after Meta is resolved so the two changes don't overlap."
+    },
+    "thought": "",
+    "result_preview": "{\"recorded\": {\"channel\": \"google_search\", \"hypothesis\": \"Google Search gets 33% (first-touch) to 66% (last-touch) of credit. Part of that is last-click capture of buyers that email, Meta, or AI assistants persuaded first. A holdout will show how many conversions are truly incremental.\", \"design\": \"Geo split: pause Google Search (brand terms first, then non-brand) in about 20% of matched regions for 3-4 weeks. Keep the rest unchanged. Measure total conversions and revenue from all channels, direc",
+    "ok": true,
+    "ms": 0
+  },
+  {
+    "step": 13,
+    "tool": "write_memo",
+    "input": {
+      "headline": "Meta spent $8,082 over 14 days with zero conversions, so I paused it. Direct's 2.4x rise lines up with AI-assistant mentions, not paid spend.",
+      "overall_confidence": "medium",
+      "flag_verdicts": [
+        {
+          "flag_id": "F1",
+          "verdict": "act",
+          "reason": "Meta had 0 conversions on every day from Oct 18 to Oct 31 on $8,082 of spend, and daily spend rose from $526 to $644. Self-reported Instagram/Facebook also fell to 0% in the last two weeks, so the failure looks real and not just a tracking gap. Paused."
+        },
+        {
+          "flag_id": "F2",
+          "verdict": "watch",
+          "reason": "Direct rose from 2.2 to 5.4/day while paid spend moved 1.02x. Self-reported AI answers (AI assistant plus ChatGPT) rose from about 6% to 22%. Credit goes to AI and word of mouth, not to any paid channel. No budget move. Direct has since eased from 45 to 31 conversions/week, so I'm watching it."
+        }
+      ],
+      "memo_markdown": "*All data here is synthetic.*\n\n## Last week's moves\nFirst run. Nothing to review.\n\n## What's happening\n- **Meta is broken.** It had 0 conversions on every day Oct 18-31 on $8,082 of spend. Daily spend rose from $526 to $644. The prior 4-week average was 44.75 conversions/week at $80 CPA. Self-reported \"Instagram or Facebook ad\" fell from about 20% to 0% in the last two weeks. Likely causes are a pixel, creative or delivery failure.\n- **Direct grew without paid support.** Direct went from 2.2 to 5.4/day (2.4x) while paid spend moved 1.02x. Self-reported \"AI assistant\" plus \"Asked ChatGPT\" rose from about 6% to 22%. I credit this to AI recommendations and make no paid move.\n- **Google Search efficiency fell.** CPA went from $16-18 in September to $24.24 in the last 7 days. Conversions fell from 233 (week of Sep 28) to 143 (week of Oct 26) on roughly flat spend. The decline began before the Meta outage. Self-reported Google is steady at about 40%. I made no change, and the test below addresses it.\n- **LinkedIn is below break-even.** Last 7 days: CPA $148.54, ROAS 0.96.\n- **Email is cheap.** CPA $23.30 and ROAS 8.39 on $280/week. Its first-touch credit is 26% against 4% last-touch.\n\n## Moves\n- Meta: $650 to $0/day. Paused while the outage is investigated. High confidence.\n- LinkedIn: $300 to $210/day. Every model implies a CPA of $76-135, so the case doesn't depend on the model. Medium confidence.\n- Google Search and Email: unchanged.\n\n## Where the models disagree\n- Google Search credit ranges from 33% (first-touch) to 66% (last-touch). Implied CPA ranges from $19.58 to $38.97.\n- Email credit ranges from 4% (last-touch) to 26% (first-touch). Implied CPA ranges from $3.35 to $20.68.\n- I did not scale either channel on one model's say-so.\n\n## Test to run\nGeo holdout of Google Search in about 20% of matched regions for 3-4 weeks. Measure total conversions across all channels, direct included. Start it after Meta is resolved so the two changes don't overlap. An email holdout is a sensible follow-up.\n\n## Confidence\nMedium overall. High on the Meta pause. Medium on LinkedIn. I would reverse the Meta pause once the pixel and creative are fixed and test conversions appear. Three things would change my mind:\n- A continuing Google decline after the Meta outage is resolved.\n- Direct staying elevated while AI mentions fall.\n- A LinkedIn holdout showing real lift."
+    },
+    "thought": "",
+    "result_preview": "{\"done\": true}",
+    "ok": true,
+    "ms": 0
+  }
+]

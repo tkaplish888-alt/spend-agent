@@ -50,6 +50,10 @@ anomalies:
   spike_benign_cpa_ratio: 1.25  # spike CPA at or under this vs baseline = likely fine
   untracked_lift_ratio: 1.5     # growth in direct conversions that needs explaining
 
+# Business target the agent judges channels against (added in v2).
+targets:
+  min_roas: 1.5   # a channel is worth keeping if it returns at least $1.50 per $1 under a reasonable model
+
 agent:
   model: claude-sonnet-5-5
   max_tool_calls: 15

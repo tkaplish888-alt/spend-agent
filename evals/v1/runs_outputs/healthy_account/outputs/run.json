@@ -1,0 +1,72 @@
+{
+  "run": 1,
+  "ran_at": "2026-11-11T23:26:50+00:00",
+  "data_end": "2026-10-31",
+  "headline": "LinkedIn is the one clear underperformer (ROAS 0.87, CPA $267), so I cut its budget 25%. Google Search's true value is unsettled, so I'm recommending a holdout test instead of moving its budget.",
+  "confidence": "medium",
+  "moves": [
+    {
+      "channel": "linkedin",
+      "from": 300.0,
+      "to": 225.0,
+      "reason": "Last-click ROAS 0.87 last 7d (CPA $267) vs 1.03 prior 4wk avg (CPA $186); 13-week ROAS has been ~1.1 with CPA $105-265. Even the most favorable model (Markov/first-touch) implies CPA ~$88, vs $36-50 for Google/Meta. Self-reported LinkedIn ~5%, in line with 4.5% last-touch credit, so no hidden value. Moderate 25% cut, easy to reverse. Weekly counts are only 7-20 conversions, so a deep cut is not warranted.",
+      "confidence": "medium",
+      "applied": true
+    }
+  ],
+  "tests": [
+    {
+      "channel": "google_search",
+      "hypothesis": "Google Search's true incremental share is closer to first-touch (29%) than last-touch (55%) because much of its last-click credit is brand/navigational capture of buyers persuaded elsewhere (self-reported 'Google' is 43%).",
+      "design": "Geo holdout: pause brand-keyword campaigns in ~20% of matched regions for 3-4 weeks while keeping them live elsewhere. Measure total conversions and revenue (all channels incl. direct) in held-out vs control regions, plus non-brand conversions. Compare lift to Google's reported conversions (~168/wk) to get incremental CPA. Pre-register a minimum detectable effect of ~10%."
+    }
+  ],
+  "flag_verdicts": [
+    {
+      "flag_id": "F1",
+      "verdict": "act",
+      "reason": "The CPA rise from $156 to $238 is noisy, with only 7-20 conversions a week. But LinkedIn's 13-week ROAS has stayed around 1.1 (0.87 last 7d), and its CPA is the worst under every attribution model ($88-165 vs $4-50 elsewhere). A modest cut is justified."
+    }
+  ],
+  "flags": [
+    {
+      "rule": "cpa_level_shift",
+      "channel": "linkedin",
+      "severity": "warning",
+      "since": "2026-10-18",
+      "evidence": {
+        "cpa_before": 156.24,
+        "cpa_after": 237.6,
+        "ratio": 1.52,
+        "days_after": 14
+      },
+      "message": "linkedin CPA rose 1.5x, from $156 to $238, starting 2026-10-18.",
+      "id": "F1"
+    }
+  ],
+  "tool_calls": 11,
+  "tools_used": [
+    "review_last_run",
+    "get_overview",
+    "get_flags",
+    "get_ledger",
+    "compare_attribution",
+    "get_self_reported",
+    "drill_down",
+    "drill_down",
+    "set_budget",
+    "recommend_test",
+    "write_memo"
+  ],
+  "label": "synthetic data",
+  "data_range": [
+    "2026-08-03",
+    "2026-10-31"
+  ],
+  "budgets_after": {
+    "google_search": 600,
+    "meta": 500,
+    "linkedin": 225.0,
+    "email": 40
+  }
+}

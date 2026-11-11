@@ -1,0 +1,34 @@
+[
+  {
+    "rule": "spend_spike",
+    "channel": "google_search",
+    "severity": "review",
+    "since": "2026-09-12",
+    "until": "2026-09-18",
+    "evidence": {
+      "days": 7,
+      "spend_vs_median": 1.77,
+      "cpa_during": 26.37,
+      "cpa_before": 22.67,
+      "cpa_ratio": 1.16
+    },
+    "message": "google_search spend jumped for 7 days (2026-09-12 to 2026-09-18); CPA held at $26 vs $23. Likely fine, confirm before acting.",
+    "id": "F1"
+  },
+  {
+    "rule": "untracked_lift",
+    "channel": "direct",
+    "severity": "review",
+    "since": "2026-10-11",
+    "evidence": {
+      "direct_per_day_early": 0.5,
+      "direct_per_day_late": 0.7,
+      "ratio": 1.54,
+      "paid_spend_ratio": 1.0,
+      "self_reported_ai_share_early": 0.018,
+      "self_reported_ai_share_late": 0.047
+    },
+    "message": "Direct conversions grew 1.5x (0.5 to 0.7/day) while paid spend moved 1.00x. Self-reported AI answers went from 2% to 5%. Something untracked is driving buyers.",
+    "id": "F2"
+  }
+]

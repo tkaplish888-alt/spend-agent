@@ -1,0 +1,61 @@
+[
+  {
+    "rule": "spend_without_results",
+    "channel": "linkedin",
+    "severity": "critical",
+    "since": "2026-10-18",
+    "evidence": {
+      "days": 14,
+      "spend": 5248.6,
+      "daily_spend_trend": 10.09
+    },
+    "message": "linkedin spent $5,249 over 14 days with zero conversions, and spend is still rising.",
+    "id": "F1"
+  },
+  {
+    "rule": "cpa_level_shift",
+    "channel": "meta",
+    "severity": "warning",
+    "since": "2026-10-09",
+    "evidence": {
+      "cpa_before": 62.73,
+      "cpa_after": 147.99,
+      "ratio": 2.36,
+      "days_after": 23
+    },
+    "message": "meta CPA rose 2.4x, from $63 to $148, starting 2026-10-09.",
+    "id": "F2"
+  },
+  {
+    "rule": "spend_spike",
+    "channel": "google_search",
+    "severity": "review",
+    "since": "2026-09-12",
+    "until": "2026-09-18",
+    "evidence": {
+      "days": 7,
+      "spend_vs_median": 1.7,
+      "cpa_during": 23.58,
+      "cpa_before": 19.34,
+      "cpa_ratio": 1.22
+    },
+    "message": "google_search spend jumped for 7 days (2026-09-12 to 2026-09-18); CPA held at $24 vs $19. Likely fine, confirm before acting.",
+    "id": "F3"
+  },
+  {
+    "rule": "untracked_lift",
+    "channel": "direct",
+    "severity": "review",
+    "since": "2026-10-11",
+    "evidence": {
+      "direct_per_day_early": 1.8,
+      "direct_per_day_late": 7.6,
+      "ratio": 4.24,
+      "paid_spend_ratio": 1.03,
+      "self_reported_ai_share_early": 0.066,
+      "self_reported_ai_share_late": 0.232
+    },
+    "message": "Direct conversions grew 4.2x (1.8 to 7.6/day) while paid spend moved 1.03x. Self-reported AI answers went from 7% to 23%. Something untracked is driving buyers.",
+    "id": "F4"
+  }
+]

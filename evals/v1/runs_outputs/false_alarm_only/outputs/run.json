@@ -1,0 +1,96 @@
+{
+  "run": 1,
+  "ran_at": "2026-11-11T23:27:39+00:00",
+  "data_end": "2026-10-31",
+  "headline": "Cut LinkedIn 33% ($300 to $200/day) because every model shows it is the costliest channel at about $139 CPA, and test Google search incrementality before moving its budget.",
+  "confidence": "medium",
+  "moves": [
+    {
+      "channel": "linkedin",
+      "from": 300.0,
+      "to": 200.0,
+      "reason": "Cut 33%. CPA $138.92 last 7d (4wk avg $138.41), ROAS 1.13 vs 1.35; 13-week CPA never below $97. All five models agree it is the costliest channel (implied CPA $79-$141 vs $43-$58 Meta), spread only 4 pts, so cut is not dependent on one model's rule. Cheap to reverse.",
+      "confidence": "medium",
+      "applied": true
+    }
+  ],
+  "tests": [
+    {
+      "channel": "google_search",
+      "hypothesis": "Google search's true incremental share is well below the 66.8% last-touch credit (first-touch 32.3%); a meaningful part of its conversions are captured demand from buyers persuaded by email/Meta/word of mouth.",
+      "design": "Geo-split holdout: pick matched regions, cut Google search (especially brand terms) by ~50% in the treatment half for 4 weeks while holding the rest constant. Measure total conversions and revenue across all channels incl. direct in both halves, plus self-reported 'Google' share. Compare total-conversion drop to the ~185 weekly search conversions reported. Pre-register a stop rule if total conversions drop >15%."
+    }
+  ],
+  "flag_verdicts": [
+    {
+      "flag_id": "F1",
+      "verdict": "dismiss",
+      "reason": "Google spend spiked 2026-09-12 to 09-18 (1.77x median). Conversions rose too: 271 in week of 09-14 vs 187 the week before, and CPA was $23.90 vs $28.54. Spend has since returned to about $4.1k/week and the last week's CPA is $19.94. No lasting efficiency loss."
+    },
+    {
+      "flag_id": "F2",
+      "verdict": "watch",
+      "reason": "Direct rose from 0.5 to 0.7 per day with flat paid spend, but the counts are tiny (2-8 per week, only 2 last week, below the prior 4-week average of 6.25). The AI-answer share went 2% to 5% on roughly 100 responses a week, and it fell back to 1% in the latest week. This is too noisy to credit any paid channel, or to act on. Re-check next run."
+    }
+  ],
+  "flags": [
+    {
+      "rule": "spend_spike",
+      "channel": "google_search",
+      "severity": "review",
+      "since": "2026-09-12",
+      "until": "2026-09-18",
+      "evidence": {
+        "days": 7,
+        "spend_vs_median": 1.77,
+        "cpa_during": 26.37,
+        "cpa_before": 22.67,
+        "cpa_ratio": 1.16
+      },
+      "message": "google_search spend jumped for 7 days (2026-09-12 to 2026-09-18); CPA held at $26 vs $23. Likely fine, confirm before acting.",
+      "id": "F1"
+    },
+    {
+      "rule": "untracked_lift",
+      "channel": "direct",
+      "severity": "review",
+      "since": "2026-10-11",
+      "evidence": {
+        "direct_per_day_early": 0.5,
+        "direct_per_day_late": 0.7,
+        "ratio": 1.54,
+        "paid_spend_ratio": 1.0,
+        "self_reported_ai_share_early": 0.018,
+        "self_reported_ai_share_late": 0.047
+      },
+      "message": "Direct conversions grew 1.5x (0.5 to 0.7/day) while paid spend moved 1.00x. Self-reported AI answers went from 2% to 5%. Something untracked is driving buyers.",
+      "id": "F2"
+    }
+  ],
+  "tool_calls": 12,
+  "tools_used": [
+    "review_last_run",
+    "get_overview",
+    "get_flags",
+    "get_ledger",
+    "compare_attribution",
+    "get_self_reported",
+    "drill_down",
+    "drill_down",
+    "drill_down",
+    "set_budget",
+    "recommend_test",
+    "write_memo"
+  ],
+  "label": "synthetic data",
+  "data_range": [
+    "2026-08-03",
+    "2026-10-31"
+  ],
+  "budgets_after": {
+    "google_search": 600,
+    "meta": 500,
+    "linkedin": 200.0,
+    "email": 40
+  }
+}
