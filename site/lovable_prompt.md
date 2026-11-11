@@ -1,10 +1,10 @@
-Build a single-page dashboard called **Spend Agent**. It shows what an autonomous AI marketing agent did this week on a demo ad account. It reads everything from one JSON file I'm attaching (dashboard.json). Save it as `src/data/dashboard.json` and import it. Do not invent or hardcode any numbers; every figure comes from that file. No backend, no database, no login.
+Build a single-page dashboard called **Ad Spend Agent**. It shows what an autonomous AI marketing agent did this week on a demo ad account. It reads everything from one JSON file I'm attaching (dashboard.json). Save it as `src/data/dashboard.json` and import it. Do not invent or hardcode any numbers; every figure comes from that file. No backend, no database, no login.
 
 WHO IT'S FOR
 Founders and growth leads who glance at it for two minutes. Plain language, no jargon without a one-line explanation.
 
 TOP OF PAGE
-- Title "Spend Agent", subtitle: "An AI agent that manages a weekly ad budget, checks its own work, and admits what it can't see."
+- Title "Ad Spend Agent", subtitle: "An AI agent that manages a weekly ad budget, checks its own work, and admits what it can't see."
 - A small pill showing `label` ("Synthetic data...") so it's always clear this is a demo.
 - The `run.headline` as a large sentence, with run number, `run.data_end` and a confidence badge from `run.confidence`.
 
