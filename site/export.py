@@ -47,6 +47,7 @@ TOOL_LABELS = {
     "set_budget": "Changed a budget",
     "recommend_test": "Recommended an incrementality test",
     "write_memo": "Wrote the memo",
+    "get_trends": "Checked every channel's weekly trend",
 }
 SHARES = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6]
 
@@ -90,6 +91,45 @@ def dark_funnel_scenarios(demo_cfg: dict) -> list[dict]:
             "misallocated": scores["misallocated_share"].to_dict(),
         })
     return out
+
+
+def _weekly(root: Path) -> dict:
+    """Weekly metrics per channel, for charts and sparklines."""
+    w = pd.read_csv(root / "outputs" / "metrics_weekly.csv")
+    out = {}
+    for ch, g in w.groupby("channel"):
+        out[ch] = [{"week": r.week_start, "spend": round(float(r.spend), 2), "conversions": int(r.conversions),
+                    "cpa": None if pd.isna(r.cpa) else round(float(r.cpa), 2),
+                    "roas": None if pd.isna(r.roas) else round(float(r.roas), 2)}
+                   for r in g.sort_values("week_start").itertuples()]
+    return out
+
+
+def _runs(root: Path, latest_flags: list) -> list:
+    """Every run from the agent's log, newest first, with memo and trace when archived."""
+    log = _read(root / "state" / "agent_log.json")
+    out = []
+    for e in log:
+        arch = root / "outputs" / "runs" / f"run_{e['run']}"
+        memo = (arch / "memo.md").read_text() if (arch / "memo.md").exists() else None
+        trace = _read(arch / "trace.json") if (arch / "trace.json").exists() else None
+        if e is log[-1] and memo is None:  # latest run predates archiving
+            memo = (root / "outputs" / "memo.md").read_text()
+            trace = _read(root / "outputs" / "trace.json")
+        msgs = {f["id"]: _pretty(f["message"]) for f in e.get("flags", [])}
+        out.append({
+            "run": e["run"], "ran_at": e["ran_at"], "data_end": e["data_end"],
+            "headline": e["headline"], "confidence": e["confidence"],
+            "moves": [{k: m[k] for k in ("channel", "from", "to", "reason", "confidence")} for m in e["moves"]],
+            "tests": e["tests"],
+            "flag_verdicts": [{**v, "message": msgs.get(v["flag_id"])} for v in e["flag_verdicts"]],
+            "tool_calls": e["tool_calls"],
+            "memo_markdown": memo,
+            "trace": None if trace is None else [
+                {"step": t["step"], "tool": t["tool"], "label": TOOL_LABELS.get(t["tool"], t["tool"]),
+                 "input": {k: v for k, v in t["input"].items() if len(str(v)) <= 40}} for t in trace],
+        })
+    return list(reversed(out))
 
 
 def _evals(root: Path) -> dict:
@@ -154,6 +194,20 @@ def main(root: Path = ROOT) -> dict:
                    "input": {k: v for k, v in t["input"].items() if len(str(v)) <= 40}} for t in trace],
         "dark_funnel_scenarios": dark_funnel_scenarios(cfg["demo"]),
         "held_out_evals": _evals(root),
+        "weekly": _weekly(root),
+        "runs": _runs(root, flags),
+        "settings": {
+            "mode": cfg["action_mode"], "data_source": cfg["data_source"], "model": cfg["agent"]["model"],
+            "schedule": "Mondays, 7:41am Pacific (GitHub Actions)",
+            "min_roas_target": cfg.get("targets", {}).get("min_roas"),
+            "max_increase_per_run": "50%", "max_tool_calls": cfg["agent"]["max_tool_calls"],
+            "connectors": [{"name": "Demo account (synthetic)", "status": "connected"},
+                           {"name": "Google Ads", "status": "stub, not built"},
+                           {"name": "Meta Ads", "status": "planned"},
+                           {"name": "LinkedIn Ads", "status": "planned"},
+                           {"name": "HubSpot", "status": "planned"}],
+            "repo": "https://github.com/tkaplish888-alt/spend-agent",
+        },
     }
     OUT.write_text(json.dumps(data, indent=1))
     return data

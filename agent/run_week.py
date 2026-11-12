@@ -96,6 +96,11 @@ def run(client, cfg: dict, root: Path = ROOT) -> dict:
 
     OUT.mkdir(exist_ok=True)
     (OUT / "memo.md").write_text(box.memo["memo_markdown"])
+    # Keep every run's memo and trace, not just the latest, for the Runs view.
+    archive = OUT / "runs" / f"run_{run_no}"
+    archive.mkdir(parents=True, exist_ok=True)
+    (archive / "memo.md").write_text(box.memo["memo_markdown"])
+    (archive / "trace.json").write_text(json.dumps(trace, indent=2, default=str))
     (OUT / "trace.json").write_text(json.dumps(trace, indent=2, default=str))
     (OUT / "flags.json").write_text(json.dumps(box.flags, indent=2))
     credit = box.credit
