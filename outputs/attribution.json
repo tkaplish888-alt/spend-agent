@@ -1,76 +1,76 @@
 {
   "credit_share": {
     "direct": {
-      "first_touch": 0.106,
-      "last_touch": 0.106,
-      "linear": 0.106,
-      "time_decay": 0.106,
-      "markov": 0.0777
+      "first_touch": 0.1091,
+      "last_touch": 0.1091,
+      "linear": 0.1091,
+      "time_decay": 0.1091,
+      "markov": 0.0802
     },
     "email": {
-      "first_touch": 0.2225,
-      "last_touch": 0.041,
-      "linear": 0.1284,
-      "time_decay": 0.0977,
-      "markov": 0.1631
+      "first_touch": 0.2223,
+      "last_touch": 0.0407,
+      "linear": 0.1283,
+      "time_decay": 0.0975,
+      "markov": 0.1634
     },
     "google_search": {
-      "first_touch": 0.3932,
-      "last_touch": 0.6865,
-      "linear": 0.535,
-      "time_decay": 0.586,
-      "markov": 0.5033
+      "first_touch": 0.3968,
+      "last_touch": 0.6896,
+      "linear": 0.5386,
+      "time_decay": 0.5894,
+      "markov": 0.5068
     },
     "linkedin": {
-      "first_touch": 0.0641,
-      "last_touch": 0.0296,
-      "linear": 0.0511,
-      "time_decay": 0.0447,
-      "markov": 0.0619
+      "first_touch": 0.0613,
+      "last_touch": 0.0278,
+      "linear": 0.0485,
+      "time_decay": 0.0423,
+      "markov": 0.0591
     },
     "meta": {
-      "first_touch": 0.2143,
-      "last_touch": 0.1369,
-      "linear": 0.1795,
-      "time_decay": 0.1657,
-      "markov": 0.194
+      "first_touch": 0.2106,
+      "last_touch": 0.1329,
+      "linear": 0.1756,
+      "time_decay": 0.1617,
+      "markov": 0.1905
     }
   },
   "disagreement": {
     "google_search": {
-      "min_share": 0.393,
-      "max_share": 0.686,
+      "min_share": 0.397,
+      "max_share": 0.69,
       "lowest_model": "first_touch",
       "highest_model": "last_touch",
       "spread": 0.293
     },
     "email": {
       "min_share": 0.041,
-      "max_share": 0.223,
+      "max_share": 0.222,
       "lowest_model": "last_touch",
       "highest_model": "first_touch",
       "spread": 0.182
     },
     "meta": {
-      "min_share": 0.137,
-      "max_share": 0.214,
+      "min_share": 0.133,
+      "max_share": 0.211,
       "lowest_model": "last_touch",
       "highest_model": "first_touch",
-      "spread": 0.077
+      "spread": 0.078
     },
     "linkedin": {
-      "min_share": 0.03,
-      "max_share": 0.064,
+      "min_share": 0.028,
+      "max_share": 0.061,
       "lowest_model": "last_touch",
       "highest_model": "first_touch",
       "spread": 0.034
     },
     "direct": {
-      "min_share": 0.078,
-      "max_share": 0.106,
+      "min_share": 0.08,
+      "max_share": 0.109,
       "lowest_model": "markov",
       "highest_model": "first_touch",
-      "spread": 0.028
+      "spread": 0.029
     }
   }
 }

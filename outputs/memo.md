@@ -1,29 +1,27 @@
-*All data in this report is synthetic.*
+*Synthetic data throughout.*
 
 ## Last week's moves
-None were made in run 2, so there is nothing to judge. Account conversions were 363 on $7.4k spend, up from 325 on $7.3k the week before.
+None. Account spend went from $7,407 to $7,261 and conversions from 363 to 348, which is just drift.
 
 ## What's happening
-- **Google Search:** CPA is $15.38 and ROAS 12.17. Spend is $4.2k a week. CPA over the last 3 weeks is $17.61 vs $17.57 earlier, so it is stable.
-- **Meta:** Weekly spend fell from $3.5k to $2.5k. CPA was $83.57 last week, down from $103.74 two weeks earlier. The last 3 weeks are up 18% on earlier weeks, under the 40% trigger. ROAS is 2.16 against the 1.5 target.
-- **LinkedIn:** Paused, $0 spend. It had 0 tracked conversions on about $5k of spend in the two weeks before the pause. Self-reported share has been 0% for 4 weeks.
-- **Email:** CPA rose from $13.45 (week of 10-05) to $23.89. Spend is flat at about $280 a week, and the 3-week CPA is up 23%. Watch it, no action yet.
-- **Direct:** Conversions went 38, 41, 49, 50, 53, 71, 60, 43 over the last 8 weeks. Self-reported AI answers (assistant plus ChatGPT) were 19% last week. They were 4% in the week of 08-03. Paid spend did not rise.
+- **Meta:** last-7-day CPA is $113 (ROAS 1.59) vs $94 for the prior 4-week average. CPA has been about $98 since 10-02, up from $60. Spend is flat to falling, from $3,535 to $2,393 per week. Last-click ROAS is barely above the 1.5 target. Every attribution model puts it at 2.6 to 4.1, so a cut isn't justified.
+- **Email:** CPA is $22.87 vs $16.70 earlier (+37%) on flat spend of about $280 per week. ROAS is still 8.0 to 8.4, and the models put it at 9.6 to 52.5. I'm not trimming: it is far above target and tiny, and the drop looks like list fatigue.
+- **Google Search:** CPA is $16.23 (ROAS 11.7), better than the prior average of $17.62. Spend is $4,154 per week.
+- **LinkedIn:** paused since 11-02 with no spend. It had 0 conversions on about $5,030 in the two weeks before the pause.
+- **Direct:** 54 conversions last week vs a 58 average and a 71 peak. Self-reported AI answers are still above the August level (ChatGPT 15% in the latest week vs 2% to 6% in August).
 
 ## Moves
-None. Meta, Google and email are all above the 1.5 ROAS target, and LinkedIn is already at $0.
+No changes. Google $600/day, Meta $400/day, Email $40/day, LinkedIn $0.
 
 ## Where the models disagree
-- Google Search credit ranges from 39% (first-touch) to 69% (last-touch). ROAS ranges from 5.9 to 10.2, above target in every model.
-- Email credit ranges from 4% (last-touch) to 22% (first-touch). ROAS is 9.7 to 52.6.
-- Meta ROAS is 2.7 to 4.2.
-- LinkedIn is 1.04 under last-touch, but 1.57 to 2.24 under the other four models. Its value is unknown.
+- **Google:** credit share is 39.7% (first-touch) to 69.0% (last-touch), and ROAS is 5.9 to 10.3. Every model is above target.
+- **Email:** credit is 4.1% to 22.2%.
+- **Meta:** credit is 13.3% to 21.1%.
+- **LinkedIn:** ROAS is 1.04 (last-touch) to 2.29 (first-touch). Its recent zero results are the reason it stays paused.
 
 ## Test to run
-Run a Google geo holdout: cut spend 50% in about 20% of matched regions for 3 to 4 weeks. Measure total conversions, including direct, in test vs control regions. This checks how much of Google's last-click credit is incremental. The LinkedIn tracking audit and the geo holdout from last run are still pending. Relaunch LinkedIn at about $100 a day only if tracking is fixed.
+1. **Meta geo holdout (new):** pause it in about 20% of matched regions for 3 to 4 weeks. Compare total conversions, direct included. Cut Meta if the drop is smaller than the roughly 25 conversions per week it claims, pro-rated.
+2. **Google holdout (from last week, still open):** a 50% cut in about 20% of regions.
 
 ## Confidence
-Medium. I would change my mind if:
-- Meta CPA goes back above $100 for 2 weeks.
-- Email CPA passes $28.
-- Direct stays near 43 a week, which would mean the AI-driven lift was temporary.
+Medium. I'd cut Meta if its last-click ROAS stays below 1.5 for 2 more weeks or the holdout shows low incrementality. I'd revisit email if its CPA passes $25. Direct may rise again if AI-sourced answers climb.
